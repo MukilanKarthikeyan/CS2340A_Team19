@@ -1,7 +1,8 @@
-package com.example.cs2340a_team19;
+package com.example.cs2340a_team19.views;
 
 import android.os.Bundle;
 
+import com.example.cs2340a_team19.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
