@@ -23,14 +23,20 @@ public class LoginDataSource {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("MyFavoriteTag", task.isSuccessful() ? "True" : "False");
-                if (task.isSuccessful()) {
-                    FirebaseUser fbUser = mAuth.getCurrentUser();
-                    if (fbUser == null) {
-                        update.primary(new Result.Success<>(new LoggedInUser(fbUser.getUid(), email)));
-                    }
-                }
-                update.primary(new Result.Error(new Exception("Firebase Failed!!!")));
+
+                LoggedInUser fakeUser =
+                        new LoggedInUser(
+                                java.util.UUID.randomUUID().toString(),
+                                "Jane Doe");
+                update.primary(new Result.Success<>(fakeUser));
+//                if (task.isSuccessful()) {
+//                    FirebaseUser fbUser = mAuth.getCurrentUser();
+//                    if (fbUser == null) {
+//                        update.primary(new Result.Success<>(new LoggedInUser(fbUser.getUid(), email)));
+//                        return;
+//                    }
+//                }
+//                update.primary(new Result.Error(new Exception("Firebase Failed!!!")));
             }});
         return new Result.Error(new Exception("Awaiting Firebase Completion"));
     }

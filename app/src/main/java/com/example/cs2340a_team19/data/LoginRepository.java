@@ -1,5 +1,7 @@
 package com.example.cs2340a_team19.data;
 
+import android.util.Log;
+
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.data.model.LoggedInUser;
 //import com.example.cs2340a_team19.ui.login.LoggedInUserView;
@@ -49,10 +51,12 @@ public class LoginRepository {
     public void login(String username, String password, UpdateLogin update) {
         // handle login
         dataSource.login(username, password, (Result<LoggedInUser> result) -> {
-            update.primary(result);
+            Log.d("MyFavoriteTag", "Update Layer Two");
             if (result instanceof Result.Success) {
                 setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
             }
+            update.primary(result);
+
         });
     }
 }
