@@ -1,4 +1,4 @@
-package com.example.cs2340a_team19.defaultFiles.dashboard;
+package com.example.cs2340a_team19.ui.dashboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
