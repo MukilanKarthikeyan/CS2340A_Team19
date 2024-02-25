@@ -9,7 +9,7 @@ import android.os.Handler;
 
 import com.example.cs2340a_team19.ui.login.LoginActivity;
 
-import com.example.cs2340a_team19.views.MainActivity;
+//import com.example.cs2340a_team19.views.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
