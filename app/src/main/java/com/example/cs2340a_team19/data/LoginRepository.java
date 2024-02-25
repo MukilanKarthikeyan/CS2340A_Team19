@@ -1,6 +1,9 @@
 package com.example.cs2340a_team19.data;
 
+import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.data.model.LoggedInUser;
+//import com.example.cs2340a_team19.ui.login.LoggedInUserView;
+//import com.example.cs2340a_team19.ui.login.LoginResult;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -43,12 +46,13 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public void login(String username, String password, UpdateLogin update) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-        }
-        return result;
+        dataSource.login(username, password, (Result<LoggedInUser> result) -> {
+            update.primary(result);
+            if (result instanceof Result.Success) {
+                setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
+            }
+        });
     }
 }
