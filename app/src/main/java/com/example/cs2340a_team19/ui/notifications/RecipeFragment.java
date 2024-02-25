@@ -10,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
+//import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
+import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 
 public class RecipeFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentRecipeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecipeViewModel recipeViewModel =
                 new ViewModelProvider(this).get(RecipeViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+        final TextView textView = binding.textRecipe;
         recipeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
