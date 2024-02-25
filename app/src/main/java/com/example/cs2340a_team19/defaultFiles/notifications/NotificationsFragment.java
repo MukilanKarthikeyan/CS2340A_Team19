@@ -1,4 +1,4 @@
-package com.example.cs2340a_team19.ui.notifications;
+package com.example.cs2340a_team19.defaultFiles.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
