@@ -32,7 +32,7 @@ public class DashboardFragment extends Fragment {
         final Button inputMealButton  = binding.InputMeal;
         final Button ingredientsButton = binding.Ingredients;
         final Button shoppingListButton = binding.shoppingList;
-        final Button testButton = binding.Test;
+        final Button recipesButton = binding.Recipes;
         /*inputMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
