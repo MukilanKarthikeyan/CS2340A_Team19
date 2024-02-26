@@ -183,7 +183,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser() {
         String welcome = getString(R.string.welcome) + this.currUser.getDisplayName();
-        // TODO : initiate successful logged in experience
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
