@@ -20,19 +20,19 @@
     <fragment
         android:id="@+id/navigation_ingredients"
         android:name="com.example.cs2340a_team19.ui.ingredients.IngredientsFragment"
-        android:label="@string/title_recipe"
+        android:label="@string/title_ingredients"
         tools:layout="@layout/fragment_ingredients" />
 
     <fragment
         android:id="@+id/navigation_meals"
         android:name="com.example.cs2340a_team19.ui.meals.MealsFragment"
-        android:label="@string/title_recipe"
+        android:label="@string/title_meals"
         tools:layout="@layout/fragment_meals" />
 
     <fragment
         android:id="@+id/navigation_shopping"
         android:name="com.example.cs2340a_team19.ui.shopping.ShoppingFragment"
-        android:label="@string/title_recipe"
+        android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
 
 
