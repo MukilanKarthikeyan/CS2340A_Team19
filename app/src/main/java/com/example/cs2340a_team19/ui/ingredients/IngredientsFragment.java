@@ -12,20 +12,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cs2340a_team19.databinding.FragmentDashboardBinding;
+import com.example.cs2340a_team19.databinding.FragmentIngredientsBinding;
 
 public class IngredientsFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentIngredientsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         IngredientsViewModel ingredientsViewModel =
                 new ViewModelProvider(this).get(IngredientsViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentIngredientsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        final TextView textView = binding.textIngredients;
 
         ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
