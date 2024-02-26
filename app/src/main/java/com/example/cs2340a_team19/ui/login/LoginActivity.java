@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -42,88 +41,31 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        loginViewModel = new LoginViewModel();
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
-//        final Button skipLoginTESTButton = binding.skipLoginTESTButton;
+        // final Button skipLoginTESTButton = binding.skipLoginTESTButton;
 
         loginButton.setEnabled(true);
         final Button newSigninButton = binding.newSignIn;
         final Button exitButton = binding.button;
 
-//        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-//            @Override
-//            public void onChanged(@Nullable LoginFormState loginFormState) {
-//                if (loginFormState == null) {
-//                    return;
-//                }
-//                loginButton.setEnabled(loginFormState.isDataValid());
-//                if (loginFormState.getUsernameError() != null) {
-//                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-//                }
-//                if (loginFormState.getPasswordError() != null) {
-//                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-//                }
-//            }
-//        });
-//
-//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-//            @Override
-//            public void onChanged(@Nullable LoginResult loginResult) {
-//                if (loginResult == null) {
-//                    return;
-//                }
-//                loadingProgressBar.setVisibility(View.GONE);
-//                if (loginResult.getError() != null) {
-//                    showLoginFailed(loginResult.getError());
-//                }
-//                if (loginResult.getSuccess() != null) {
-//                    updateUiWithUser(loginResult.getSuccess());
-//                }
-//                setResult(Activity.RESULT_OK);
-//
-//                //Complete and destroy login activity once successful
-//                finish();
-//            }
-//        });
 
-//        TextWatcher afterTextChangedListener = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // ignore
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-////                if (LoginViewModel.isUsernameValid(s)) {
-////                    loginButton.setEnabled(true);
-////                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-//                        passwordEditText.getText().toString());
-//            }
-//        };
-//        usernameEditText.addTextChangedListener(afterTextChangedListener);
-//        passwordEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    loginViewModel.login(usernameEditText.getText().toString(),
-//                            passwordEditText.getText().toString());
+                    //loginViewModel.login(usernameEditText.getText().toString(),
+                    //passwordEditText.getText().toString());
                     return false;
                 }
                 return false;
             }
         });
-        //TEST only: skips login step until login screen logic is implemented
+        /*TEST only: skips login step until login screen logic is implemented
 
 //        skipLoginTESTButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -131,23 +73,24 @@ public class LoginActivity extends AppCompatActivity {
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
 //            }
-//        });
+        });*/
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loginViewModel.login(usernameEditText.getText().toString(),
-//                        passwordEditText.getText().toString());
+                //loginViewModel.login(usernameEditText.getText().toString(),
+                //passwordEditText.getText().toString());
                 if (LoginViewModel.isUserNameValid(usernameEditText.getText().toString())
                     && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
-                ){
+                ) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
-                    mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
+                    mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(),
+                                    passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     loadingProgressBar.setVisibility(View.INVISIBLE);
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
+                                        // Sign in success, update UI with the user's information
                                         currUser = mAuth.getCurrentUser();
                                         updateUiWithUser();
                                     } else {
@@ -188,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Log.d("FavoriteTag", currentUser.getEmail());
         //if (currentUser.getEmail() != null) {
-//            updateUiWithUser();
+        //updateUiWithUser();
         //}
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class SignUpActivityViewModel extends ViewModel {
 
+    /*
 //    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
 //    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
 //    private LoginRepository loginRepository;
@@ -28,7 +29,7 @@ public class SignUpActivityViewModel extends ViewModel {
 ////            Log.d("MyFavoriteTag", result instanceof Result.Success ? "True" : "False");
 //            if (result instanceof Result.Success) {
 //                LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-//                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+//               loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
 //            } else {
 //                loginResult.setValue(new LoginResult(R.string.login_failed));
 //            }
@@ -43,7 +44,7 @@ public class SignUpActivityViewModel extends ViewModel {
 //        } else {
 //            loginFormState.setValue(new LoginFormState(true));
 //        }
-//    }
+//    }*/
 
     // A placeholder username validation check
     public static boolean isUserNameValid(String username) {

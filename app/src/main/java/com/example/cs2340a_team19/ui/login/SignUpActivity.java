@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = UserSignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        loginViewModel = new LoginViewModel();
+        //loginViewModel = new LoginViewModel();
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
@@ -57,8 +57,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    loginViewModel.login(usernameEditText.getText().toString(),
-//                            passwordEditText.getText().toString());
+                    //loginViewModel.login(usernameEditText.getText().toString(),
+                    //passwordEditText.getText().toString());
                     return false;
                 }
                 return false;
@@ -68,23 +68,24 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loginViewModel.login(usernameEditText.getText().toString(),
-//                        passwordEditText.getText().toString());
+                //loginViewModel.login(usernameEditText.getText().toString(),
+                //passwordEditText.getText().toString());
                 if (LoginViewModel.isUserNameValid(usernameEditText.getText().toString())
                         && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
                 ) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
+                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(),
+                                    passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     loadingProgressBar.setVisibility(View.INVISIBLE);
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
+                                        // Sign in success, update UI with the user's information
                                         currUser = mAuth.getCurrentUser();
                                         updateUiWithUser();
                                     } else {
-                                        showLoginFailed("Firebase User Creation / Authentication Failed");
+                                        showLoginFailed("Firebase User Creation Failed");
                                     }
                                 }
                             });
@@ -108,9 +109,10 @@ public class SignUpActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("FavoriteTag", currentUser.toString());
+        /*
 //        if (currentUser != null) {
 //            updateUiWithUser();
-//        }
+//        }*/
     }
 
     private void updateUiWithUser() {
