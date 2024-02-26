@@ -19,4 +19,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/InputMeal"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="174dp"
+        android:text="Input Meal"
+        app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
+        app:layout_constraintEnd_toStartOf="@+id/Ingredients"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Ingredients"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="174dp"
+        android:text="Ingredients"
+        app:layout_constraintBottom_toTopOf="@+id/text_dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/InputMeal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/shoppingList"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="120dp"
+        android:text="Shopping List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Recipes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
+
+    <Button
+        android:id="@+id/Recipes"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="101dp"
+        android:text="Recipes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shoppingList"
+        app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

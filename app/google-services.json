@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "594544213894",
+    "project_id": "cs2340a-team19",
+    "storage_bucket": "cs2340a-team19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594544213894:android:39a499b6620cefdc57f607",
+        "android_client_info": {
+          "package_name": "com.example.cs2340a_team19"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgKlQW6MqIx1HYPeLAwoROXNvcY2tKhXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
