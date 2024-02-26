@@ -58,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+        final Button exitButton = binding.button;
 
         loginButton.setEnabled(true);
 
@@ -77,22 +78,36 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
-                mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    currUser = mAuth.getCurrentUser();
-                                    updateUiWithUser();
-                                } else {
-                                    showLoginFailed("Firebase User Creation / Authentication Failed");
+                if (LoginViewModel.isUserNameValid(usernameEditText.getText().toString())
+                        && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
+                ) {
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        currUser = mAuth.getCurrentUser();
+                                        updateUiWithUser();
+                                    } else {
+                                        showLoginFailed("Firebase User Creation / Authentication Failed");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    showLoginFailed("Username or Password Invalid");
+                }
+            }
+        });
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
             }
         });
     }

@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
-        final Button skipLoginTESTButton = binding.skipLoginTESTButton;
+//        final Button skipLoginTESTButton = binding.skipLoginTESTButton;
 
         loginButton.setEnabled(true);
         final Button newSigninButton = binding.newSignIn;
@@ -135,13 +135,13 @@ public class LoginActivity extends AppCompatActivity {
         });
         //TEST only: skips login step until login screen logic is implemented
 
-        skipLoginTESTButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        skipLoginTESTButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
