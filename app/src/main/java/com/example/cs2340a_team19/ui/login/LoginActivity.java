@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new LoginViewModel();
+//        loginViewModel = new LoginViewModel();
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
