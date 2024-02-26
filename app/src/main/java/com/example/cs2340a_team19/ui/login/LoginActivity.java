@@ -145,16 +145,17 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
                 if (LoginViewModel.isUserNameValid(usernameEditText.getText().toString())
                     && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
                 ){
+                    loadingProgressBar.setVisibility(View.VISIBLE);
                     mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                    loadingProgressBar.setVisibility(View.INVISIBLE);
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         currUser = mAuth.getCurrentUser();
@@ -164,6 +165,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                } else {
+                    showLoginFailed("Username or Password Invalid");
                 }
                 
             }
@@ -189,10 +192,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("FavoriteTag", currentUser.toString());
-//        if (currentUser != null) {
+        Log.d("FavoriteTag", currentUser.getEmail());
+        if (currentUser.getEmail() != null) {
 //            updateUiWithUser();
-//        }
+        }
     }
 
     private void updateUiWithUser() {
