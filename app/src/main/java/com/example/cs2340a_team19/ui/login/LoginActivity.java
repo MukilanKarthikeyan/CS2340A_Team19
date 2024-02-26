@@ -59,7 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
         final Button skipLoginTESTButton = binding.skipLoginTESTButton;
+
         loginButton.setEnabled(true);
+        final Button newSigninButton = binding.newSignIn;
 
 //        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
 //            @Override
@@ -158,6 +160,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+        newSigninButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.user_sign_up);
             }
         });
     }
