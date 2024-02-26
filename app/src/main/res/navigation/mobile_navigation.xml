@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_recipe"
-        android:name="com.example.cs2340a_team19.ui.notifications.RecipeFragment"
+        android:name="com.example.cs2340a_team19.ui.recipe.RecipeFragment"
         android:label="@string/title_recipe"
         tools:layout="@layout/fragment_recipe" />
 </navigation>
