@@ -5,13 +5,14 @@
     <scanScope>JavaOnly</scanScope>
     <option name="thirdPartyClasspath" />
     <option name="activeLocationIds">
-      <option value="b2167582-ff42-4566-af56-c5bb3744821f" />
+      <option value="f8c91fbb-8e00-418b-8580-dacd64823203" />
     </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="b2167582-ff42-4566-af56-c5bb3744821f" type="LOCAL_FILE" scope="All" description="2340 checkstyle">$USER_HOME$/Documents/cs2340_checks.xml</ConfigurationLocation>
+        <ConfigurationLocation id="f8c91fbb-8e00-418b-8580-dacd64823203" type="HTTP_URL" scope="All" description="proper 2340 checkstyle">https://raw.githubusercontent.com/Georgia-Tech-CS2340/cs2340-codestyle/master/cs2340_checks.xml</ConfigurationLocation>
       </list>
     </option>
   </component>
