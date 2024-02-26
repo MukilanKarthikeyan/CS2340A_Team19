@@ -1,4 +1,4 @@
-package com.example.cs2340a_team19.ui.notifications;
+package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
