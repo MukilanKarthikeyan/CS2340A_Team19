@@ -26,38 +26,7 @@ public class ShoppingFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        final Button inputMealButton  = binding.InputMeal;
-        final Button ingredientsButton = binding.Ingredients;
-        final Button shoppingListButton = binding.shoppingList;
-        final Button recipesButton = binding.Recipes;
-        /*inputMealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardFragment.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
-        /*ingredientsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardFragment.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
-        /*shoppingListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardFragment.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
-        /*testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardFragment.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
+
         shoppingViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

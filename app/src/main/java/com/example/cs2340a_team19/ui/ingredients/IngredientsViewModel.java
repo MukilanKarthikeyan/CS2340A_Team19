@@ -10,7 +10,7 @@ public class IngredientsViewModel extends ViewModel {
 
     public IngredientsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is ingredients fragment");
     }
 
     public LiveData<String> getText() {
