@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setEnabled(true);
         final Button newSigninButton = binding.newSignIn;
+        final Button exitButton = binding.button;
 
 //        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
 //            @Override
@@ -144,22 +145,30 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
-                mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    currUser = mAuth.getCurrentUser();
-                                    updateUiWithUser();
-                                } else {
-                                    showLoginFailed("Firebase Authentication Failed");
+                if (LoginViewModel.isUserNameValid(usernameEditText.getText().toString())
+                    && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
+                ){
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        currUser = mAuth.getCurrentUser();
+                                        updateUiWithUser();
+                                    } else {
+                                        showLoginFailed("Firebase Authentication Failed");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    showLoginFailed("Username or Password Invalid");
+                }
+                
             }
         });
         newSigninButton.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +181,14 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
     }
 
     @Override
@@ -179,14 +196,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("FavoriteTag", currentUser.toString());
-//        if (currentUser != null) {
+        Log.d("FavoriteTag", currentUser.getEmail());
+        if (currentUser.getEmail() != null) {
 //            updateUiWithUser();
-//        }
+        }
     }
 
     private void updateUiWithUser() {
-        String welcome = getString(R.string.welcome) + this.currUser.getDisplayName();
+        String welcome = getString(R.string.welcome) + this.currUser.getEmail();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();

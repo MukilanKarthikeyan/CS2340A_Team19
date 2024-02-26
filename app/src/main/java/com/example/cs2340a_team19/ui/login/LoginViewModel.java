@@ -55,7 +55,7 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder username validation check
     public static boolean isUserNameValid(String username) {
-        if (username == null) {
+        if (username == null || username.toLowerCase().equals("null")) {
             return false;
         }
         if (username.contains("@")) {
