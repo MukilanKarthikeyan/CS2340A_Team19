@@ -1,15 +1,10 @@
 package com.example.cs2340a_team19.ui.login;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
-import android.util.Log;
 import android.util.Patterns;
 
-import com.example.cs2340a_team19.R;
+import androidx.lifecycle.ViewModel;
 
-public class LoginViewModel extends ViewModel {
+public class SignUpActivityViewModel extends ViewModel {
 
 //    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
 //    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();

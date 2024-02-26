@@ -1,20 +1,12 @@
 package com.example.cs2340a_team19.ui.login;
 
-import android.app.Activity;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,8 +19,6 @@ import android.widget.Toast;
 
 import com.example.cs2340a_team19.MainActivity;
 import com.example.cs2340a_team19.R;
-import com.example.cs2340a_team19.ui.login.LoginViewModel;
-import com.example.cs2340a_team19.ui.login.LoginViewModelFactory;
 import com.example.cs2340a_team19.databinding.ActivityLoginBinding;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -203,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser() {
-        String welcome = getString(R.string.welcome) + this.currUser.getEmail();
+        String welcome = getString(R.string.welcome) + " " + this.currUser.getEmail();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
