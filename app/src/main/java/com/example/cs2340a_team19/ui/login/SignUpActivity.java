@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                         && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
                 ) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(),
+                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString().trim(),
                                     passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
