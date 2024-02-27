@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">CS2340A_Team19</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_recipe">Recipe</string>
     <string name="title_meals">Meals</string>
     <string name="title_shopping">Shopping</string>
     <string name="title_ingredients">Ingredients</string>
+
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -15,4 +17,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="input_personal_button">"Button that leads to screen to input personal info"</string>
 </resources>
