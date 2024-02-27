@@ -35,6 +35,11 @@
             android:exported="true"
             android:label="@string/app_name">
         </activity>
+
+        <activity
+            android:name=".PersonalInformationActivity"
+            android:exported="false"
+            android:label="PersonalInformationActivity" />
     </application>
 
 </manifest>

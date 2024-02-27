@@ -1,15 +1,19 @@
 package com.example.cs2340a_team19.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cs2340a_team19.MainActivity;
+import com.example.cs2340a_team19.PersonalInformationActivity;
 import com.example.cs2340a_team19.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -23,6 +27,14 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        final Button goToPersonalButton = binding.inputPersonalInfoButton;
+        goToPersonalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonalInformationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
