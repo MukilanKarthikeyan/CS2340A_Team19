@@ -8,16 +8,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.cs2340a_team19.databinding.ActivityMainBinding;
+import com.example.cs2340a_team19.databinding.ActivityPersonalInformationBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PersonalInformationActivity extends AppCompatActivity{
-    private ActivityMainBinding binding;
+    private ActivityPersonalInformationBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityPersonalInformationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
