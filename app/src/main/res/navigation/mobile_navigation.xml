@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.cs2340a_team19.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_recipe"
@@ -34,6 +38,11 @@
         android:name="com.example.cs2340a_team19.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.example.cs2340a_team19.ui.personalInfo.PersonalInformationFragment"
+        android:label="fragment_personal_information"
+        tools:layout="@layout/fragment_personal_information" />
 
 
 </navigation>
