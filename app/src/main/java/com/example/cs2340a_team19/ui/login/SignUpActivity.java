@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                         && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
                 ) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString(),
+                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString().trim(),
                                     passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -108,7 +108,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       // Log.d("FavoriteTag", currentUser.toString());
+        //Log.d("FavoriteTag", currentUser.toString());
+
         /*
 //        if (currentUser != null) {
 //            updateUiWithUser();
