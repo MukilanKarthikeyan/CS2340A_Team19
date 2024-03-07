@@ -17,7 +17,7 @@ public class User {
         height = -1;
         weight = -1;
         gender = false;
-        mealIDs = new ArrayList<String>;
+        mealIDs = new ArrayList<String>();
     }
 
     public User(String uid, String email, int height, int weight, boolean gender) {
@@ -26,7 +26,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.gender = gender;
-        mealIDs = new ArrayList<String>;
+        mealIDs = new ArrayList<String>();
     }
 
     public String getUserID() {
