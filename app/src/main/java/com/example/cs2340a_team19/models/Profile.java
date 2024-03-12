@@ -2,48 +2,37 @@ package com.example.cs2340a_team19.models;
 
 import java.util.ArrayList;
 
-public class User {
-    private String userID;
-    private String email;
+public class Profile {
+//    private String userID;
     private int height;
     private int weight;
     private boolean gender;
 
     private ArrayList<String> mealIDs;
 
-    public User() {
-        userID = "";
-        email = "";
+    public Profile() {
+//        userID = "";
         height = -1;
         weight = -1;
         gender = false;
         mealIDs = new ArrayList<String>();
     }
 
-    public User(String uid, String email, int height, int weight, boolean gender) {
-        this.userID = uid;
-        this.email = email;
+    public Profile(int height, int weight, boolean gender) {
+//        this.userID = uid;
         this.height = height;
         this.weight = weight;
         this.gender = gender;
         mealIDs = new ArrayList<String>();
     }
 
-    public String getUserID() {
-        return this.userID;
-    }
-
-    public void setUserID(String uid) {
-        this.userID = uid;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getUserID() {
+//        return this.userID;
+//    }
+//
+//    public void setUserID(String uid) {
+//        this.userID = uid;
+//    }
 
     public int getHeight() {
         return this.height;
