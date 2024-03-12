@@ -15,30 +15,26 @@ import com.google.firebase.database.DatabaseError;
 
 public class PersonalInformationViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    private FirebaseDatabase database;
-    private DatabaseReference dbRef;
     private DatabaseReference profile;
     private String userID;
     private boolean successfullyInstantiated = false;
     public PersonalInformationViewModel () {
-        this.database = FirebaseDatabase.getInstance();
-        this.dbRef = database.getReference();
-        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-        if (fbAuth == null) {
-            Log.d("FBRTDB_ERROR", "The FireBaseAuth Instance was null, check if you are connected.");
+        try {
+            this.userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } catch (NullPointerException ne) {
+            Log.d("FBRTDB_ERROR", "Null Pointer in Authentication -> current User ID, check if you are connected and Logged in.");
             return;
         }
-        FirebaseUser fbUser = fbAuth.getCurrentUser();
-        if (fbUser == null) {
-            Log.d("FBRTDB_ERROR", "The current user was null, check if you are logged in.");
+
+        try{
+            this.profile = FirebaseDatabase.getInstance().getReference().child("profiles").child(this.userID);
+        } catch (NullPointerException ne) {
+            Log.d("FBRTDB_ERROR", "Getting reference for profiles reached Null Pointer!");
             return;
         }
-        this.userID = fbUser.getUid();
-        if (userID == null) {
-            Log.d("FBRTDB_ERROR", "The userID was null, check if you are logged in.");
-            return;
-        }
-        dbRef.child("profiles").child(this.userID).addValueEventListener(new ValueEventListener() {
+
+
+        this.profile.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -61,21 +57,26 @@ public class PersonalInformationViewModel extends ViewModel {
         successfullyInstantiated = true;
     }
 
+    public void updateProfile(int height, int weight, boolean gender) {
+        Profile profile = new Profile(height, weight, gender);
+        this.updateProfile(profile);
+    }
+
     public void createProfile() {
         Profile profile = new Profile();
-        this.createProfile(profile);
-
+        this.updateProfile(profile);
     }
 
     public void createProfile(int height, int weight, boolean gender) {
         Profile profile = new Profile(height, weight, gender);
-        this.createProfile(profile);
+        this.updateProfile(profile);
     }
 
-    private void createProfile(Profile profile) {
+    private void updateProfile(Profile profile) {
         if (successfullyInstantiated) {
-            DatabaseReference childLoc = dbRef.child("profiles").child(this.userID);
-            childLoc.setValue(profile);
+            this.profile.setValue(profile);
+        } else {
+            Log.d("FBRTDB_ERROR", "Tried to update/create profile but the View Model was not sucsessfully instantiated!");
         }
     }
 
