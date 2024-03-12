@@ -5,4 +5,4 @@ Andy is starting Sprint 2 :0
 Alex is starting Sprint 2 :3
 
 sid checking in Sprint 2
-sohum checking in Sprint 2
+Sohum checking in for Sprint 2
