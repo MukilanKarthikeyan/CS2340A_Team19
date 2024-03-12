@@ -1,6 +1,11 @@
 package com.example.cs2340a_team19.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Profile {
 //    private String userID;
@@ -8,7 +13,7 @@ public class Profile {
     private int weight;
     private boolean gender;
 
-    private ArrayList<String> mealIDs;
+    private List<String> mealIDs;
 
     public Profile() {
 //        userID = "";
@@ -58,6 +63,15 @@ public class Profile {
         this.gender = gender;
     }
 
+    public List<String> getMealIDs() {
+        return this.mealIDs;
+    }
+
+    public void setMealIDs(List<String> mealIDs) {
+        this.mealIDs = mealIDs;
+    }
+
+    @Exclude
     public String getMealID(int index) {
         if (index < 0 || index >= mealIDs.size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
@@ -65,18 +79,31 @@ public class Profile {
         return this.mealIDs.get(index);
     }
 
+    @Exclude
     public void addMealID(String mealID) {
         this.mealIDs.add(mealID);
     }
 
+    @Exclude
     public boolean removeMealIDVal(int mealID) {
         return mealIDs.remove(String.valueOf(mealID)); // Autoboxing for Integer
     }
 
+    @Exclude
     public String removeMealIDIndex(int index) {
         if (index < 0 || index >= mealIDs.size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
         }
         return mealIDs.remove(index);
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("height", this.height);
+        result.put("weight", this.weight);
+        result.put("gender", this.gender);
+
+        return result;
     }
 }
