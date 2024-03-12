@@ -6,9 +6,10 @@ public class Meal {
     private int calories;
 
     public Meal() {
-        this.mealID = "";
-        this.name = "";
-        this.calories = -1;
+        this("", "", -1);
+    }
+    public Meal(String name, int calories) {
+        this("", name, calories);
     }
 
     public Meal(String mealID, String name, int calories) {
