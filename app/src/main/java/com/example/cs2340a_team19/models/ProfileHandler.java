@@ -48,21 +48,23 @@ public class ProfileHandler {
         this.profiles.child(userID).child("mealIDs").push().setValue(mealID);
     }
 
-    public void createProfile(String userID) {
+    public boolean createProfile(String userID) {
         Profile profile = new Profile();
-        this.createProfile(profile, userID);
+        return this.createProfile(profile, userID);
     }
 
-    public void createProfile(String userID, int height, int weight, boolean gender) {
+    public boolean createProfile(String userID, int height, int weight, boolean gender) {
         Profile profile = new Profile(height, weight, gender);
-        this.createProfile(profile, userID);
+        return this.createProfile(profile, userID);
     }
 
-    private void createProfile(Profile profile, String userID) {
+    private boolean createProfile(Profile profile, String userID) {
         if (successfullyInitialized) {
             this.profiles.child(userID).setValue(profile);
+            return true;
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create profile but the View Model was not sucsessfully instantiated!");
+            return false;
         }
     }
 
