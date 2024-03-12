@@ -17,6 +17,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
+    <string name="Gender">Gender:</string>
+    <string name="Male">Male:</string>
+    <string name="Female">Female:</string>
+    <string name="Other">Other:</string>
     <string name="input_personal_button">"Button that leads to screen to input personal info"</string>
 </resources>
