@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -43,6 +44,11 @@ public class PersonalInformationFragment extends Fragment {
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         this.view = view;
         mViewModel = new PersonalInformationViewModel(this);
+        EditText height = view.findViewById(R.id.input_height);
+        EditText weight = view.findViewById(R.id.input_weight);
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+        Button enter = view.findViewById(R.id.enterPersonalInfo);
+        enter.setOnClickListener((View v) -> mViewModel.updateProfile(height.getText().toString(), weight.getText().toString(), radioGroup.getCheckedRadioButtonId() == R.id.radioButton4));
     }
 
     public void updateUI(String newHeight, String newWeight, boolean newGender) {
@@ -52,6 +58,7 @@ public class PersonalInformationFragment extends Fragment {
         Log.d("DebugTag", "In updateUI!");
         heightInput.setText(newHeight);
         weightInput.setText(newWeight);
+        radioGroup.check(newGender ? R.id.radioButton4 : R.id.radioButton5);
     }
 
 

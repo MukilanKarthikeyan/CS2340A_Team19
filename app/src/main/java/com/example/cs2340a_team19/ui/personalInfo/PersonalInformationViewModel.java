@@ -41,7 +41,7 @@ public class PersonalInformationViewModel extends ViewModel {
                     } else {
                         // TODO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
-                        frag.updateUI("" + value.getHeight(), "" + value.getWeight(), value.getGender());
+                        frag.updateUI((value.getHeight() == -1 ? "" : "" + value.getHeight()), value.getWeight() == -1 ? "" : "" + value.getWeight(), value.getGender());
 
 //                        radioGroup.set
                         // UI Stuff
@@ -57,6 +57,10 @@ public class PersonalInformationViewModel extends ViewModel {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
         }
 
+    }
+
+    public void updateProfile(String height, String weight, boolean gender) {
+        this.profileHandler.updateProfile(dbHandler.getUserID(), Integer.parseInt(height), Integer.parseInt(weight), gender);
     }
 
 
