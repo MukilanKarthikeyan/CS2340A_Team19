@@ -68,9 +68,10 @@ public class MealsFragment extends Fragment {
         Button addMealButton = view.findViewById(R.id.submit_meal_button);
         EditText mealName = view.findViewById(R.id.input_meal_name);
         EditText calorieCount = view.findViewById(R.id.input_meal_calorie);
-        int currentDay = (new GregorianCalendar(TimeZone.getTimeZone("EST"))).get(Calendar.DAY_OF_YEAR);
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("EST"));
+        int time = 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100 * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
         addMealButton.setOnClickListener((View v) -> {
-            mealsViewModel.createMeal(mealName.getText().toString(), Integer.parseInt(calorieCount.getText().toString()), currentDay);
+            mealsViewModel.createMeal(mealName.getText().toString(), Integer.parseInt(calorieCount.getText().toString()), time);
             mealName.setText("");
             calorieCount.setText("");
         });
