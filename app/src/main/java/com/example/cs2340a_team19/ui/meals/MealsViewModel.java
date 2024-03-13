@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.MealHandler;
 import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.ProfileHandler;
