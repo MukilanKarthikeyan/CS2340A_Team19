@@ -45,8 +45,6 @@ public class MealsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MealsViewModel mealsViewModel =
-                new ViewModelProvider(this).get(MealsViewModel.class);
 
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -60,8 +58,10 @@ public class MealsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+        MealsViewModel mealsViewModel =
+                new ViewModelProvider(this).get(MealsViewModel.class);
         //createPieChart(view);
-        createGaugeChart(view);
+        createGaugeChart(view, mealsViewModel);
     }
     //TODO: use this function to set the personal info
     private void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
@@ -80,13 +80,13 @@ public class MealsFragment extends Fragment {
         }
     }
 
-    private void createGaugeChart(View root){
+    private void createGaugeChart(View root, MealsViewModel mealsViewModel){
         AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
         anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+        String calProgress = mealsViewModel.getCalorieProgress();
 
         CircularGauge circularGauge = AnyChart.circular();
-        //TODO: set data to be the one form database
-        circularGauge.data(new SingleValueDataSet(new String[] {"52"}));
+        circularGauge.data(new SingleValueDataSet(new String[] {calProgress}));
         circularGauge.fill("#fff")
                 .stroke(null)
                 .padding(0d, 0d, 0d, 0d)
@@ -108,7 +108,7 @@ public class MealsFragment extends Fragment {
         xAxis.minorTicks().enabled(false);
         //TODO: change text to be dyanmic
         circularGauge.label(0d)
-                .text("Calories Goal, <span style=\"\">32%</span>")
+                .text("Calories Goal, <span style=\"\">" + calProgress + "%</span>")
                 .useHtml(true)
                 .hAlign(HAlign.CENTER)
                 .vAlign(VAlign.MIDDLE);

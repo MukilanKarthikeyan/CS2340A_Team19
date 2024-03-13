@@ -61,9 +61,9 @@ public class MealsViewModel extends ViewModel {
     }
     //TODO: return the percentatge of food someone has consumed
     public String getCalorieProgress() {
-        int consumed = 0;
-        int goal = 1;
+        int consumed = 100;
+        int goal = 1500;
         //could use string format but can get finicky so avoding any of those issues altogether
-        return "Calories Goal, <span style=\"\">" + (consumed/goal) + "%</span>";
+        return String.valueOf((consumed * 100)/goal);
     }
 }
