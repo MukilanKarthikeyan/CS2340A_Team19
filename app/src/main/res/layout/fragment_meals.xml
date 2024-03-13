@@ -213,7 +213,8 @@
                         <Button
                             android:id="@+id/submit_meal_button"
                             android:layout_width="200dp"
-                            android:layout_height="50dp"></Button>
+                            android:layout_height="50dp"
+                            android:text="@android:string/ok"></Button>
 
                     </LinearLayout>
 
@@ -221,73 +222,52 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/pie_caloire_goal"
-                    android:layout_width="375dp"
-                    android:layout_height="375dp"
-                    android:layout_marginBottom="25dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_pie_viz"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.491"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp">
-
-                            <ProgressBar
-                                android:id="@+id/anychart_pie_progress_bar"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </com.anychart.AnyChartView>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
                     android:id="@+id/graph_caloire_goal"
                     android:layout_width="375dp"
-                    android:layout_height="375dp"
+                    android:layout_height="500dp"
                     android:layout_marginBottom="75dp"
                     android:elevation="10dp"
                     app:cardCornerRadius="10dp">
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_gravity="center">
 
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_viz1_temp"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.491"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp" />
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp">
 
-                        <ProgressBar
-                            android:id="@+id/anychart_progress_bar"
+                            <com.anychart.AnyChartView
+                                android:id="@+id/anychart_viz1_temp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:layout_editor_absoluteY="50dp" />
+
+                            <ProgressBar
+                                android:id="@+id/anychart_progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+                        <Button
+                            android:id="@+id/button3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content"
+                            android:text="Button" />
+                    </LinearLayout>
 
-                    </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

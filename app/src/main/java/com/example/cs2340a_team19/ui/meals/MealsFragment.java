@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -16,11 +17,16 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
+import com.anychart.charts.Cartesian;
 import com.anychart.charts.CircularGauge;
 import com.anychart.core.Text;
 import com.anychart.core.axes.Circular;
+import com.anychart.core.cartesian.series.Column;
 import com.anychart.core.gauge.pointers.Bar;
 import com.anychart.enums.Anchor;
+import com.anychart.enums.HoverMode;
+import com.anychart.enums.Position;
+import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Fill;
 import com.anychart.graphics.vector.SolidFill;
 import com.anychart.graphics.vector.text.HAlign;
@@ -37,18 +43,23 @@ import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MealsFragment extends Fragment {
 
     private FragmentMealsBinding binding;
+    private MealsViewModel mealsViewModel;
+
+    private boolean firstChart = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
         //TODO: get rid of this test
         setPersonalInfo(2000, 6, 89, false);
@@ -58,13 +69,34 @@ public class MealsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
-        MealsViewModel mealsViewModel =
-                new ViewModelProvider(this).get(MealsViewModel.class);
         //createPieChart(view);
-        createGaugeChart(view, mealsViewModel);
+        this.mealsViewModel = new MealsViewModel(this);
+
+        Button addMealButton = view.findViewById(R.id.submit_meal_button);
+        EditText mealName = view.findViewById(R.id.input_meal_name);
+        EditText calorieCount = view.findViewById(R.id.input_meal_calorie);
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("EST"));
+        int time = 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100 * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
+        addMealButton.setOnClickListener((View v) -> {
+            mealsViewModel.createMeal(mealName.getText().toString(), Integer.parseInt(calorieCount.getText().toString()), time);
+            mealName.setText("");
+            calorieCount.setText("");
+        });
+        drawChart(view);
+
     }
+
+    public void drawChart(View view) {
+        if (firstChart) {
+            createGaugeChart(view);
+        } else {
+            int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+            createBarChart(view, weekCal);
+        }
+    }
+
     //TODO: use this function to set the personal info
-    private void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
+    public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
         final TextView userCalorieRec = binding.CalculatedCalories;
         final TextView userHeight = binding.displayHeight;
         final TextView userWeight = binding.displayWeight;
@@ -80,10 +112,13 @@ public class MealsFragment extends Fragment {
         }
     }
 
-    private void createGaugeChart(View root, MealsViewModel mealsViewModel){
+    public void createGaugeChart(View root){
+
         AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
         anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+
         String calProgress = mealsViewModel.getCalorieProgress();
+
 
         CircularGauge circularGauge = AnyChart.circular();
         circularGauge.data(new SingleValueDataSet(new String[] {calProgress, "100"}));
@@ -142,8 +177,47 @@ public class MealsFragment extends Fragment {
 
         anyChartView.setChart(circularGauge);
     }
-    private void createPieChart(View root) {
-//TODO: other chart goes here
+    public void createBarChart(View root, int[] weekCal) {
+        AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
+        anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+
+
+        Cartesian cartesian = AnyChart.column();
+
+        List<DataEntry> data = new ArrayList<>();
+        data.add(new ValueDataEntry("Day 0", weekCal[0]));
+        data.add(new ValueDataEntry("Day -1", weekCal[1]));
+        data.add(new ValueDataEntry("Day -2", weekCal[2]));
+        data.add(new ValueDataEntry("Day -3", weekCal[3]));
+        data.add(new ValueDataEntry("Day -4", weekCal[4]));
+        data.add(new ValueDataEntry("Day -5", weekCal[5]));
+        data.add(new ValueDataEntry("Day -6", weekCal[6]));
+
+        Column column = cartesian.column(data);
+
+        column.tooltip()
+                .titleFormat("{%X}")
+                .position(Position.CENTER_BOTTOM)
+                .anchor(Anchor.CENTER_BOTTOM)
+                .offsetX(0d)
+                .offsetY(5d)
+                .format("${%Value}{groupsSeparator: }");
+
+        cartesian.animation(true);
+        cartesian.title("Calories per day for the last week");
+
+        cartesian.yScale().minimum(0d);
+
+        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+
+        cartesian.xAxis(0).title("Days");
+        cartesian.yAxis(0).title("Calories");
+
+        anyChartView.setChart(cartesian);
+
 
     }
     @Override

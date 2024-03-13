@@ -50,22 +50,21 @@ public class ProfileHandler {
         }
     }
 
+    public void listenToProfileUserMeals(String userID, ValueEventListener updater) {
+        if (successfullyInitialized) {
+            this.profiles.child(userID).child("userMeals").orderByChild("date").addValueEventListener(updater);
+        } else {
+            Log.d("FBRTDB_ERROR", "Tried to attach event listener, but View Model was not successfully instantiated");
+        }
+    }
+
     public void addMeal(String userID, String mealID, Integer mealDate) {
-        this.profiles.child(userID).child("mealIDs").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+        this.profiles.child(userID).child("userMeals").push().setValue(new UserMeal(mealID, mealDate.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 //                Log.d("MyJUNIT", "Completed Meal ADD");
                 if (!task.isSuccessful()) {
                     Log.d("MyJUNIT", "ADD MEAL FAILED " + task.getException().getMessage());
-                }
-
-            }
-        });
-        this.profiles.child(userID).child("mealDates").push().setValue(mealDate).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (!task.isSuccessful()) {
-                    Log.d("MyJUNIT", "ADD MEAL Date FAILED " + task.getException().getMessage());
                 }
 
             }
