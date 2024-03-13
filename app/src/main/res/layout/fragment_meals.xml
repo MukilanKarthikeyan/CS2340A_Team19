@@ -145,7 +145,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="10dp"
-        android:text="Calorie Goal:"
+        android:text="Calorie Goal: 2000"
         app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -168,7 +168,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginBottom="50dp"
             android:layout_weight="1"
-            android:text="User Height: "
+            android:text="User Height:170cm"
             app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -179,7 +179,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="User Weight: "
+            android:text=" User Weight: 65kg"
             tools:layout_editor_absoluteX="170dp"
             tools:layout_editor_absoluteY="99dp" />
 
@@ -188,7 +188,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="User Gender: "
+            android:text="User Gender: Male"
             tools:layout_editor_absoluteX="324dp"
             tools:layout_editor_absoluteY="98dp" />
     </LinearLayout>
