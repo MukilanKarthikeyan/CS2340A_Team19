@@ -59,6 +59,7 @@
         android:layout_marginTop="72dp"
         android:ems="10"
         android:inputType="number"
+        android:text="temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

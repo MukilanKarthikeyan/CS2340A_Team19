@@ -5,6 +5,9 @@
       <entry key="addMeal()">
         <State />
       </entry>
+      <entry key="app">
+        <State />
+      </entry>
       <entry key="createMeal()">
         <State />
       </entry>
