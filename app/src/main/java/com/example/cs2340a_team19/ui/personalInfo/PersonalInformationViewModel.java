@@ -28,7 +28,6 @@ public class PersonalInformationViewModel extends ViewModel {
     public PersonalInformationViewModel(PersonalInformationFragment frag) { //
         this.dbHandler = DatabaseHandler.getInstance();
         this.profileHandler = dbHandler.getProfileHandler();
-
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             this.profileHandler.listenToProfile(dbHandler.getUserID(), new ValueEventListener() {
                 @Override
@@ -37,6 +36,7 @@ public class PersonalInformationViewModel extends ViewModel {
                     // whenever data at this location is updated.
 
                     if (!dataSnapshot.exists()) {
+//                        dbHandler.identifyUser();
                         profileHandler.createProfile(dbHandler.getUserID());
                     } else {
                         // TODO: Use this to update the UI!!!
