@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.widget.ImageView;
+//import android.widget.Toast;
+//import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+//import androidx.lifecycle.ViewModelProvider;
 
 import com.anychart.APIlib;
 import com.anychart.AnyChart;
@@ -20,7 +20,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.CircularGauge;
-import com.anychart.core.Text;
+//import com.anychart.core.Text;
 import com.anychart.core.axes.Circular;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.core.gauge.pointers.Bar;
@@ -37,11 +37,11 @@ import com.example.cs2340a_team19.databinding.FragmentMealsBinding;
 
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.chart.common.listener.Event;
-import com.anychart.chart.common.listener.ListenersInterface;
-import com.anychart.charts.Pie;
-import com.anychart.enums.Align;
-import com.anychart.enums.LegendLayout;
+//import com.anychart.chart.common.listener.Event;
+//import com.anychart.chart.common.listener.ListenersInterface;
+//import com.anychart.charts.Pie;
+//import com.anychart.enums.Align;
+//import com.anychart.enums.LegendLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,9 +90,11 @@ public class MealsFragment extends Fragment {
         EditText mealName = view.findViewById(R.id.input_meal_name);
         EditText calorieCount = view.findViewById(R.id.input_meal_calorie);
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("EST"));
-        int time = 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100 * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
+        int time = 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100
+                * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
         addMealButton.setOnClickListener((View v) -> {
-            mealsViewModel.createMeal(mealName.getText().toString(), Integer.parseInt(calorieCount.getText().toString()), time);
+            mealsViewModel.createMeal(mealName.getText().toString(),
+                    Integer.parseInt(calorieCount.getText().toString()), time);
             mealName.setText("");
             calorieCount.setText("");
         });
@@ -103,7 +105,6 @@ public class MealsFragment extends Fragment {
         //createBarChart(view, weekCal);
 
     }
-    //TODO: use this function to set the personal info
     public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
         final TextView userCalorieRec = binding.CalculatedCalories;
         final TextView userHeight = binding.displayHeight;
@@ -120,7 +121,7 @@ public class MealsFragment extends Fragment {
         }
     }
 
-    public void createGaugeChart(View root, MealsViewModel mealsViewModel){
+    public void createGaugeChart(View root, MealsViewModel mealsViewModel) {
 
         AnyChartView anyChartGagueView = root.findViewById(R.id.anychart_viz1_temp);
         APIlib.getInstance().setActiveAnyChartView(anyChartGagueView);
@@ -150,7 +151,6 @@ public class MealsFragment extends Fragment {
         xAxis.labels().enabled(false);
         xAxis.ticks().enabled(false);
         xAxis.minorTicks().enabled(false);
-        //TODO: change text to be dyanmic
         circularGauge.label(0d)
                 .text("Calories Goal, <span style=\"\">" + calProgress + "%</span>")
                 .useHtml(true)
