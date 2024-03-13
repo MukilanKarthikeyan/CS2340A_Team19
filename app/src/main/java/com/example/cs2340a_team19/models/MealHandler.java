@@ -29,6 +29,15 @@ public class MealHandler {
             Log.d("FBRTDB_ERROR", "Tried to attach event listener, but View Model was not successfully instantiated");
         }
     }
+
+    public void listenToMealList(ValueEventListener updater) {
+        if (successfullyInitialized) {
+            this.meals.addValueEventListener(updater);
+        } else {
+            Log.d("FBRTDB_ERROR", "Tried to attach event listener, but View Model was not successfully instantiated");
+        }
+    }
+
     public void updateMeal(String mealID, String name, int calories) {
         Meal meal = new Meal(mealID, name, calories);
         if (successfullyInitialized) {
