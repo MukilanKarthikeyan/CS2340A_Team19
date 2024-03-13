@@ -34,6 +34,7 @@ public class DatabaseHandler {
     public void identifyUser() {
         try {
             this.userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.d("FBRTDB_ERROR", "UserID Success " + this.userID);
         } catch (NullPointerException ne) {
             this.userID = null;
             Log.d("FBRTDB_ERROR", "Null Pointer in Authentication -> current User ID, check if you are connected and Logged in.");
