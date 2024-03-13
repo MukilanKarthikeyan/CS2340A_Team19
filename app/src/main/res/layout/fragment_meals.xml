@@ -138,6 +138,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -179,5 +180,19 @@
             tools:layout_editor_absoluteX="324dp"
             tools:layout_editor_absoluteY="98dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/CalculatedCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="10dp"
+        android:text="Calorie Goal:"
+        app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
