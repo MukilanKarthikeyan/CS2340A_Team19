@@ -10,10 +10,10 @@ public class Recomendation {
     public Recomendation(int height, int weight, boolean gender) {
         if(gender) {
             //male
-            this.calorie_goal = (int) (10 * weight + (6.25 * (double)height) / 100 - 95);
+            this.calorie_goal = (int) (10 * weight + 6.25 * height- 95);
         } else {
             //female
-            this.calorie_goal = (int) (10 * weight + (6.25 * (double)height) / 100 - 261);
+            this.calorie_goal = (int) (10 * weight + 6.25 * height - 261);
         }
     }
 }

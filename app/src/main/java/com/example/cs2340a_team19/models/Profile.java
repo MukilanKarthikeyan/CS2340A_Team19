@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Profile {
 //    private String userID;
-    private int height; //meters
+    private int height; //centimeters
     private int weight; //kilograms
     private boolean gender; //male is true, female is false
 
