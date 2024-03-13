@@ -277,9 +277,7 @@
                             android:id="@+id/anychart_progress_bar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
-
                     </RelativeLayout>
-
                 </androidx.cardview.widget.CardView>
 
 

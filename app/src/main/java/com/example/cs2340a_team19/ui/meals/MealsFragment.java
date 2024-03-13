@@ -56,6 +56,7 @@ public class MealsFragment extends Fragment {
 
     private boolean firstChart = true;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

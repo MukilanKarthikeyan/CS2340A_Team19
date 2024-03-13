@@ -4,44 +4,29 @@ package com.example.cs2340a_team19;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import android.util.Log;
-
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import com.example.cs2340a_team19.models.DatabaseHandler;
-import com.example.cs2340a_team19.models.Meal;
-import com.example.cs2340a_team19.models.Profile;
-import com.example.cs2340a_team19.models.Recomendation;
-import com.example.cs2340a_team19.ui.personalInfo.PersonalInformationViewModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.example.cs2340a_team19.models.Recommendation;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public class RecommendationTest {
     @Test
     public void testRecCalcMale() {
-        Recomendation r = new Recomendation(100, 100, true);
+        Recommendation r = new Recommendation(100, 100, true);
         assertEquals(r.getCalorie_goal(), 1530);
     }
     @Test
     public void testRecCalcMaleWithFemale() {
-        Recomendation r = new Recomendation(100, 100, true);
+        Recommendation r = new Recommendation(100, 100, true);
         assertNotEquals(r.getCalorie_goal(), 1364);
     }
     @Test
     public void testRecCalcFemale() {
-        Recomendation r = new Recomendation(100, 100, false);
+        Recommendation r = new Recommendation(100, 100, false);
         assertEquals(r.getCalorie_goal(), 1364);
     }
     @Test
     public void testRecCalcFemaleWithMale() {
-        Recomendation r = new Recomendation(100, 100, false);
+        Recommendation r = new Recommendation(100, 100, false);
         assertNotEquals(r.getCalorie_goal(), 1530);
     }
 

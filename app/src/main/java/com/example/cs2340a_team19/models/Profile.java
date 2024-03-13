@@ -13,16 +13,14 @@ public class Profile {
     private int weight; //kilograms
     private boolean gender; //male is true, female is false
 
-    private List<String> mealIDs;
-    private List<Integer> mealDates;
+    private Map<String, UserMeal> userMeals;
 
     public Profile() {
 //        userID = "";
         height = -1;
         weight = -1;
         gender = false;
-        mealIDs = new ArrayList<String>();
-        mealDates = new ArrayList<Integer>();
+        userMeals = new HashMap<>(1);
     }
 
     public Profile(int height, int weight, boolean gender) {
@@ -30,8 +28,7 @@ public class Profile {
         this.height = height;
         this.weight = weight;
         this.gender = gender;
-        mealIDs = new ArrayList<String>();
-        mealDates = new ArrayList<Integer>();
+        this.userMeals = new HashMap<>(1);
     }
 
 //    public String getUserID() {
@@ -66,42 +63,38 @@ public class Profile {
         this.gender = gender;
     }
 
-    public List<String> getMealIDs() {
-        return this.mealIDs;
+    public Map<String, UserMeal> getUserMeals() {
+        return this.userMeals;
     }
 
-    public void setMealIDs(List<String> mealIDs) {
-        this.mealIDs = mealIDs;
+    public void setUserMeals(Map<String, UserMeal> map) {
+        this.userMeals = map;
     }
-
-    public List<Integer> getMealDates() { return this.mealDates; }
-    public void setMealDates(List<Integer> mealDates) { this.mealDates = mealDates; }
-
-    @Exclude
-    public String getMealID(int index) {
-        if (index < 0 || index >= mealIDs.size()) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
-        }
-        return this.mealIDs.get(index);
-    }
-
-    @Exclude
-    public void addMealID(String mealID) {
-        this.mealIDs.add(mealID);
-    }
-
-    @Exclude
-    public boolean removeMealIDVal(int mealID) {
-        return mealIDs.remove(String.valueOf(mealID)); // Autoboxing for Integer
-    }
-
-    @Exclude
-    public String removeMealIDIndex(int index) {
-        if (index < 0 || index >= mealIDs.size()) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
-        }
-        return mealIDs.remove(index);
-    }
+//    @Exclude
+//    public String getMealID(int index) {
+//        if (index < 0 || index >= mealIDs.size()) {
+//            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
+//        }
+//        return this.mealIDs.get(index);
+//    }
+//
+//    @Exclude
+//    public void addMealID(String mealID) {
+//        this.mealIDs.add(mealID);
+//    }
+//
+//    @Exclude
+//    public boolean removeMealIDVal(int mealID) {
+//        return mealIDs.remove(String.valueOf(mealID)); // Autoboxing for Integer
+//    }
+//
+//    @Exclude
+//    public String removeMealIDIndex(int index) {
+//        if (index < 0 || index >= mealIDs.size()) {
+//            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mealIDs.size());
+//        }
+//        return mealIDs.remove(index);
+//    }
 
     @Exclude
     public Map<String, Object> toMap() {
