@@ -48,10 +48,10 @@ public class MealsViewModel extends ViewModel {
         }
     }
 
-    public void createMeal(String name, int calories) {
+    public void createMeal(String name, int calories, int date) {
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             String mealID = this.mealHandler.createMeal(name, calories);
-            this.profileHandler.addMeal(dbHandler.getUserID(), mealID);
+            this.profileHandler.addMeal(dbHandler.getUserID(), mealID, date);
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create meal, but dbHandler was not successfully initialized");
         }

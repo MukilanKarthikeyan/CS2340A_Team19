@@ -2,6 +2,12 @@ package com.example.cs2340a_team19.models;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
@@ -44,25 +50,46 @@ public class ProfileHandler {
         }
     }
 
-    public void addMeal(String userID, String mealID) {
-        this.profiles.child(userID).child("mealIDs").push().setValue(mealID);
+    public void addMeal(String userID, String mealID, Integer MealDate) {
+        this.profiles.child(userID).child("mealIDs").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d("MyJUNIT", "Completed Meal ADD");
+                if (!task.isSuccessful()) {
+                    Log.d("MyJUNIT", "ADD MEAL FAILED " + task.getException().getMessage());
+                }
+
+            }
+        });
+        this.profiles.child(userID).child("mealDates").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("MyJUNIT", "ADD MEAL Date FAILED " + task.getException().getMessage());
+                }
+
+            }
+        });
     }
 
-    public void createProfile(String userID) {
+    public boolean createProfile(String userID) {
         Profile profile = new Profile();
-        this.createProfile(profile, userID);
+        return this.createProfile(profile, userID);
     }
 
-    public void createProfile(String userID, int height, int weight, boolean gender) {
+    public boolean createProfile(String userID, int height, int weight, boolean gender) {
         Profile profile = new Profile(height, weight, gender);
-        this.createProfile(profile, userID);
+        return this.createProfile(profile, userID);
     }
 
-    private void createProfile(Profile profile, String userID) {
+    private boolean createProfile(Profile profile, String userID) {
         if (successfullyInitialized) {
+//            Log.d("MyJUNIT", "In Create Profile!");
             this.profiles.child(userID).setValue(profile);
+            return true;
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create profile but the View Model was not sucsessfully instantiated!");
+            return false;
         }
     }
 

@@ -38,6 +38,8 @@ public class PersonalInformationViewModel extends ViewModel {
                     } else {
                         // TODO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
+
+                        // UI Stuff
                     }
                 }
 
@@ -51,6 +53,7 @@ public class PersonalInformationViewModel extends ViewModel {
         }
 
     }
+
 
 
 }

@@ -22,7 +22,7 @@ public class MealHandler {
     }
 
     // Get Data for meal
-    public void listenToMeal(ValueEventListener updater, String mealID) {
+    public void listenToMeal(String mealID, ValueEventListener updater) {
         if (successfullyInitialized) {
             this.meals.child(mealID).addValueEventListener(updater);
         } else {
@@ -64,13 +64,15 @@ public class MealHandler {
         if (successfullyInitialized) {
             DatabaseReference childLoc = meals.push();
             // Find and set ID with Regex
-            Pattern pattern = Pattern.compile("/(\\d*)$");
-            Matcher matcher = pattern.matcher(childLoc.getKey());
-            if (matcher.find()) {
-                meal.setMealID(matcher.group());
-            } else {
-                Log.d("FBRTDB_ERROR", "Tried to identify mealID but failed");
-            }
+//            Pattern pattern = Pattern.compile("/(\\d*)$");
+//            Matcher matcher = pattern.matcher(childLoc.getKey());
+//            if (matcher.find()) {
+//                meal.setMealID(matcher.group());
+//            } else {
+//                Log.d("FBRTDB_ERROR", "Tried to identify mealID but failed: " + childLoc.getKey());
+//            }
+
+            meal.setMealID(childLoc.getKey());
 
             childLoc.setValue(meal);
             return meal.getMealID();
