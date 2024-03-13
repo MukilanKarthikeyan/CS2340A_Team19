@@ -267,73 +267,89 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.491"
                         app:layout_constraintStart_toStartOf="parent">
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="10dp">
 
-                                <EditText
-                                    android:id="@+id/input_meal_name"
-                                    android:layout_width="wrap_content"
+
+                            <LinearLayout
+                                android:layout_width="300dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:ems="10"
-                                    android:inputType="text"
-                                    android:text="meal name"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.965"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.972" />
-                            </RelativeLayout>
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="25dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_marginBottom="10dp">
+                                    <EditText
+                                        android:id="@+id/input_meal_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:ems="10"
+                                        android:inputType="text"
+                                        android:text="meal name"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.965"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintVertical_bias="0.972" />
+                                </RelativeLayout>
 
-                                <TextView
-                                    android:id="@+id/prompt_caloire"
-                                    android:layout_width="wrap_content"
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="estimated calorie count:"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="10dp">
 
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    tools:layout_editor_absoluteY="601dp" />
-                            </RelativeLayout>
+                                    <TextView
+                                        android:id="@+id/prompt_caloire"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="estimated calorie count:"
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="25dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_marginBottom="10dp">
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        tools:layout_editor_absoluteY="601dp" />
+                                </RelativeLayout>
 
-                                <EditText
-                                    android:id="@+id/input_meal_calorie"
-                                    android:layout_width="wrap_content"
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="4dp"
-                                    android:ems="10"
-                                    android:inputType="number"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    tools:layout_editor_absoluteY="593dp" />
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="10dp">
 
-                            </RelativeLayout>
+                                    <EditText
+                                        android:id="@+id/input_meal_calorie"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="4dp"
+                                        android:ems="10"
+                                        android:inputType="number"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        tools:layout_editor_absoluteY="593dp" />
 
+                                </RelativeLayout>
+
+                            </LinearLayout>
+                            <Button
+                                android:id="@+id/submit_meal_button"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Button" />
                         </LinearLayout>
+
 
 
                     </androidx.cardview.widget.CardView>

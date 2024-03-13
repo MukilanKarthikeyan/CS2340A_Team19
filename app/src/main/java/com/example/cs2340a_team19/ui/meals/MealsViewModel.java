@@ -37,6 +37,7 @@ public class MealsViewModel extends ViewModel {
                         Profile value = dataSnapshot.getValue(Profile.class);
                         Recommendation rec = new Recommendation(value.getHeight(), value.getWeight(), value.getGender());
                         frag.setPersonalInfo(rec.getCalorie_goal(), value.getHeight(), value.getWeight(), value.getGender());
+
                     }
                 }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -37,7 +38,10 @@ import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MealsFragment extends Fragment {
 
@@ -61,8 +65,16 @@ public class MealsFragment extends Fragment {
         //createPieChart(view);
         this.mealsViewModel = new MealsViewModel(this);
 
+        Button addMealButton = view.findViewById(R.id.submit_meal_button);
+        EditText mealName = view.findViewById(R.id.input_meal_name);
+        EditText calorieCount = view.findViewById(R.id.input_meal_calorie);
+        int currentDay = (new GregorianCalendar(TimeZone.getTimeZone("EST"))).get(Calendar.DAY_OF_YEAR);
+        addMealButton.setOnClickListener((View v) -> {
+            mealsViewModel.createMeal(mealName.getText().toString(), Integer.parseInt(calorieCount.getText().toString()), currentDay);
+            mealName.setText("");
+            calorieCount.setText("");
+        });
         createGaugeChart(view);
-
     }
     //TODO: use this function to set the personal info
     public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
