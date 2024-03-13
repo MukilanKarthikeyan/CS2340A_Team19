@@ -14,6 +14,7 @@ public class Profile {
     private boolean gender; //male is true, female is false
 
     private List<String> mealIDs;
+    private List<Integer> mealDates;
 
     public Profile() {
 //        userID = "";
@@ -21,6 +22,7 @@ public class Profile {
         weight = -1;
         gender = false;
         mealIDs = new ArrayList<String>();
+        mealDates = new ArrayList<Integer>();
     }
 
     public Profile(int height, int weight, boolean gender) {
@@ -29,6 +31,7 @@ public class Profile {
         this.weight = weight;
         this.gender = gender;
         mealIDs = new ArrayList<String>();
+        mealDates = new ArrayList<Integer>();
     }
 
 //    public String getUserID() {
@@ -70,6 +73,9 @@ public class Profile {
     public void setMealIDs(List<String> mealIDs) {
         this.mealIDs = mealIDs;
     }
+
+    public List<Integer> getMealDates() { return this.mealDates; }
+    public void setMealDates(List<Integer> mealDates) { this.mealDates = mealDates; }
 
     @Exclude
     public String getMealID(int index) {
