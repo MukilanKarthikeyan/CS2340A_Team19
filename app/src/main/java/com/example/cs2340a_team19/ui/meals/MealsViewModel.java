@@ -2,15 +2,13 @@ package com.example.cs2340a_team19.ui.meals;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.DatabaseHandler;
-import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.MealHandler;
 import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.ProfileHandler;
+import com.example.cs2340a_team19.models.Recommendation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -20,7 +18,7 @@ public class MealsViewModel extends ViewModel {
     private MealHandler mealHandler;
     private ProfileHandler profileHandler;
 
-    public MealsViewModel() {
+    public MealsViewModel(MealsFragment frag) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.mealHandler = dbHandler.getMealHandler();
         this.profileHandler = dbHandler.getProfileHandler();
@@ -37,6 +35,8 @@ public class MealsViewModel extends ViewModel {
                     } else {
                         // TODO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
+                        Recommendation rec = new Recommendation(value.getHeight(), value.getWeight(), value.getGender());
+                        frag.setPersonalInfo(rec.getCalorie_goal(), value.getHeight(), value.getWeight(), value.getGender());
                     }
                 }
 

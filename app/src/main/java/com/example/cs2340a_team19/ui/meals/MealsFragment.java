@@ -42,15 +42,13 @@ import java.util.List;
 public class MealsFragment extends Fragment {
 
     private FragmentMealsBinding binding;
+    private MealsViewModel mealsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MealsViewModel mealsViewModel =
-                new ViewModelProvider(this).get(MealsViewModel.class);
 
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
         //TODO: get rid of this test
         setPersonalInfo(2000, 6, 89, false);
@@ -61,10 +59,13 @@ public class MealsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
+        this.mealsViewModel = new MealsViewModel(this);
+
         createGaugeChart(view);
+
     }
     //TODO: use this function to set the personal info
-    private void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
+    public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
         final TextView userCalorieRec = binding.CalculatedCalories;
         final TextView userHeight = binding.displayHeight;
         final TextView userWeight = binding.displayWeight;
