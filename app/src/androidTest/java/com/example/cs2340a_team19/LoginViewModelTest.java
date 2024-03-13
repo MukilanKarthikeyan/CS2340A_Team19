@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import com.example.cs2340a_team19.ui.login.LoginViewModel;
 import java.util.Random;
-//JUnit Test for the LoginViewModel
+//JUnit Test for the LoginViewModel class
 public class LoginViewModelTest {
 
     @Test
