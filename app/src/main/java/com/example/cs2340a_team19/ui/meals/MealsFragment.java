@@ -14,14 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.anychart.APIlib;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
+import com.anychart.charts.Cartesian;
 import com.anychart.charts.CircularGauge;
 import com.anychart.core.Text;
 import com.anychart.core.axes.Circular;
+import com.anychart.core.cartesian.series.Column;
 import com.anychart.core.gauge.pointers.Bar;
 import com.anychart.enums.Anchor;
+import com.anychart.enums.HoverMode;
+import com.anychart.enums.Position;
+import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Fill;
 import com.anychart.graphics.vector.SolidFill;
 import com.anychart.graphics.vector.text.HAlign;
@@ -47,6 +53,9 @@ public class MealsFragment extends Fragment {
 
     private FragmentMealsBinding binding;
     private MealsViewModel mealsViewModel;
+
+    private boolean firstChart = true;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +85,11 @@ public class MealsFragment extends Fragment {
             calorieCount.setText("");
         });
         createGaugeChart(view);
+
+        int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+        //mealsViewModel.getLastDays(weekCal, 7, this, view);
+        createBarChart(view, weekCal);
+
     }
     //TODO: use this function to set the personal info
     public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
@@ -88,19 +102,23 @@ public class MealsFragment extends Fragment {
         userHeight.setText(String.valueOf(height));
         userWeight.setText(String.valueOf(weight));
         if (gender) {
-            userGender.setText("Male");
+            userGender.setText("M");
         } else {
-            userGender.setText("female");
+            userGender.setText("F");
         }
     }
 
-    private void createGaugeChart(View root){
-        AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
-        anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+    public void createGaugeChart(View root){
+
+        AnyChartView anyChartGagueView = root.findViewById(R.id.anychart_viz1_temp);
+        APIlib.getInstance().setActiveAnyChartView(anyChartGagueView);
+        anyChartGagueView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+
+        String calProgress = mealsViewModel.getCalorieProgress();
+
 
         CircularGauge circularGauge = AnyChart.circular();
-        //TODO: set data to be the one form database
-        circularGauge.data(new SingleValueDataSet(new String[] {"52"}));
+        circularGauge.data(new SingleValueDataSet(new String[] {calProgress, "100"}));
         circularGauge.fill("#fff")
                 .stroke(null)
                 .padding(0d, 0d, 0d, 0d)
@@ -122,7 +140,7 @@ public class MealsFragment extends Fragment {
         xAxis.minorTicks().enabled(false);
         //TODO: change text to be dyanmic
         circularGauge.label(0d)
-                .text("Calories Goal, <span style=\"\">32%</span>")
+                .text("Calories Goal, <span style=\"\">" + calProgress + "%</span>")
                 .useHtml(true)
                 .hAlign(HAlign.CENTER)
                 .vAlign(VAlign.MIDDLE);
@@ -134,15 +152,15 @@ public class MealsFragment extends Fragment {
         bar0.dataIndex(0d);
         bar0.radius(100d);
         bar0.width(50d);
-
         bar0.fill(new SolidFill("#64b500", 10d));
         bar0.stroke(null);
         bar0.zIndex(5d);
-        Bar bar100 = circularGauge.bar(100d);
-        bar100.dataIndex(5d);
+
+        Bar bar100 = circularGauge.bar(1d);
+        bar100.dataIndex(1d);
         bar100.radius(100d);
         bar100.width(50d);
-        bar100.fill(new SolidFill("#F5F4F4", 10d));
+        bar100.fill(new SolidFill("#F0F0F0", 10d));
         bar100.stroke("1 #e5e4e4");
         bar100.zIndex(4d);
 
@@ -154,10 +172,50 @@ public class MealsFragment extends Fragment {
                 .padding(0d, 0d, 0d, 0d)
                 .margin(0d, 0d, 20d, 0d);
 
-        anyChartView.setChart(circularGauge);
+        anyChartGagueView.setChart(circularGauge);
     }
-    private void createPieChart(View root) {
-//TODO: other chart goes here
+    public void createBarChart(View root, int[] weekCal) {
+        AnyChartView anyChartBarView = root.findViewById(R.id.anychart_bar_graph);
+        APIlib.getInstance().setActiveAnyChartView(anyChartBarView);
+        anyChartBarView.setProgressBar(getView().findViewById(R.id.anychart_bar_progress_bar));
+
+
+        Cartesian cartesian = AnyChart.column();
+
+        List<DataEntry> data = new ArrayList<>();
+        data.add(new ValueDataEntry("Day 0", weekCal[0]));
+        data.add(new ValueDataEntry("Day -1", weekCal[1]));
+        data.add(new ValueDataEntry("Day -2", weekCal[2]));
+        data.add(new ValueDataEntry("Day -3", weekCal[3]));
+        data.add(new ValueDataEntry("Day -4", weekCal[4]));
+        data.add(new ValueDataEntry("Day -5", weekCal[5]));
+        data.add(new ValueDataEntry("Day -6", weekCal[6]));
+
+        Column column = cartesian.column(data);
+
+        column.tooltip()
+                .titleFormat("{%X}")
+                .position(Position.CENTER_BOTTOM)
+                .anchor(Anchor.CENTER_BOTTOM)
+                .offsetX(0d)
+                .offsetY(5d)
+                .format("${%Value}{groupsSeparator: }");
+
+        cartesian.animation(true);
+        cartesian.title("Calories per day for the last week");
+
+        cartesian.yScale().minimum(0d);
+
+        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+
+        cartesian.xAxis(0).title("Days");
+        cartesian.yAxis(0).title("Calories");
+
+        anyChartBarView.setChart(cartesian);
+
 
     }
     @Override
