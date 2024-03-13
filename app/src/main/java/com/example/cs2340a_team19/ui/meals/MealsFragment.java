@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.anychart.APIlib;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
@@ -82,19 +83,13 @@ public class MealsFragment extends Fragment {
             mealName.setText("");
             calorieCount.setText("");
         });
-        drawChart(view);
+        createGaugeChart(view);
+
+        int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+        //mealsViewModel.getLastDays(weekCal, 7, this, view);
+        createBarChart(view, weekCal);
 
     }
-
-    public void drawChart(View view) {
-        if (firstChart) {
-            createGaugeChart(view);
-        } else {
-            int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
-            createBarChart(view, weekCal);
-        }
-    }
-
     //TODO: use this function to set the personal info
     public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
         final TextView userCalorieRec = binding.CalculatedCalories;
@@ -114,8 +109,9 @@ public class MealsFragment extends Fragment {
 
     public void createGaugeChart(View root){
 
-        AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
-        anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+        AnyChartView anyChartGagueView = root.findViewById(R.id.anychart_viz1_temp);
+        APIlib.getInstance().setActiveAnyChartView(anyChartGagueView);
+        anyChartGagueView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
 
         String calProgress = mealsViewModel.getCalorieProgress();
 
@@ -175,11 +171,12 @@ public class MealsFragment extends Fragment {
                 .padding(0d, 0d, 0d, 0d)
                 .margin(0d, 0d, 20d, 0d);
 
-        anyChartView.setChart(circularGauge);
+        anyChartGagueView.setChart(circularGauge);
     }
     public void createBarChart(View root, int[] weekCal) {
-        AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
-        anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
+        AnyChartView anyChartBarView = root.findViewById(R.id.anychart_bar_graph);
+        APIlib.getInstance().setActiveAnyChartView(anyChartBarView);
+        anyChartBarView.setProgressBar(getView().findViewById(R.id.anychart_bar_progress_bar));
 
 
         Cartesian cartesian = AnyChart.column();
@@ -216,7 +213,7 @@ public class MealsFragment extends Fragment {
         cartesian.xAxis(0).title("Days");
         cartesian.yAxis(0).title("Calories");
 
-        anyChartView.setChart(cartesian);
+        anyChartBarView.setChart(cartesian);
 
 
     }
