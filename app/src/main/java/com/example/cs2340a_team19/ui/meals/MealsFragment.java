@@ -26,7 +26,7 @@ public class MealsFragment extends Fragment {
 
         final TextView textView = binding.textMeals;
 
-//        mealsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //mealsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
