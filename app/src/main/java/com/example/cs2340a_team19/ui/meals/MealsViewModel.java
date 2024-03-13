@@ -11,6 +11,7 @@ import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.MealHandler;
 import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.ProfileHandler;
+import com.example.cs2340a_team19.models.Recomendation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -57,5 +58,12 @@ public class MealsViewModel extends ViewModel {
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create meal, but dbHandler was not successfully initialized");
         }
+    }
+    //TODO: return the percentatge of food someone has consumed
+    public String getCalorieProgress() {
+        int consumed = 0;
+        int goal = 1;
+        //could use string format but can get finicky so avoding any of those issues altogether
+        return "Calories Goal, <span style=\"\">" + (consumed/goal) + "%</span>";
     }
 }

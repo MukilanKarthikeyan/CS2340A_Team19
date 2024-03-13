@@ -108,7 +108,7 @@ public class MealsFragment extends Fragment {
         xAxis.minorTicks().enabled(false);
         //TODO: change text to be dyanmic
         circularGauge.label(0d)
-                .text("Calories, <span style=\"\">32%</span>")
+                .text("Calories Goal, <span style=\"\">32%</span>")
                 .useHtml(true)
                 .hAlign(HAlign.CENTER)
                 .vAlign(VAlign.MIDDLE);
