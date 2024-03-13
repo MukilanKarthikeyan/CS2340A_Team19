@@ -73,7 +73,7 @@ public class MealsFragment extends Fragment {
 
         Circular xAxis = circularGauge.axis(0)
                 .radius(100d)
-                .width(4d)
+                .width(10d)
                 .fill((Fill) null);
         xAxis.scale()
                 .minimum(0d)
@@ -95,17 +95,17 @@ public class MealsFragment extends Fragment {
                 .offsetX(0d);
         Bar bar0 = circularGauge.bar(0d);
         bar0.dataIndex(0d);
-        bar0.radius(150d);
-        bar0.width(17d);
+        bar0.radius(100d);
+        bar0.width(50d);
 
-        bar0.fill(new SolidFill("#64b5f6", 1d));
+        bar0.fill(new SolidFill("#64b5f6", 10d));
         bar0.stroke(null);
         bar0.zIndex(5d);
         Bar bar100 = circularGauge.bar(100d);
         bar100.dataIndex(5d);
-        bar100.radius(150d);
-        bar100.width(17d);
-        bar100.fill(new SolidFill("#F5F4F4", 1d));
+        bar100.radius(100d);
+        bar100.width(50d);
+        bar100.fill(new SolidFill("#F5F4F4", 10d));
         bar100.stroke("1 #e5e4e4");
         bar100.zIndex(4d);
 
