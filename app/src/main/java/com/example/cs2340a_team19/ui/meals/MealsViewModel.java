@@ -56,6 +56,4 @@ public class MealsViewModel extends ViewModel {
             Log.d("FBRTDB_ERROR", "Tried to create meal, but dbHandler was not successfully initialized");
         }
     }
-
-
 }
