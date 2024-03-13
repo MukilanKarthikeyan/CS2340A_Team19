@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="SplashActivityTest">
+      <entry key="LoginViewModelTest">
         <State />
       </entry>
       <entry key="app">
@@ -21,7 +21,16 @@
           <timeTargetWasSelectedWithDropDown value="2024-03-12T21:33:38.800715370Z" />
         </State>
       </entry>
-      <entry key="testSplashActivity()">
+      <entry key="testInvalidEmail()">
+        <State />
+      </entry>
+      <entry key="testValidEmail()">
+        <State />
+      </entry>
+      <entry key="testWhiteSpaceEmail()">
+        <State />
+      </entry>
+      <entry key="testWhiteSpacePassword()">
         <State />
       </entry>
     </value>
