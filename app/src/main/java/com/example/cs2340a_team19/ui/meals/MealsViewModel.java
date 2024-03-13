@@ -1,5 +1,7 @@
 package com.example.cs2340a_team19.ui.meals;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

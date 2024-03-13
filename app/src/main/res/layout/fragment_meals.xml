@@ -9,177 +9,267 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constrainedStart_toStartOf="parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/pie_caloire_goal"
-                    android:layout_width="350dp"
-                    android:layout_height="350dp"
-                    android:layout_marginBottom="25dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toTopOf="@+id/details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toStartOf="parent">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_pie_viz"
+                        android:layout_height="100dp">
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.491"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp">
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_horizontal">
 
-                            <ProgressBar
-                                android:id="@+id/anychart_pie_progress_bar"
+                                <TextView
+                                    android:id="@+id/CalculatedCalories"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:gravity="center"
+                                    android:text="Calorie Goal: 2000"
+                                    app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.483"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                    app:layout_constraintVertical_bias="0.969" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </com.anychart.AnyChartView>
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                tools:layout_editor_absoluteX="0dp"
+                                tools:layout_editor_absoluteY="346dp">
 
-                    </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/displayHeight"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="User Height:170cm"
+                                    app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="1.0"
+                                    android:gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"/>
 
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/graph_caloire_goal"
-                    android:layout_width="350dp"
-                    android:layout_height="350dp"
-                    android:layout_marginBottom="25dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toTopOf="@+id/details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toStartOf="parent">
+                                <TextView
+                                    android:id="@+id/displayWeight"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text=" User Weight: 65kg"
+                                    tools:layout_editor_absoluteX="170dp"
+                                    tools:layout_editor_absoluteY="99dp"
+                                    android:gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"/>
 
-                    <RelativeLayout
+                                <TextView
+                                    android:id="@+id/displayGender"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="User Gender: Male"
+                                    tools:layout_editor_absoluteX="324dp"
+                                    tools:layout_editor_absoluteY="98dp"
+                                    android:gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pie_caloire_goal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_viz1_temp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.491"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp" />
-
-                        <ProgressBar
-                            android:id="@+id/anychart_progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/details"
-                    android:layout_width="350dp"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="60dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="380dp"
+                        android:layout_marginBottom="25dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toTopOf="@+id/details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.491"
+                        app:layout_constraintStart_toStartOf="parent">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp">
 
-                            <EditText
-                                android:id="@+id/input_meal_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="text"
-                                android:text="meal name"
+                            <com.anychart.AnyChartView
+                                android:id="@+id/anychart_pie_viz"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.965"
+                                app:layout_constraintHorizontal_bias="0.491"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.972" />
+                                tools:layout_editor_absoluteY="50dp">
+
+                                <ProgressBar
+                                    android:id="@+id/anychart_pie_progress_bar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </com.anychart.AnyChartView>
+
                         </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/graph_caloire_goal"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_marginBottom="25dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toTopOf="@+id/details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.491"
+                        app:layout_constraintStart_toStartOf="parent">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="25dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="25dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp">
 
-                            <TextView
-                                android:id="@+id/prompt_caloire"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="estimated calorie count:"
-
-                                app:layout_constraintStart_toStartOf="parent"
-                                tools:layout_editor_absoluteY="601dp" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="25dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="25dp"
-                            android:layout_marginBottom="10dp">
-
-                            <EditText
-                                android:id="@+id/input_meal_calorie"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
-                                android:ems="10"
-                                android:inputType="number"
+                            <com.anychart.AnyChartView
+                                android:id="@+id/anychart_viz1_temp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                tools:layout_editor_absoluteY="593dp" />
+                                app:layout_constraintHorizontal_bias="0.491"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:layout_editor_absoluteY="50dp" />
+
+                            <ProgressBar
+                                android:id="@+id/anychart_progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
 
                         </RelativeLayout>
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/details"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="60dp"
+                        android:elevation="10dp"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.491"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp">
+
+                                <EditText
+                                    android:id="@+id/input_meal_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10"
+                                    android:inputType="text"
+                                    android:text="meal name"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.965"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.972" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="25dp"
+                                android:layout_marginBottom="10dp">
+
+                                <TextView
+                                    android:id="@+id/prompt_caloire"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="estimated calorie count:"
+
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    tools:layout_editor_absoluteY="601dp" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="25dp"
+                                android:layout_marginBottom="10dp">
+
+                                <EditText
+                                    android:id="@+id/input_meal_calorie"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="4dp"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    tools:layout_editor_absoluteY="593dp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+
 
     </ScrollView>
 
