@@ -2,22 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="addMeal()">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="createMeal()">
-        <State />
-      </entry>
-      <entry key="createProfile()">
-        <State />
-      </entry>
-      <entry key="readMeal()">
-        <State />
-      </entry>
-      <entry key="readProfile()">
         <State />
       </entry>
     </value>
