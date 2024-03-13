@@ -74,9 +74,9 @@ public class MealsFragment extends Fragment {
         userHeight.setText(String.valueOf(height));
         userWeight.setText(String.valueOf(weight));
         if (gender) {
-            userGender.setText("Male");
+            userGender.setText("M");
         } else {
-            userGender.setText("female");
+            userGender.setText("F");
         }
     }
 
@@ -86,7 +86,7 @@ public class MealsFragment extends Fragment {
         String calProgress = mealsViewModel.getCalorieProgress();
 
         CircularGauge circularGauge = AnyChart.circular();
-        circularGauge.data(new SingleValueDataSet(new String[] {calProgress}));
+        circularGauge.data(new SingleValueDataSet(new String[] {calProgress, "100"}));
         circularGauge.fill("#fff")
                 .stroke(null)
                 .padding(0d, 0d, 0d, 0d)
@@ -120,15 +120,15 @@ public class MealsFragment extends Fragment {
         bar0.dataIndex(0d);
         bar0.radius(100d);
         bar0.width(50d);
-
         bar0.fill(new SolidFill("#64b500", 10d));
         bar0.stroke(null);
         bar0.zIndex(5d);
-        Bar bar100 = circularGauge.bar(100d);
-        bar100.dataIndex(5d);
+
+        Bar bar100 = circularGauge.bar(1d);
+        bar100.dataIndex(1d);
         bar100.radius(100d);
         bar100.width(50d);
-        bar100.fill(new SolidFill("#F5F4F4", 10d));
+        bar100.fill(new SolidFill("#F0F0F0", 10d));
         bar100.stroke("1 #e5e4e4");
         bar100.zIndex(4d);
 
