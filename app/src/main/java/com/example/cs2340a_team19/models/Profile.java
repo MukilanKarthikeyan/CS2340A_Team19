@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class Profile {
 //    private String userID;
-    private int height;
-    private int weight;
-    private boolean gender;
+    private int height; //centimeters
+    private int weight; //kilograms
+    private boolean gender; //male is true, female is false
 
     private List<String> mealIDs;
     private List<Integer> mealDates;
