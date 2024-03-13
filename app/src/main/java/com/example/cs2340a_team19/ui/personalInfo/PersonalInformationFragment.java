@@ -40,6 +40,7 @@ public class PersonalInformationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_personal_information, container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         this.view = view;
@@ -47,7 +48,7 @@ public class PersonalInformationFragment extends Fragment {
         EditText height = view.findViewById(R.id.input_height);
         EditText weight = view.findViewById(R.id.input_weight);
         RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
-        Button enter = view.findViewById(R.id.enterPersonalInfo);
+        Button enter = view.findViewById(R.id.personalInfoSubmitButton);
         enter.setOnClickListener((View v) -> mViewModel.updateProfile(height.getText().toString(), weight.getText().toString(), radioGroup.getCheckedRadioButtonId() == R.id.radioButton4));
     }
 

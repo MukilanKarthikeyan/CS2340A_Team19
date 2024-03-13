@@ -7,6 +7,7 @@
     <string name="title_meals">Meals</string>
     <string name="title_shopping">Shopping</string>
     <string name="title_ingredients">Ingredients</string>
+    <string name="title_personal">Personal Info</string>
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>

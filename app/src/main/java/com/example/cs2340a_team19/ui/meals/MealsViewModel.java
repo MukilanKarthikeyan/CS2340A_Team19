@@ -2,6 +2,8 @@ package com.example.cs2340a_team19.ui.meals;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.DatabaseHandler;
@@ -56,6 +58,4 @@ public class MealsViewModel extends ViewModel {
             Log.d("FBRTDB_ERROR", "Tried to create meal, but dbHandler was not successfully initialized");
         }
     }
-
-
 }
