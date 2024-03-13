@@ -2,6 +2,11 @@ package com.example.cs2340a_team19.models;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
@@ -60,7 +65,12 @@ public class ProfileHandler {
 
     private boolean createProfile(Profile profile, String userID) {
         if (successfullyInitialized) {
-            this.profiles.child(userID).setValue(profile);
+            this.profiles.child(userID).setValue(profile).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("MyJUNIT", e.getMessage());
+                }
+            });
             return true;
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create profile but the View Model was not sucsessfully instantiated!");
