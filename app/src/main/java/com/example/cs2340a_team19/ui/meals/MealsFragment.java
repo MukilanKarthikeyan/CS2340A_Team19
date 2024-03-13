@@ -17,6 +17,7 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
 import com.anychart.charts.CircularGauge;
+import com.anychart.core.Text;
 import com.anychart.core.axes.Circular;
 import com.anychart.core.gauge.pointers.Bar;
 import com.anychart.enums.Anchor;
@@ -50,6 +51,10 @@ public class MealsFragment extends Fragment {
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
+        //TODO: get rid of this test
+        setPersonalInfo(2000, 6, 89, false);
+
         return root;
     }
 
@@ -57,6 +62,22 @@ public class MealsFragment extends Fragment {
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
         createGaugeChart(view);
+    }
+    //TODO: use this function to set the personal info
+    private void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
+        final TextView userCalorieRec = binding.CalculatedCalories;
+        final TextView userHeight = binding.displayHeight;
+        final TextView userWeight = binding.displayWeight;
+        final TextView userGender = binding.displayGender;
+
+        userCalorieRec.setText(String.valueOf(caloriesRec));
+        userHeight.setText(String.valueOf(height));
+        userWeight.setText(String.valueOf(weight));
+        if (gender) {
+            userGender.setText("Male");
+        } else {
+            userGender.setText("female");
+        }
     }
 
     private void createGaugeChart(View root){
