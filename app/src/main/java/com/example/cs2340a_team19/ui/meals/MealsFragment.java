@@ -49,22 +49,22 @@ public class MealsFragment extends Fragment {
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //createAnyChart(root);
         return root;
     }
 
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
-        createPieChart(view);
-        createAnyChart(view);
+        //createPieChart(view);
+        createGaugeChart(view);
     }
 
-    private void createAnyChart(View root){
+    private void createGaugeChart(View root){
         AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
         anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
 
         CircularGauge circularGauge = AnyChart.circular();
-        circularGauge.data(new SingleValueDataSet(new String[] { "23", "34", "67", "93", "56", "100"}));
+        //TODO: set data to be the one form database
+        circularGauge.data(new SingleValueDataSet(new String[] {"52"}));
         circularGauge.fill("#fff")
                 .stroke(null)
                 .padding(0d, 0d, 0d, 0d)
@@ -84,7 +84,7 @@ public class MealsFragment extends Fragment {
         xAxis.labels().enabled(false);
         xAxis.ticks().enabled(false);
         xAxis.minorTicks().enabled(false);
-
+        //TODO: change text to be dyanmic
         circularGauge.label(0d)
                 .text("Calories, <span style=\"\">32%</span>")
                 .useHtml(true)
@@ -99,7 +99,7 @@ public class MealsFragment extends Fragment {
         bar0.radius(100d);
         bar0.width(50d);
 
-        bar0.fill(new SolidFill("#64b5f6", 10d));
+        bar0.fill(new SolidFill("#64b500", 10d));
         bar0.stroke(null);
         bar0.zIndex(5d);
         Bar bar100 = circularGauge.bar(100d);

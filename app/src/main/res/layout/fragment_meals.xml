@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constrainedStart_toStartOf="parent"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,8 +27,9 @@
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/personal_information"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp">
+                        android:layout_height="100dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -80,21 +80,20 @@
                                 tools:layout_editor_absoluteX="0dp"
                                 tools:layout_editor_absoluteY="346dp">
                                 <LinearLayout
-                                    android:layout_width="150dp"
+                                    android:layout_width="125dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
+                                    android:orientation="vertical"
                                     android:layout_gravity="center_horizontal">
                                     <TextView
                                         android:id="@+id/displayHeightLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="40dp"
                                         android:layout_weight="1"
                                         android:text="User Height:"
                                         app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="1.0"
-                                        android:gravity="center"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"/>
 
@@ -115,19 +114,18 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="150dp"
+                                    android:layout_width="125dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:id="@+id/displayWeightLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="40dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
-                                        android:gravity="center"
                                         android:text=" User Weight"
                                         tools:layout_editor_absoluteX="170dp"
                                         tools:layout_editor_absoluteY="99dp" />
@@ -147,19 +145,18 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="150dp"
+                                    android:layout_width="125dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:id="@+id/displayGenderLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="40dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
-                                        android:gravity="center"
                                         android:text="User Gender:"
                                         tools:layout_editor_absoluteX="324dp"
                                         tools:layout_editor_absoluteY="98dp" />
