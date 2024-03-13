@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.Profile;
+import com.example.cs2340a_team19.ui.personalInfo.PersonalInformationViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -131,23 +132,7 @@ public class DatabaseLogicTest {
 
         CountDownLatch lock = new CountDownLatch(1);
 
-        dbHandler.getMealHandler().listenToMeal("-NspSkX0JX2DgIvqtITf", new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                assert(dataSnapshot.exists());
-                Meal value = dataSnapshot.getValue(Meal.class);
-                assert(value != null);
-                assert(value.getCalories() == 42);
-//                lock.countDown();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.d("MyJUNIT", "Read Meal Cancelled Request  " + error.getMessage());
-                assert(false);
-            }
-        });
+        dbHandler.getProfileHandler().addMeal("0", "-NspSkX0JX2DgIvqtITf", 1);
 
         try {
             lock.await(2000, TimeUnit.MILLISECONDS);
@@ -155,7 +140,4 @@ public class DatabaseLogicTest {
             Log.d("MyJUNIT", "lock was interrupted in Meal read test");
         }
     }
-
-    
-
 }

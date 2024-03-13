@@ -50,8 +50,26 @@ public class ProfileHandler {
         }
     }
 
-    public void addMeal(String userID, String mealID) {
-        this.profiles.child(userID).child("mealIDs").push().setValue(mealID);
+    public void addMeal(String userID, String mealID, Integer MealDate) {
+        this.profiles.child(userID).child("mealIDs").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d("MyJUNIT", "Completed Meal ADD");
+                if (!task.isSuccessful()) {
+                    Log.d("MyJUNIT", "ADD MEAL FAILED " + task.getException().getMessage());
+                }
+
+            }
+        });
+        this.profiles.child(userID).child("mealDates").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("MyJUNIT", "ADD MEAL Date FAILED " + task.getException().getMessage());
+                }
+
+            }
+        });
     }
 
     public boolean createProfile(String userID) {
