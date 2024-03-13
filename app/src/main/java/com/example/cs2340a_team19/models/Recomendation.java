@@ -16,4 +16,8 @@ public class Recomendation {
             this.calorie_goal = (int) (10 * weight + 6.25 * height - 261);
         }
     }
+
+    public int getCalorie_goal(){
+        return this.calorie_goal;
+    }
 }
