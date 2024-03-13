@@ -24,5 +24,26 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class RecommendationTest {
+    @Test
+    public void testRecCalcMale() {
+        Recomendation r = new Recomendation(100, 100, true);
+        assertEquals(r.getCalorie_goal(), 1530);
+    }
+    @Test
+    public void testRecCalcMaleWithFemale() {
+        Recomendation r = new Recomendation(100, 100, true);
+        assertNotEquals(r.getCalorie_goal(), 1364);
+    }
+    @Test
+    public void testRecCalcFemale() {
+        Recomendation r = new Recomendation(100, 100, false);
+        assertEquals(r.getCalorie_goal(), 1364);
+    }
+    @Test
+    public void testRecCalcFemaleWithMale() {
+        Recomendation r = new Recomendation(100, 100, false);
+        assertNotEquals(r.getCalorie_goal(), 1530);
+    }
+
+
 }
-//setting up test structure for implementation
