@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,10 +40,17 @@ public class MealsFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textMeals;
+        final ProgressBar progressView = binding.progressBar;
 
         mealsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        mealsViewModel.getCalories().observe(getViewLifecycleOwner(), progressView::setProgress);
+        //createAnyChart(root);
+        return root;
+    }
+
+    private void createAnyChart(View root){
         AnyChartView anyChartView = root.findViewById(R.id.anychart_viz1_temp);
-        //anyChartView.setProgressBar(getView().findViewById(R.id.progress_bar));
+        anyChartView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
 
         CircularGauge circularGauge = AnyChart.circular();
         circularGauge.data(new SingleValueDataSet(new String[] { "23", "34", "67", "93", "56", "100"}));
@@ -208,7 +216,6 @@ public class MealsFragment extends Fragment {
                 .margin(0d, 0d, 20d, 0d);
 
         anyChartView.setChart(circularGauge);
-        return root;
     }
 
     @Override
