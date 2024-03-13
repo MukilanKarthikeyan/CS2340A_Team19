@@ -29,7 +29,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="100dp">
+                        android:layout_height="200dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -41,13 +41,27 @@
                                 android:layout_gravity="center_horizontal">
 
                                 <TextView
+                                    android:id="@+id/CalculatedCaloriesLabel"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:gravity="center"
+                                    android:text="Calorie Goal:"
+                                    app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.483"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                    app:layout_constraintVertical_bias="0.969" />
+                                <TextView
                                     android:id="@+id/CalculatedCalories"
                                     android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="10dp"
                                     android:gravity="center"
-                                    android:text="Calorie Goal: 2000"
+                                    android:text=""
                                     app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.483"
@@ -57,6 +71,7 @@
                             </LinearLayout>
 
 
+
                             <LinearLayout
                                 android:id="@+id/linearLayout"
                                 android:layout_width="match_parent"
@@ -64,44 +79,103 @@
                                 android:orientation="horizontal"
                                 tools:layout_editor_absoluteX="0dp"
                                 tools:layout_editor_absoluteY="346dp">
-
-                                <TextView
-                                    android:id="@+id/displayHeight"
-                                    android:layout_width="0dp"
+                                <LinearLayout
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="User Height:170cm"
-                                    app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="1.0"
-                                    android:gravity="center"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_horizontal">
+                                    <TextView
+                                        android:id="@+id/displayHeightLabel"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="User Height:"
+                                        app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintVertical_bias="1.0"
+                                        android:gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"/>
 
-                                <TextView
-                                    android:id="@+id/displayWeight"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text=" User Weight: 65kg"
-                                    tools:layout_editor_absoluteX="170dp"
-                                    tools:layout_editor_absoluteY="99dp"
-                                    android:gravity="center"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp"/>
+                                    <TextView
+                                        android:id="@+id/displayHeight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text=""
+                                        app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintVertical_bias="1.0"
+                                        android:gravity="center"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"/>
 
-                                <TextView
-                                    android:id="@+id/displayGender"
-                                    android:layout_width="0dp"
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="150dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/displayWeightLabel"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text=" User Weight"
+                                        tools:layout_editor_absoluteX="170dp"
+                                        tools:layout_editor_absoluteY="99dp" />
+
+                                    <TextView
+                                        android:id="@+id/displayWeight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text=""
+                                        tools:layout_editor_absoluteX="170dp"
+                                        tools:layout_editor_absoluteY="99dp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="User Gender: Male"
-                                    tools:layout_editor_absoluteX="324dp"
-                                    tools:layout_editor_absoluteY="98dp"
-                                    android:gravity="center"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/displayGenderLabel"
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="User Gender:"
+                                        tools:layout_editor_absoluteX="324dp"
+                                        tools:layout_editor_absoluteY="98dp" />
+
+                                    <TextView
+                                        android:id="@+id/displayGender"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text=""
+                                        tools:layout_editor_absoluteX="170dp"
+                                        tools:layout_editor_absoluteY="99dp" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
 

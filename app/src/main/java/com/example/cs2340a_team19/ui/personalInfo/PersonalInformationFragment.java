@@ -33,10 +33,8 @@ public class PersonalInformationFragment extends Fragment {
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PersonalInformationViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+
     }
 
 }
