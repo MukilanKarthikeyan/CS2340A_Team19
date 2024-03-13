@@ -2,30 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="LoginViewModelTest">
-      <entry key="addMeal()">
-        <State />
-      </entry>
-      <entry key="createMeal()">
-        <State />
-      </entry>
-      <entry key="testInvalidEmail()">
-        <State />
-      </entry>
-      <entry key="testValidEmail()">
-        <State />
-      </entry>
-      <entry key="testWhiteSpaceEmail()">
-        <State />
-      </entry>
-      <entry key="testWhiteSpacePassword()">
-      <entry key="createProfile()">
-        <State />
-      </entry>
-      <entry key="readMeal()">
-        <State />
-      </entry>
-      <entry key="readProfile()">
+      <entry key="app">
         <State />
       </entry>
     </value>
