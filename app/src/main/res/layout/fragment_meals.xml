@@ -29,7 +29,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/personal_information"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp">
+                        android:layout_height="180dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -57,7 +57,7 @@
                                 <TextView
                                     android:id="@+id/CalculatedCalories"
                                     android:layout_width="150dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="40dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="10dp"
                                     android:gravity="center"
@@ -77,6 +77,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:layout_gravity="center"
                                 tools:layout_editor_absoluteX="0dp"
                                 tools:layout_editor_absoluteY="346dp">
                                 <LinearLayout
@@ -87,7 +88,7 @@
                                     <TextView
                                         android:id="@+id/displayHeightLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="40dp"
+                                        android:layout_height="20dp"
                                         android:layout_weight="1"
                                         android:text="User Height:"
                                         app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
@@ -99,8 +100,8 @@
 
                                     <TextView
                                         android:id="@+id/displayHeight"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="100dp"
+                                        android:layout_height="20dp"
                                         android:layout_weight="1"
                                         android:text=""
                                         app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
@@ -122,7 +123,7 @@
                                     <TextView
                                         android:id="@+id/displayWeightLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="40dp"
+                                        android:layout_height="20dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
@@ -132,8 +133,8 @@
 
                                     <TextView
                                         android:id="@+id/displayWeight"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="100dp"
+                                        android:layout_height="20dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
@@ -153,7 +154,7 @@
                                     <TextView
                                         android:id="@+id/displayGenderLabel"
                                         android:layout_width="100dp"
-                                        android:layout_height="40dp"
+                                        android:layout_height="20dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
@@ -163,8 +164,8 @@
 
                                     <TextView
                                         android:id="@+id/displayGender"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="100dp"
+                                        android:layout_height="20dp"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginBottom="10dp"
                                         android:layout_weight="1"
