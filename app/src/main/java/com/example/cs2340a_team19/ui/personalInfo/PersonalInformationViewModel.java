@@ -28,7 +28,6 @@ public class PersonalInformationViewModel extends ViewModel {
     public PersonalInformationViewModel(PersonalInformationFragment frag) { //
         this.dbHandler = DatabaseHandler.getInstance();
         this.profileHandler = dbHandler.getProfileHandler();
-        frag.updateUI("000", "111");
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             this.profileHandler.listenToProfile(dbHandler.getUserID(), new ValueEventListener() {
                 @Override
@@ -42,7 +41,7 @@ public class PersonalInformationViewModel extends ViewModel {
                     } else {
                         // TODO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
-                        frag.updateUI("000", "111");
+                        frag.updateUI("" + value.getHeight(), "" + value.getWeight(), value.getGender());
 
 //                        radioGroup.set
                         // UI Stuff

@@ -23,7 +23,7 @@ public class PersonalInformationFragment extends Fragment {
 
     private PersonalInformationViewModel mViewModel;
     private FragmentPersonalInformationBinding binding;
-
+    private View view;
     public static PersonalInformationFragment newInstance() {
         return new PersonalInformationFragment();
     }
@@ -34,21 +34,21 @@ public class PersonalInformationFragment extends Fragment {
         binding = FragmentPersonalInformationBinding.inflate(inflater, container, false);
 
 //        this.updateUI("222", "333");
-        mViewModel = new PersonalInformationViewModel(this);
+
 
         return inflater.inflate(R.layout.fragment_personal_information, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
-        EditText text = view.findViewById("inputHeight");
-        text.setText("444");
+        this.view = view;
+        mViewModel = new PersonalInformationViewModel(this);
     }
 
-    public void updateUI(String newHeight, String newWeight) {
-        final EditText heightInput = binding.inputHeight;
-        final EditText weightInput = binding.inputWeight;
-//        final RadioGroup radioGroup = binding.radioGroup;
+    public void updateUI(String newHeight, String newWeight, boolean newGender) {
+        final EditText heightInput = view.findViewById(R.id.input_height);
+        final EditText weightInput = view.findViewById(R.id.input_weight);
+        final RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
         Log.d("DebugTag", "In updateUI!");
         heightInput.setText(newHeight);
         weightInput.setText(newWeight);
