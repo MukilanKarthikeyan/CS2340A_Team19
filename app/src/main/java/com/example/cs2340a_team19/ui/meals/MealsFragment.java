@@ -122,35 +122,7 @@ public class MealsFragment extends Fragment {
         anyChartView.setChart(circularGauge);
     }
     private void createPieChart(View root) {
-
-        AnyChartView anyChartView = root.findViewById(R.id.anychart_pie_viz);
-        anyChartView.setProgressBar(root.findViewById(R.id.anychart_pie_progress_bar));
-
-        Pie pie = AnyChart.pie();
-
-
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Your Calorie Intake", 500));
-        data.add(new ValueDataEntry("What you need to reach your Goal",100));
-
-
-        pie.data(data);
-
-        pie.title("Calorie Intake vs Calories Left Until Goal Reached");
-
-        pie.labels().position("outside");
-
-        pie.legend().title().enabled(true);
-        pie.legend().title()
-                .text("Retail channels")
-                .padding(0d, 0d, 10d, 0d);
-
-        pie.legend()
-                .position("center-bottom")
-                .itemsLayout(LegendLayout.HORIZONTAL)
-                .align(Align.CENTER);
-
-        anyChartView.setChart(pie);
+//TODO: other chart goes here
 
     }
     @Override
