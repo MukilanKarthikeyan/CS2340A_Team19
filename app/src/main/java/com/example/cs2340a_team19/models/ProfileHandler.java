@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -65,12 +66,8 @@ public class ProfileHandler {
 
     private boolean createProfile(Profile profile, String userID) {
         if (successfullyInitialized) {
-            this.profiles.child(userID).setValue(profile).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("MyJUNIT", e.getMessage());
-                }
-            });
+//            Log.d("MyJUNIT", "In Create Profile!");
+            this.profiles.child(userID).setValue(profile);
             return true;
         } else {
             Log.d("FBRTDB_ERROR", "Tried to create profile but the View Model was not sucsessfully instantiated!");

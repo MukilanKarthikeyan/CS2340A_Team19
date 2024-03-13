@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.Profile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,8 +31,14 @@ public class DatabaseLogicTest {
     public void createProfile() {
         DatabaseHandler dbHandler = DatabaseHandler.getInstance();
         assert(dbHandler.isSuccessfullyInitialized());
-
+        CountDownLatch lock = new CountDownLatch(1);
         assert(dbHandler.getProfileHandler().createProfile("0", 100, 100, true));
+
+        try {
+            lock.await(2000, TimeUnit.MILLISECONDS);
+        } catch(InterruptedException ie) {
+            Log.d("MyJUNIT", "lock was interrupted in profile read test");
+        }
     }
 
     @Test
@@ -62,9 +69,9 @@ public class DatabaseLogicTest {
         try {
             lock.await(2000, TimeUnit.MILLISECONDS);
         } catch(InterruptedException ie) {
-            Log.d("MyJUNIT", "lock was interrupted in profile read test");
+//            Log.d("MyJUNIT", "lock was interrupted in profile read test");
         }
-        Log.d("MyJUNIT", "Finished Profile Read Test: " + dbHandler.isSuccessfullyInitialized());
+//        Log.d("MyJUNIT", "Finished Profile Read Test: " + dbHandler.isSuccessfullyInitialized());
     }
 
 
@@ -73,7 +80,16 @@ public class DatabaseLogicTest {
         DatabaseHandler dbHandler = DatabaseHandler.getInstance();
         assert(dbHandler.isSuccessfullyInitialized());
 
-        assert(dbHandler.getMealHandler().createMeal("Spaighetti", 42) != null);
+        CountDownLatch lock = new CountDownLatch(1);
+        String key = dbHandler.getMealHandler().createMeal("Spaighetti", 42);
+        Log.d("MyJUNIT", "Meal Key: " + key);
+        assert(key != null);
+
+        try {
+            lock.await(2000, TimeUnit.MILLISECONDS);
+        } catch(InterruptedException ie) {
+            Log.d("MyJUNIT", "lock was interrupted in profile read test");
+        }
     }
 
     @Test
@@ -83,14 +99,14 @@ public class DatabaseLogicTest {
 
         CountDownLatch lock = new CountDownLatch(1);
 
-        dbHandler.getMealHandler().listenToMeal("" + 0, new ValueEventListener() {
+        dbHandler.getMealHandler().listenToMeal("-NspSkX0JX2DgIvqtITf", new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 assert(dataSnapshot.exists());
-                Profile value = dataSnapshot.getValue(Profile.class);
+                Meal value = dataSnapshot.getValue(Meal.class);
                 assert(value != null);
-                assert(value.getHeight() == 100);
-                lock.countDown();
+                assert(value.getCalories() == 42);
+//                lock.countDown();
             }
 
             @Override
@@ -107,5 +123,39 @@ public class DatabaseLogicTest {
             Log.d("MyJUNIT", "lock was interrupted in Meal read test");
         }
     }
+
+    @Test
+    public void addMeal() {
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+        assert(dbHandler.isSuccessfullyInitialized());
+
+        CountDownLatch lock = new CountDownLatch(1);
+
+        dbHandler.getMealHandler().listenToMeal("-NspSkX0JX2DgIvqtITf", new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                assert(dataSnapshot.exists());
+                Meal value = dataSnapshot.getValue(Meal.class);
+                assert(value != null);
+                assert(value.getCalories() == 42);
+//                lock.countDown();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.d("MyJUNIT", "Read Meal Cancelled Request  " + error.getMessage());
+                assert(false);
+            }
+        });
+
+        try {
+            lock.await(2000, TimeUnit.MILLISECONDS);
+        } catch(InterruptedException ie) {
+            Log.d("MyJUNIT", "lock was interrupted in Meal read test");
+        }
+    }
+
+    
 
 }
