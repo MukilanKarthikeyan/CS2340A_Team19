@@ -14,7 +14,7 @@ public class MealsViewModel extends ViewModel {
         mText.setValue("This is meals fragment");
         mcalories = new MutableLiveData<>();
         //get from database
-        mcalories.setValue(0);
+        mcalories.setValue(75);
 
     }
 
