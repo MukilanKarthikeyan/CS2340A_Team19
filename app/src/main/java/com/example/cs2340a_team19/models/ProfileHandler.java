@@ -50,7 +50,7 @@ public class ProfileHandler {
         }
     }
 
-    public void addMeal(String userID, String mealID, Integer MealDate) {
+    public void addMeal(String userID, String mealID, Integer mealDate) {
         this.profiles.child(userID).child("mealIDs").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -61,7 +61,7 @@ public class ProfileHandler {
 
             }
         });
-        this.profiles.child(userID).child("mealDates").push().setValue(mealID).addOnCompleteListener(new OnCompleteListener<Void>() {
+        this.profiles.child(userID).child("mealDates").push().setValue(mealDate).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (!task.isSuccessful()) {
