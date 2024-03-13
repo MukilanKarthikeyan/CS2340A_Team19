@@ -223,61 +223,89 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/bar_graph"
                     android:layout_width="375dp"
-                    android:layout_height="375dp"
+                    android:layout_height="500dp"
                     android:layout_marginBottom="25dp"
                     android:elevation="10dp"
                     app:cardCornerRadius="10dp">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="375dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_bar_graph"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp" />
+                            android:layout_height="375dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp">
 
-                        <ProgressBar
-                            android:id="@+id/anychart_bar_progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            <com.anychart.AnyChartView
+                                android:id="@+id/anychart_bar_graph"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:layout_editor_absoluteY="50dp" />
 
-                    </RelativeLayout>
+                            <ProgressBar
+                                android:id="@+id/anychart_bar_progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <Button
+                            android:id="@+id/bar_graph_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Generate Bar Graph" />
+                    </LinearLayout>
+
+
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/graph_caloire_goal"
                     android:layout_width="375dp"
-                    android:layout_height="375dp"
+                    android:layout_height="500dp"
                     android:layout_marginBottom="75dp"
                     android:elevation="10dp"
                     app:cardCornerRadius="10dp">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="375dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp">
-
-                        <com.anychart.AnyChartView
-                            android:id="@+id/anychart_viz1_temp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:layout_editor_absoluteY="50dp" />
+                            android:layout_height="375dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp">
 
-                        <ProgressBar
-                            android:id="@+id/anychart_progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </RelativeLayout>
+                            <com.anychart.AnyChartView
+                                android:id="@+id/anychart_viz1_temp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:layout_editor_absoluteY="50dp" />
+
+                            <ProgressBar
+                                android:id="@+id/anychart_progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </RelativeLayout>
+
+                        <Button
+                            android:id="@+id/gague_graph_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Generate Gauge Graph" />
+                    </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
 

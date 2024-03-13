@@ -52,19 +52,31 @@ import java.util.TimeZone;
 public class MealsFragment extends Fragment {
 
     private FragmentMealsBinding binding;
-    private MealsViewModel mealsViewModel;
-
-    private boolean firstChart = true;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        final Button barGraphGen = binding.barGraphButton;
+        final Button gagueGraphGen = binding.gagueGraphButton;
+        MealsViewModel mealsViewModel = new MealsViewModel(this);
+        barGraphGen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //TODO: get rid of this test
-        setPersonalInfo(2000, 6, 89, false);
+                int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+                createBarChart(root, weekCal);
+            }
+        });
+
+        gagueGraphGen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createGaugeChart(root, mealsViewModel);
+            }
+        });
+
 
         return root;
     }
@@ -72,7 +84,7 @@ public class MealsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        this.mealsViewModel = new MealsViewModel(this);
+        MealsViewModel mealsViewModel = new MealsViewModel(this);
 
         Button addMealButton = view.findViewById(R.id.submit_meal_button);
         EditText mealName = view.findViewById(R.id.input_meal_name);
@@ -84,11 +96,11 @@ public class MealsFragment extends Fragment {
             mealName.setText("");
             calorieCount.setText("");
         });
-        createGaugeChart(view);
+        //createGaugeChart(view);
 
-        int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+
         //mealsViewModel.getLastDays(weekCal, 7, this, view);
-        createBarChart(view, weekCal);
+        //createBarChart(view, weekCal);
 
     }
     //TODO: use this function to set the personal info
@@ -108,7 +120,7 @@ public class MealsFragment extends Fragment {
         }
     }
 
-    public void createGaugeChart(View root){
+    public void createGaugeChart(View root, MealsViewModel mealsViewModel){
 
         AnyChartView anyChartGagueView = root.findViewById(R.id.anychart_viz1_temp);
         APIlib.getInstance().setActiveAnyChartView(anyChartGagueView);
