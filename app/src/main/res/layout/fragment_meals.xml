@@ -10,350 +10,282 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/personal_information"
+                    android:layout_width="375dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/personal_information"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="180dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/CalculatedCaloriesLabel"
+                                android:layout_width="100dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:text="Calorie Goal:"
+                                app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.483"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                app:layout_constraintVertical_bias="0.969" />
+
+                            <TextView
+                                android:id="@+id/CalculatedCalories"
+                                android:layout_width="50dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:text=""
+                                app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.483"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                app:layout_constraintVertical_bias="0.969" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="346dp">
+
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="125dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_horizontal">
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/CalculatedCaloriesLabel"
-                                    android:layout_width="150dp"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/displayHeightLabel"
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="10dp"
-                                    android:gravity="center"
-                                    android:text="Calorie Goal:"
-                                    app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.483"
+                                    android:layout_weight="1"
+                                    android:text="User Height:"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                                    app:layout_constraintVertical_bias="0.969" />
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="1.0" />
+
                                 <TextView
-                                    android:id="@+id/CalculatedCalories"
-                                    android:layout_width="150dp"
-                                    android:layout_height="40dp"
+                                    android:id="@+id/displayHeight"
+                                    android:layout_width="50dp"
+                                    android:layout_height="20dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:text=""
                                     app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.483"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                                    app:layout_constraintVertical_bias="0.969" />
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="1.0" />
+
                             </LinearLayout>
-
-
 
                             <LinearLayout
-                                android:id="@+id/linearLayout"
-                                android:layout_width="match_parent"
+                                android:layout_width="125dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center"
-                                tools:layout_editor_absoluteX="0dp"
-                                tools:layout_editor_absoluteY="346dp">
-                                <LinearLayout
-                                    android:layout_width="125dp"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center_horizontal">
-                                    <TextView
-                                        android:id="@+id/displayHeightLabel"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_weight="1"
-                                        android:text="User Height:"
-                                        app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="1.0"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"/>
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/displayHeight"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_weight="1"
-                                        android:text=""
-                                        app:layout_constraintBottom_toTopOf="@+id/graph_caloire_goal"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="1.0"
-                                        android:gravity="center"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"/>
+                                <TextView
+                                    android:id="@+id/displayWeightLabel"
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:text=" User Weight:" />
 
-                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/displayWeight"
+                                    android:layout_width="50dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="" />
 
-                                <LinearLayout
-                                    android:layout_width="125dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center_horizontal"
-                                    android:orientation="vertical">
+                            </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/displayWeightLabel"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:layout_weight="1"
-                                        android:text=" User Weight"
-                                        tools:layout_editor_absoluteX="170dp"
-                                        tools:layout_editor_absoluteY="99dp" />
+                            <LinearLayout
+                                android:layout_width="125dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/displayWeight"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:text=""
-                                        tools:layout_editor_absoluteX="170dp"
-                                        tools:layout_editor_absoluteY="99dp" />
+                                <TextView
+                                    android:id="@+id/displayGenderLabel"
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:text="User Gender:" />
 
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="125dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:id="@+id/displayGenderLabel"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:layout_weight="1"
-                                        android:text="User Gender:"
-                                        tools:layout_editor_absoluteX="324dp"
-                                        tools:layout_editor_absoluteY="98dp" />
-
-                                    <TextView
-                                        android:id="@+id/displayGender"
-                                        android:layout_width="100dp"
-                                        android:layout_height="20dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:text=""
-                                        tools:layout_editor_absoluteX="170dp"
-                                        tools:layout_editor_absoluteY="99dp" />
-                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/displayGender"
+                                    android:layout_width="50dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="" />
                             </LinearLayout>
                         </LinearLayout>
+                    </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/pie_caloire_goal"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/details"
+                    android:layout_width="375dp"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="25dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="380dp"
-                        android:layout_marginBottom="25dp"
-                        android:elevation="10dp"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintBottom_toTopOf="@+id/details"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.491"
-                        app:layout_constraintStart_toStartOf="parent">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <RelativeLayout
+                        <EditText
+                            android:id="@+id/input_meal_name"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:hint="New Meal"
+                            android:inputType="text" />
+
+                        <EditText
+                            android:id="@+id/input_meal_calorie"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:hint="Estimated Calories"
+                            android:inputType="number" />
+
+                        <Button
+                            android:id="@+id/submit_meal_button"
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"></Button>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pie_caloire_goal"
+                    android:layout_width="375dp"
+                    android:layout_height="375dp"
+                    android:layout_marginBottom="25dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <com.anychart.AnyChartView
+                            android:id="@+id/anychart_pie_viz"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp">
-
-                            <com.anychart.AnyChartView
-                                android:id="@+id/anychart_pie_viz"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.491"
-                                app:layout_constraintStart_toStartOf="parent"
-                                tools:layout_editor_absoluteY="50dp">
-
-                                <ProgressBar
-                                    android:id="@+id/anychart_pie_progress_bar"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
-                            </com.anychart.AnyChartView>
-
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/graph_caloire_goal"
-                        android:layout_width="match_parent"
-                        android:layout_height="390dp"
-                        android:layout_marginBottom="25dp"
-                        android:elevation="10dp"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintBottom_toTopOf="@+id/details"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.491"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp">
-
-                            <com.anychart.AnyChartView
-                                android:id="@+id/anychart_viz1_temp"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.491"
-                                app:layout_constraintStart_toStartOf="parent"
-                                tools:layout_editor_absoluteY="50dp" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.491"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="50dp">
 
                             <ProgressBar
-                                android:id="@+id/anychart_progress_bar"
+                                android:id="@+id/anychart_pie_progress_bar"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
+                        </com.anychart.AnyChartView>
 
-                        </RelativeLayout>
+                    </RelativeLayout>
 
-                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/details"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/graph_caloire_goal"
+                    android:layout_width="375dp"
+                    android:layout_height="375dp"
+                    android:layout_marginBottom="75dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginBottom="60dp"
-                        android:elevation="10dp"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.491"
-                        app:layout_constraintStart_toStartOf="parent">
-                        <LinearLayout
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <com.anychart.AnyChartView
+                            android:id="@+id/anychart_viz1_temp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center">
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.491"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="50dp" />
 
-
-
-                            <LinearLayout
-                                android:layout_width="300dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginRight="10dp"
-                                    android:layout_marginBottom="10dp">
-
-                                    <EditText
-                                        android:id="@+id/input_meal_name"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:ems="10"
-                                        android:inputType="text"
-                                        android:text="meal name"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.965"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.972" />
-                                </RelativeLayout>
-
-
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="25dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginRight="25dp"
-                                    android:layout_marginBottom="10dp">
-
-                                    <TextView
-                                        android:id="@+id/prompt_caloire"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="estimated calorie count:"
-
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        tools:layout_editor_absoluteY="601dp" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="25dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginRight="25dp"
-                                    android:layout_marginBottom="10dp">
-
-                                    <EditText
-                                        android:id="@+id/input_meal_calorie"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="4dp"
-                                        android:ems="10"
-                                        android:inputType="number"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        tools:layout_editor_absoluteY="593dp" />
-
-                                </RelativeLayout>
-
-                            </LinearLayout>
-                            <Button
-                                android:id="@+id/submit_meal_button"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="Button" />
-                        </LinearLayout>
-
-
-
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
+                        <ProgressBar
+                            android:id="@+id/anychart_progress_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
