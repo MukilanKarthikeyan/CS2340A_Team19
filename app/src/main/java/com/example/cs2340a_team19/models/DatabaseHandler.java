@@ -12,6 +12,8 @@ public class DatabaseHandler {
     private String userID;
     private ProfileHandler profileHandler;
     private MealHandler mealHandler;
+    private CookbookHandler cookbookHandler;
+    private PantryHandler pantryHandler;
 
     private boolean succesfullyInitialized;
     private DatabaseHandler() {
@@ -26,8 +28,14 @@ public class DatabaseHandler {
 
         profileHandler = new ProfileHandler(this.database);
         mealHandler = new MealHandler(this.database);
+        cookbookHandler = new CookbookHandler(this.database);
+        pantryHandler = new PantryHandler(this.database);
 
-        succesfullyInitialized = profileHandler.isSuccessfullyInitialized() && mealHandler.isSuccessfullyInitialized();
+        succesfullyInitialized =
+                profileHandler.isSuccessfullyInitialized() &&
+                mealHandler.isSuccessfullyInitialized() &&
+                cookbookHandler.isSuccessfullyInitialized() &&
+                pantryHandler.isSuccessfullyInitialized();
 
     }
 
@@ -62,6 +70,14 @@ public class DatabaseHandler {
 
     public MealHandler getMealHandler() {
         return this.mealHandler;
+    }
+
+    public CookbookHandler getCookbookHandler() {
+        return this.cookbookHandler;
+    }
+
+    public PantryHandler getPantryHandler() {
+        return this.pantryHandler;
     }
 
     public String getUserID() {
