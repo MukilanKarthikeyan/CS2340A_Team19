@@ -2,6 +2,10 @@ package com.example.cs2340a_team19.models;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
@@ -9,7 +13,7 @@ public class PantryHandler {
     private DatabaseReference pantries;
     private boolean successfullyInitialized;
     public PantryHandler (DatabaseReference db) {
-        try{
+        try {
             this.pantries = db.child("pantries");
         } catch (NullPointerException ne) {
             Log.d("FBRTDB_ERROR", "Getting reference for pantries reached Null Pointer!");
@@ -76,6 +80,18 @@ public class PantryHandler {
             Log.d("FBRTDB_ERROR", "Tried to create ingredient but the View Model was not sucsessfully instantiated!");
             return null;
         }
+    }
+
+    public void removeIngredient(String userId, String ingredientId) {
+        this.pantries.child(userId).child(ingredientId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("FBRTDB_ERROR", "Tried to remove ingredient " + ingredientId +
+                            " from user " + userId + " but was unsuccsessful");
+                }
+            }
+        });
     }
 
     public boolean isSuccessfullyInitialized() {
