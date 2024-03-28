@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cs2340a_team19.databinding.FragmentIngredientsBinding;
+import com.example.cs2340a_team19.ui.recipe.RecipeViewModel;
 
 public class IngredientsFragment extends Fragment {
 
@@ -24,10 +25,14 @@ public class IngredientsFragment extends Fragment {
         binding = FragmentIngredientsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textIngredients;
-
-        ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+        //createPieChart(view);
+        IngredientsViewModel viewModel = new IngredientsViewModel();
+
     }
 
     @Override
