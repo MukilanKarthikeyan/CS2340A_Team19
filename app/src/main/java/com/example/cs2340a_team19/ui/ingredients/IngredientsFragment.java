@@ -31,13 +31,6 @@ public class IngredientsFragment extends Fragment {
 
         final TextView textView = binding.textIngredients;
         formButton = root.findViewById(R.id.formButton);
-//        formButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                openFormEntryDialog();
-//            }
-//        });
-
-
         formButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,15 +40,5 @@ public class IngredientsFragment extends Fragment {
         });
         ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
-    /*private void openFormEntryDialog() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FormEntryDialogFragment formEntryDialog = new FormEntryDialogFragment();
-        formEntryDialog.show(fragmentManager, "FormEntryDialog");
-    }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }*/
     }
 }
