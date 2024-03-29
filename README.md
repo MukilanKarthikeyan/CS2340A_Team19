@@ -1,7 +1,7 @@
 CS2340 section A group 19 project
 
 02.26.2024 Start of Sprint 2 planning
-Andy is starting Sprint 2 :0 (andy just realized he has to merge his own PRs)
+Andy is starting Sprint 2 :0 (andy just realized he has to merge his own PRs) andy needs help with 3C
 Alex is finishing Sprint 2
 
 
