@@ -41,4 +41,13 @@ public class IngredientsFragment extends Fragment {
         ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
+
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+        //createPieChart(view);
+        IngredientsViewModel viewModel = new IngredientsViewModel();
+    }
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
