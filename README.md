@@ -7,3 +7,5 @@ Alex is finishing Sprint 2
 
 sid checking in Sprint 2 - Now currently working on changing gender buttons in XML file, and attempting to make all sections of xml file "neater"
 Sohum checking in for Sprint 2
+
+Sohum checking in for Sprint 3
