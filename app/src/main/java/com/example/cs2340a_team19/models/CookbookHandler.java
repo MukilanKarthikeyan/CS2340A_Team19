@@ -56,8 +56,8 @@ public class CookbookHandler {
      *
      * @return String representing the mealID of the new Meal
      */
-    public String createRecipe(String name, String userId) {
-        Recipe recipe = new Recipe(name, userId);
+    public String createRecipe(String userId, String name, String description) {
+        Recipe recipe = new Recipe(name, userId, description);
         return this.createRecipe(recipe);
     }
 
