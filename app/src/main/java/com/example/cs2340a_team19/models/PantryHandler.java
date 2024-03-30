@@ -62,6 +62,15 @@ public class PantryHandler {
      *
      * @return String representing the mealID of the new Meal
      */
+    public String createIngredient(String userId, String name, String expirationDate, int calories, int quantity) {
+        Ingredient ingredient = new Ingredient(name, calories, quantity, expirationDate);
+        return this.createIngredient(userId, ingredient);
+    }
+
+    /**
+     *
+     * @return String representing the mealID of the new Meal
+     */
     private String createIngredient(String userId, Ingredient ingredient) {
         if (successfullyInitialized) {
             DatabaseReference childLoc = pantries.child(userId).push();
