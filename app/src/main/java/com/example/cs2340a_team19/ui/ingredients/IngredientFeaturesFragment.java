@@ -23,6 +23,7 @@ public class IngredientFeaturesFragment extends Fragment {
         textCalories = root.findViewById(R.id.textCalories);
         textExpirationDate = root.findViewById(R.id.textExpirationDate);
         addIngredient = root.findViewById(R.id.addIngredient);
+        IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +42,8 @@ public class IngredientFeaturesFragment extends Fragment {
                     Toast.makeText(getContext(), "Negative values are not possible", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                ingredientsViewModel.addIngredient(ingredientNameStr, quantity, (int) calories, expirationDateStr);
                 Toast.makeText(getContext(), "Ingredient added", Toast.LENGTH_SHORT).show();
                 textIngredientName.setText("");
                 textQuantity.setText("");
