@@ -1,6 +1,7 @@
     package com.example.cs2340a_team19.ui.ingredients;
 
     import android.os.Bundle;
+    import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -69,18 +70,22 @@
 
             // Initialize ingredient list (you should populate this with actual data)
             ingredientArr = new ArrayList<>();
+
             // Initialize adapter
             adapter = new IngredientsAdapter(ingredientArr);
 
-            // Set adapter to RecyclerView
-            recyclerView.setAdapter(adapter);
+            Log.d("ALEX", "ingredients list adapter set");
             // TODO fill arraylist with all ingredients - need User ID
             pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.d("ALEX", "ingredients list fragment before for loop");
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         ingredientArr.add(postSnapshot.getValue(Ingredient.class));
+                        Log.d("ALEX", "ingredients list fragment in for loop");
                     }
+                    // Set adapter to RecyclerView
+                    recyclerView.setAdapter(adapter);
                 }
 
                 @Override

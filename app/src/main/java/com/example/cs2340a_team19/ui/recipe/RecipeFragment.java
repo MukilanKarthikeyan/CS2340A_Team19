@@ -31,8 +31,6 @@ public class RecipeFragment extends Fragment {
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textRecipe;
-
         return root;
     }
 

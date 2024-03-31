@@ -44,12 +44,14 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("ALEX", "ingredients list adapter onCreateViewHolder check");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ingredient_list_item, parent, false);
 
         this.dbHandler = DatabaseHandler.getInstance();
         this.pantryHandler = dbHandler.getPantryHandler();
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
+            Log.d("ALEX", "ingredients list adapter onCreateViewHolder dbHandler initialized");
             // Add event listeners here!
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
@@ -62,7 +64,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         final Ingredient item = itemList.get(position);
         holder.itemNameTextView.setText(item.name);
         holder.quantityTextView.setText(String.valueOf(item.quantity));
-
+        Log.d("ALEX", "ingredients list adapter onBindViewHolder check");
         holder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +79,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             public void onClick(View v) {
                 // Decrease quantity if greater than 0
                 if (item.quantity > 1) {
-                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(), item.ingredientID, item.quantity + 1);
+                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(), item.ingredientID, item.quantity - 1);
                     notifyItemChanged(position);
                 } else {
                     pantryHandler.removeIngredient(dbHandler.getUserID(), item.ingredientID);
