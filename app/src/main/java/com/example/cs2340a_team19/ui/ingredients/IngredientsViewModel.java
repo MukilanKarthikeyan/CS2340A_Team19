@@ -32,6 +32,13 @@ public class IngredientsViewModel extends ViewModel {
         return textLiveData;
     }
 
+    public void addIngredient(String name, int quantity, int calories, String expiration) {
+        if (expiration != null && !expiration.equals("")) {
+            pantryHandler.createIngredient(dbHandler.getUserID(), name, expiration, calories, quantity);
+        } else {
+            pantryHandler.createIngredient(dbHandler.getUserID(), name, calories, quantity);
+        }
+    }
     // Method to update the text
     public void updateText(String newText) {
         textLiveData.setValue(newText);
