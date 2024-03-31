@@ -15,16 +15,26 @@ public class IngredientsViewModel extends ViewModel {
     private DatabaseHandler dbHandler;
     private CookbookHandler cookbookHandler;
     private PantryHandler pantryHandler;
-
+    private MutableLiveData<String> textLiveData;
     public IngredientsViewModel() {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
-
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             // Add event listeners here!
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
         }
+        this.textLiveData = new MutableLiveData<>();
+        this.textLiveData.setValue("Default text");
     }
+    public LiveData<String> getText() {
+        return textLiveData;
+    }
+
+    // Method to update the text
+    public void updateText(String newText) {
+        textLiveData.setValue(newText);
+    }
+
 }

@@ -25,7 +25,11 @@
         android:id="@+id/navigation_ingredients"
         android:name="com.example.cs2340a_team19.ui.ingredients.IngredientsFragment"
         android:label="@string/title_ingredients"
-        tools:layout="@layout/fragment_ingredients" />
+        tools:layout="@layout/fragment_ingredients" >
+        <action
+            android:id="@+id/action_navigation_ingredients_to_ingredientFeaturesFragment"
+            app:destination="@id/ingredient_features_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_meals"
@@ -43,6 +47,11 @@
         android:name="com.example.cs2340a_team19.ui.personalInfo.PersonalInformationFragment"
         android:label="@string/title_personal"
         tools:layout="@layout/fragment_personal_information" />
+    <fragment
+        android:id="@+id/ingredient_features_fragment"
+        android:name="com.example.cs2340a_team19.ui.ingredients.IngredientFeaturesFragment"
+        android:label="fragment_ingredient_features"
+        tools:layout="@layout/fragment_ingredient_features" />
 
 
 </navigation>
