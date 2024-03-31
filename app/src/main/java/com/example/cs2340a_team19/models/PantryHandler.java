@@ -34,7 +34,13 @@ public class PantryHandler {
 
     public void updateIngredientQuantity(String userId, String ingredientId, int quantity) {
         if (successfullyInitialized) {
-            pantries.child(userId).child(ingredientId).child("quantity").setValue(quantity);
+            try {
+                pantries.child(userId).child(ingredientId).child("quantity").setValue(quantity);
+            } catch (NullPointerException npe) {
+                Log.d("FBRTDB_ERROR", "Tried to add ingredient but encountered null pointer with (userId, ingredient Id, quantity): " + userId + ", " + ingredientId + ", " + quantity);
+            }
+
+
         } else {
             Log.d("FBRTDB_ERROR", "Tried to update ingredient but the View Model was not sucsessfully instantiated!");
         }
