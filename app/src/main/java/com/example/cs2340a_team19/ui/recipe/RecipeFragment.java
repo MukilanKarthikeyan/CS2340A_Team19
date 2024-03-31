@@ -30,6 +30,13 @@ import java.util.TimeZone;
 
 public class RecipeFragment extends Fragment {
 
+    private EditText recipeName;
+    private EditText ingredientList;
+    private EditText quantitiesList;
+
+    private Button addRecipe;
+
+
 
     private FragmentRecipeBinding binding;
 
@@ -42,12 +49,12 @@ public class RecipeFragment extends Fragment {
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button addRecipe = root.findViewById(R.id.addRecipe);
+        addRecipe = root.findViewById(R.id.addRecipe);
 
 
-        EditText recipeName = root.findViewById(R.id.RecipeName);
-        EditText ingredientList = root.findViewById(R.id.IngredientList);
-        EditText quantitiesList = root.findViewById(R.id.QuantitiesList);
+        recipeName = root.findViewById(R.id.RecipeName);
+        ingredientList = root.findViewById(R.id.IngredientList);
+        quantitiesList = root.findViewById(R.id.QuantitiesList);
 
 
         addRecipe.setOnClickListener(new View.OnClickListener() {
