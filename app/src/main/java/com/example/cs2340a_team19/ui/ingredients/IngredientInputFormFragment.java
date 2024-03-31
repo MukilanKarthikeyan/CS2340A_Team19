@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.cs2340a_team19.R;
-public class IngredientFeaturesFragment extends Fragment {
+public class IngredientInputFormFragment extends Fragment {
     private EditText textIngredientName;
     private EditText textQuantity;
     private EditText textCalories;
@@ -17,7 +17,7 @@ public class IngredientFeaturesFragment extends Fragment {
     private Button addIngredient;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_ingredient_features, container, false);
+        View root = inflater.inflate(R.layout.fragment_input_ingredient_form, container, false);
         textIngredientName = root.findViewById(R.id.textIngredientName);
         textQuantity = root.findViewById(R.id.textQuantity);
         textCalories = root.findViewById(R.id.textCalories);
