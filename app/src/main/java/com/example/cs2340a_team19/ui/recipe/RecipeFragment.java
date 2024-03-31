@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,14 +39,14 @@ public class RecipeFragment extends Fragment {
     private FragmentRecipeBinding binding;
 
 
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_recipe, container, false);
         RecipeViewModel recipeViewModel =
                 new ViewModelProvider(this).get(RecipeViewModel.class);
 
 
-        binding = FragmentRecipeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+//        binding = FragmentRecipeBinding.inflate(inflater, container, false);
+//        View root = binding.getRoot();
         addRecipe = root.findViewById(R.id.addRecipe);
         recipeName = root.findViewById(R.id.RecipeName);
         ingredientList = root.findViewById(R.id.IngredientList);
