@@ -67,6 +67,12 @@ public class RecipeFragment extends Fragment {
                 String name_list = ingredientList.getText().toString();
                 String quantities_list = quantitiesList.getText().toString();
 
+                //strip any whitespaces
+                String cleanedQuantsList = quantities_list.replaceAll("\\s+", "");
+                String cleanedNameList = name_list.replaceAll("\\s+", "");
+
+
+
 
                 if (rec_name.isEmpty() || name_list.isEmpty() || quantities_list.isEmpty()) {
                     Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
@@ -76,7 +82,7 @@ public class RecipeFragment extends Fragment {
 
 
                 //split string based on comma, put into array
-                String[] quants = quantities_list.split(",");
+                String[] quants = cleanedQuantsList.split(",");
                 for (String indivQuant : quants) {         //loop array
                     //check if something is negative or zero
                     //if so, do toast stuff

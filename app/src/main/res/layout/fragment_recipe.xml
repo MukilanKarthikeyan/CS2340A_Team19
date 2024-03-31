@@ -67,7 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.395"
             app:layout_constraintStart_toStartOf="parent">
-            
+
         </Button>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
