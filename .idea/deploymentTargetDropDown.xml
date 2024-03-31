@@ -2,10 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="DatabaseLogicTest">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
       <entry key="databaseInitializes()">
+        <State />
+      </entry>
+      <entry key="superTest()">
+        <State />
+      </entry>
+      <entry key="superTest2()">
+        <State />
+      </entry>
+      <entry key="updateRecipe()">
         <State />
       </entry>
     </value>
