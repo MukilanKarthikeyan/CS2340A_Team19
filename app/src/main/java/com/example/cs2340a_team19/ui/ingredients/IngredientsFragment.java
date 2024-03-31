@@ -17,9 +17,13 @@
 
     import com.example.cs2340a_team19.R;
     import com.example.cs2340a_team19.databinding.FragmentIngredientsBinding;
+    import com.example.cs2340a_team19.models.DatabaseHandler;
     import com.example.cs2340a_team19.models.Ingredient;
     import com.example.cs2340a_team19.models.PantryHandler;
     import com.example.cs2340a_team19.ui.recipe.RecipeViewModel;
+    import com.google.firebase.database.DataSnapshot;
+    import com.google.firebase.database.DatabaseError;
+    import com.google.firebase.database.ValueEventListener;
 
     import java.util.ArrayList;
     import java.util.List;
@@ -54,8 +58,10 @@
         }
         @Override
         public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
-            //createPieChart(view);
+
             IngredientsViewModel viewModel = new IngredientsViewModel();
+            DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+            PantryHandler pantryHandler = dbHandler.getPantryHandler();
 
             // Initialize RecyclerView
             recyclerView = view.findViewById(R.id.ingredientsRecycler);
@@ -64,14 +70,27 @@
             // Initialize ingredient list (you should populate this with actual data)
             ingredientArr = new ArrayList<>();
 
-            // TODO fill arraylist with all ingredients
-            PantryHandler.listenToPantry()
+            // TODO fill arraylist with all ingredients - need User ID
+            pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                        ingredientArr.add(postSnapshot.getValue(Ingredient.class));
+                    }
+                    // Initialize adapter
+                    adapter = new IngredientsAdapter(ingredientArr);
 
-            // Initialize adapter
-            adapter = new IngredientsAdapter(ingredientArr);
+                    // Set adapter to RecyclerView
+                    recyclerView.setAdapter(adapter);
+                }
 
-            // Set adapter to RecyclerView
-            recyclerView.setAdapter(adapter);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
         }
         @Override
         public void onDestroyView() {
