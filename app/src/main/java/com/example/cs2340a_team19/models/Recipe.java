@@ -27,4 +27,8 @@ public class Recipe {
             this.calories += ingredient.calories;
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }
