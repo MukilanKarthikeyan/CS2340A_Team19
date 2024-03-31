@@ -82,7 +82,7 @@ public class PantryHandler {
 //            } else {
 //                Log.d("FBRTDB_ERROR", "Tried to identify mealID but failed: " + childLoc.getKey());
 //            }
-
+            ingredient.ingredientID = childLoc.getKey();
             childLoc.setValue(ingredient);
             return childLoc.getKey();
         } else {
