@@ -75,7 +75,6 @@
             adapter = new IngredientsAdapter(ingredientArr);
 
             Log.d("ALEX", "ingredients list adapter set");
-            // TODO fill arraylist with all ingredients - need User ID
             pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
