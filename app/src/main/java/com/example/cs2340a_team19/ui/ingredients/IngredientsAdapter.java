@@ -38,7 +38,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         }
     }
 
-    public void MyAdapter(List<Ingredient> itemList) {
+    public IngredientsAdapter(List<Ingredient> itemList) {
         this.itemList = itemList;
     }
 

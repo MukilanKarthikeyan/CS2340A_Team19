@@ -64,10 +64,11 @@
             // Initialize ingredient list (you should populate this with actual data)
             ingredientArr = new ArrayList<>();
 
+            // TODO fill arraylist with all ingredients
             PantryHandler.listenToPantry()
 
             // Initialize adapter
-            adapter = new IngredientsAdapter(ingredientList);
+            adapter = new IngredientsAdapter(ingredientArr);
 
             // Set adapter to RecyclerView
             recyclerView.setAdapter(adapter);
