@@ -34,4 +34,8 @@ public class Recipe {
         this.calories = calories;
         this.ingredients = ingredients;
     }
+
+    public String getName() {
+        return name;
+    }
 }

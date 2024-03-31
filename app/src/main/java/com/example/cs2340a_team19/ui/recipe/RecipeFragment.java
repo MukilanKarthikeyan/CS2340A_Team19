@@ -13,8 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
+
+import java.util.List;
 
 public class RecipeFragment extends Fragment {
     //this will need to be intitialized as either a sortReverseAlphabetical or sortAlphabetical concrete strategy instance
@@ -39,8 +41,8 @@ public class RecipeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    public ArrayList<String> sortRecipes() {
-        return recipeSorter.sortRecipes(ArrayList<Recipe> recipes);
-    }
+//
+//    public List<String> sortRecipes() {
+//        return recipeSorter.sortRecipes(List<Recipe> recipes);
+//    }
 }
