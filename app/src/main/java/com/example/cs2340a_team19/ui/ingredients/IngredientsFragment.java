@@ -80,6 +80,8 @@
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Log.d("ALEX", "ingredients list fragment before for loop");
+                    ingredientArr.clear();
+                    Log.d("ALEX", "ingredients list fragment clear list");
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         ingredientArr.add(postSnapshot.getValue(Ingredient.class));
                         Log.d("ALEX", "ingredients list fragment in for loop");
