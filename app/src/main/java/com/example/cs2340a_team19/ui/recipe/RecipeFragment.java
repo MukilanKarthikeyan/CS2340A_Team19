@@ -61,6 +61,7 @@ public class RecipeFragment extends Fragment {
                 if (rec_name.isEmpty() || name_list.isEmpty() || quantities_list.isEmpty()) {
                     Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
                             Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 
@@ -72,8 +73,14 @@ public class RecipeFragment extends Fragment {
                     if (Integer.parseInt(indivQuant) <= 0) {
                         Toast.makeText(getContext(), "You have a negative quantity. " +
                                 "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
+
+                Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
+                recipeName.setText("");
+                ingredientList.setText("");
+                quantitiesList.setText("");
             }
         });
 
