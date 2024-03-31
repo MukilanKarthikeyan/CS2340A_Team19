@@ -61,11 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginBottom="240dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Add Recipe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.395"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
