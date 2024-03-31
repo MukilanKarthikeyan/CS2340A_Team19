@@ -2,6 +2,7 @@ package com.example.cs2340a_team19.ui.recipe;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,9 @@ public class RecipeFragment extends Fragment {
 //        binding = FragmentRecipeBinding.inflate(inflater, container, false);
 //        View root = binding.getRoot();
         addRecipe = root.findViewById(R.id.addRecipe);
+        if (addRecipe == null) {
+            Log.d("TESTING", "add recipe not bound");
+        }
         recipeName = root.findViewById(R.id.RecipeName);
         ingredientList = root.findViewById(R.id.IngredientList);
         quantitiesList = root.findViewById(R.id.QuantitiesList);
