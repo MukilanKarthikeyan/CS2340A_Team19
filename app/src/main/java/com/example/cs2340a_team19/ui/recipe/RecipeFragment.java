@@ -52,6 +52,8 @@ public class RecipeFragment extends Fragment {
         addRecipe = root.findViewById(R.id.addRecipe);
         if (addRecipe == null) {
             Log.d("TESTING", "add recipe not bound");
+        } else {
+            Log.d("TESTING", "add recipe bound");
         }
         recipeName = root.findViewById(R.id.RecipeName);
         ingredientList = root.findViewById(R.id.IngredientList);
