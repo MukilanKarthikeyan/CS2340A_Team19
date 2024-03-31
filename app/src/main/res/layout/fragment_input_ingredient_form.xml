@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginBottom="75dp">
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"
             android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="75dp"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="50dp"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -31,7 +32,6 @@
                     android:layout_height="50dp"
                     android:ems="10"
                     android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
                     android:hint="Ingredient Name: "
                     android:inputType="text" />
 
@@ -41,7 +41,6 @@
                     android:layout_height="50dp"
                     android:ems="10"
                     android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
                     android:hint="Quantity: "
                     android:inputType="number"/>
 
@@ -51,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
                     android:hint="Calories: "
                     android:inputType="numberDecimal"/>
 
@@ -61,7 +59,6 @@
                     android:layout_height="50dp"
                     android:ems="10"
                     android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
                     android:hint="Expiration Date (optional): "
                     android:inputType="date"/>
 

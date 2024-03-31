@@ -65,7 +65,7 @@
             ingredientArr = new ArrayList<>();
 
             // TODO fill arraylist with all ingredients
-            PantryHandler.listenToPantry()
+            //PantryHandler.listenToPantry();
 
             // Initialize adapter
             adapter = new IngredientsAdapter(ingredientArr);
