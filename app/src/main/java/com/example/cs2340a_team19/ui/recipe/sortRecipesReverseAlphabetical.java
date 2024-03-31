@@ -1,5 +1,5 @@
 package com.example.cs2340a_team19.ui.recipe;
-
+import com.example.cs2340a_team19.models.Recipe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
