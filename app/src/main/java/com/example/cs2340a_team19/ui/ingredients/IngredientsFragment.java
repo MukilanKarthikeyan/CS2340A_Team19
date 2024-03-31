@@ -12,15 +12,26 @@
     import androidx.fragment.app.FragmentManager;
     import androidx.lifecycle.ViewModelProvider;
     import androidx.navigation.Navigation;
+    import androidx.recyclerview.widget.LinearLayoutManager;
+    import androidx.recyclerview.widget.RecyclerView;
 
     import com.example.cs2340a_team19.R;
     import com.example.cs2340a_team19.databinding.FragmentIngredientsBinding;
+    import com.example.cs2340a_team19.models.Ingredient;
+    import com.example.cs2340a_team19.models.PantryHandler;
     import com.example.cs2340a_team19.ui.recipe.RecipeViewModel;
+
+    import java.util.ArrayList;
+    import java.util.List;
 
     public class IngredientsFragment extends Fragment {
 
         private FragmentIngredientsBinding binding;
         private Button formButton;
+
+        private RecyclerView recyclerView;
+        private IngredientsAdapter adapter;
+        private List<Ingredient> ingredientArr;
 
         public View onCreateView(@NonNull LayoutInflater inflater,
                                  ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +40,7 @@
 
             binding = FragmentIngredientsBinding.inflate(inflater, container, false);
             View root = binding.getRoot();
-            final TextView textView = binding.textIngredients;
+            //final TextView textView = binding.textIngredients;
             formButton = root.findViewById(R.id.formButton);
             formButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -38,7 +49,7 @@
                 }
 
             });
-            ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+            //ingredientsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
             return root;
         }
         @Override
@@ -46,6 +57,21 @@
             //createPieChart(view);
             IngredientsViewModel viewModel = new IngredientsViewModel();
 
+            // Initialize RecyclerView
+            recyclerView = view.findViewById(R.id.ingredientsRecycler);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            // Initialize ingredient list (you should populate this with actual data)
+            ingredientArr = new ArrayList<>();
+
+            // TODO fill arraylist with all ingredients
+            PantryHandler.listenToPantry()
+
+            // Initialize adapter
+            adapter = new IngredientsAdapter(ingredientArr);
+
+            // Set adapter to RecyclerView
+            recyclerView.setAdapter(adapter);
         }
         @Override
         public void onDestroyView() {
