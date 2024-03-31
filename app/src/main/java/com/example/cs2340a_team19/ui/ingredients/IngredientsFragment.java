@@ -69,7 +69,11 @@
 
             // Initialize ingredient list (you should populate this with actual data)
             ingredientArr = new ArrayList<>();
+            // Initialize adapter
+            adapter = new IngredientsAdapter(ingredientArr);
 
+            // Set adapter to RecyclerView
+            recyclerView.setAdapter(adapter);
             // TODO fill arraylist with all ingredients - need User ID
             pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
                 @Override
@@ -77,11 +81,6 @@
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         ingredientArr.add(postSnapshot.getValue(Ingredient.class));
                     }
-                    // Initialize adapter
-                    adapter = new IngredientsAdapter(ingredientArr);
-
-                    // Set adapter to RecyclerView
-                    recyclerView.setAdapter(adapter);
                 }
 
                 @Override
