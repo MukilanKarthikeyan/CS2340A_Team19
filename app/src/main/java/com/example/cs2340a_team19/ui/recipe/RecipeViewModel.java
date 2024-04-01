@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class RecipeViewModel extends ViewModel {
 
@@ -28,9 +28,9 @@ public class RecipeViewModel extends ViewModel {
     private PantryHandler pantryHandler;
     private List<Ingredient> currentPantry;
     private List<Recipe> currentCookbook;
-    private BiConsumer<List<Recipe>, List<Ingredient>> updateUI;
+    private Consumer<List<Recipe>> updateUI;
 
-    public RecipeViewModel(BiConsumer<List<Recipe>, List<Ingredient>> updateUI) {
+    public RecipeViewModel(Consumer<List<Recipe>> updateUI) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
@@ -69,7 +69,7 @@ public class RecipeViewModel extends ViewModel {
                 currentCookbook = recipes;
                 updateRecipeList();
                 if (updateUI != null) {
-                    updateUI.accept(currentCookbook, currentPantry);
+                    updateUI.accept(currentCookbook);
                 }
             }
 
@@ -91,7 +91,7 @@ public class RecipeViewModel extends ViewModel {
                 currentPantry = pantry;
                 updateRecipeList();
                 if (updateUI != null) {
-                    updateUI.accept(currentCookbook, currentPantry);
+                    updateUI.accept(currentCookbook);
                 }
             }
 
