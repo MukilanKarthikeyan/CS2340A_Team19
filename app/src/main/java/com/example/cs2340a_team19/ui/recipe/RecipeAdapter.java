@@ -1,8 +1,11 @@
 package com.example.cs2340a_team19.ui.recipe;
 
+//import static androidx.appcompat.graphics.drawable.DrawableContainerCompat.Api21Impl.getResources;
+
 import static java.security.AccessController.getContext;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipeList;
+    private Context context;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
         public RecyclerView ingredientsList;
@@ -47,8 +51,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
 
     }
-    public RecipeAdapter(List<Recipe> itemList) {
+    public RecipeAdapter(List<Recipe> itemList, Context context) {
         this.recipeList = itemList;
+        this.context = context;
     }
 
     @Override
@@ -65,9 +70,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.recipeNameLabel.setText(item.name);
 //        if (item.pantryReady) {
 //        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
+        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
+        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
 //        }
-        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
+//        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +89,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 //            }
 //        });
     }
-
     @Override
     public int getItemCount() {
         return recipeList.size();
