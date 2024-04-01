@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
+import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.Ingredient;
+import com.example.cs2340a_team19.models.PantryHandler;
+import com.example.cs2340a_team19.models.Recipe;
+import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 import com.example.cs2340a_team19.ui.meals.MealsViewModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,6 +42,9 @@ public class RecipeFragment extends Fragment {
     private static recipeSorter recipeSortingStrategy;
     private FragmentRecipeBinding binding;
     private Button newRecipeButton;
+    private RecyclerView recyclerView;
+    private RecipeAdapter adapter;
+    private List<Recipe> recipeList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +63,9 @@ public class RecipeFragment extends Fragment {
 
         });
 
+
+
+
         return root;
     }
 
@@ -55,7 +73,35 @@ public class RecipeFragment extends Fragment {
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
         RecipeViewModel viewModel = new RecipeViewModel(null);
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+        PantryHandler pantryHandler = dbHandler.getPantryHandler();
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recycler_recipe_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // Initialize ingredient list (you should populate this with actual data)
+        recipeList = new ArrayList<>();
+
+        // Initialize adapter
+        adapter = new RecipeAdapter(recipeList);
+
+        Log.d("ALEX", "ingredients list adapter set");
+        pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    recipeList.add(postSnapshot.getValue(Recipe.class));
+                }
+                // Set adapter to RecyclerView
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
