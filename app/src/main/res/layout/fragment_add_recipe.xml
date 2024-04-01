@@ -43,7 +43,7 @@
                     android:ems="10"
                     android:layout_marginTop="25dp"
                     android:hint="List of Ingredients (ex. pepper, cheese)"
-                    android:inputType="number"/>
+                    android:inputType="text"/>
 
                 <EditText
                     android:id="@+id/QuantitiesList"
@@ -52,7 +52,7 @@
                     android:ems="10"
                     android:layout_marginTop="25dp"
                     android:hint="Count of each Ingredient (ex. 2, 3)"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="text"/>
 
                 <Button
                     android:id="@+id/addRecipe"
