@@ -22,12 +22,15 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView itemNameTextView;
-        public TextView quantityTextView;
+        public TextView quantityAvailTextView;
+        public TextView quantityNeededTextView;
 
         public ViewHolder(View view) {
             super(view);
             itemNameTextView = view.findViewById(R.id.ingredientName);
-            quantityTextView = view.findViewById(R.id.ingredientQuantity);
+            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
+
+            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
         }
     }
 
@@ -38,7 +41,7 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_ingredient_list_item, parent, false);
+                .inflate(R.layout.recipe_card_ingredient, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -46,8 +49,8 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
     public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = itemList.get(position);
         holder.itemNameTextView.setText(item.name);
-        holder.quantityTextView.setText(String.valueOf(item.quantity));
-        Log.d("ALEX", "ingredients list adapter onBindViewHolder check");
+        holder.quantityNeededTextView.setText(String.valueOf(item.quantity));
+
     }
 
     @Override
