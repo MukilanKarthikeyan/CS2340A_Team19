@@ -14,14 +14,12 @@ import com.example.cs2340a_team19.models.Recommendation;
 import com.example.cs2340a_team19.models.UserMeal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 public class MealsViewModel extends ViewModel {
@@ -47,7 +45,7 @@ public class MealsViewModel extends ViewModel {
                         // TODO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
                         Recommendation rec = new Recommendation(value.getHeight(), value.getWeight(), value.getGender());
-                        frag.setPersonalInfo(rec.getCalorie_goal(), value.getHeight(), value.getWeight(), value.getGender());
+                        frag.setPersonalInfo(rec.getCalorieGoal(), value.getHeight(), value.getWeight(), value.getGender());
 
                     }
                 }
