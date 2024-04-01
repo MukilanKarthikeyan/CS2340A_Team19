@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
+
+import com.example.cs2340a_team19.models.Recipe;
 import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 import com.example.cs2340a_team19.ui.meals.MealsViewModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -32,6 +40,9 @@ public class RecipeFragment extends Fragment {
     private static recipeSorter recipeSortingStrategy;
     private FragmentRecipeBinding binding;
     private Button newRecipeButton;
+    private RecyclerView recyclerView;
+    private RecipeAdapter adapter;
+    private List<Recipe> recipeList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +58,6 @@ public class RecipeFragment extends Fragment {
             }
 
         });
-
         return root;
     }
 
@@ -55,6 +65,7 @@ public class RecipeFragment extends Fragment {
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecipeViewModel viewModel = new RecipeViewModel((recipeList) -> recyclerView.setAdapter(new RecipeAdapter(recipeList)));
     }
 
