@@ -54,13 +54,15 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             Log.d("ALEX", "ingredients list adapter onCreateViewHolder dbHandler initialized");
             // Add event listeners here!
         } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
+            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
+                    + "because dbHandler Initialization Failed!");
         }
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(final ViewHolder holder,
+                                 @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = itemList.get(position);
         holder.itemNameTextView.setText(item.name);
         holder.quantityTextView.setText(String.valueOf(item.quantity));
@@ -69,7 +71,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             @Override
             public void onClick(View v) {
                 // Increase quantity
-                pantryHandler.updateIngredientQuantity(dbHandler.getUserID(), item.ingredientID, item.quantity + 1);
+                pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                        item.ingredientID, item.quantity + 1);
                 notifyItemChanged(position);
             }
         });
@@ -79,7 +82,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             public void onClick(View v) {
                 // Decrease quantity if greater than 0
                 if (item.quantity > 1) {
-                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(), item.ingredientID, item.quantity - 1);
+                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                            item.ingredientID, item.quantity - 1);
                     notifyItemChanged(position);
                 } else {
                     pantryHandler.removeIngredient(dbHandler.getUserID(), item.ingredientID);
