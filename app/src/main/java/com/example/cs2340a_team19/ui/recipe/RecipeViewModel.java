@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class RecipeViewModel extends ViewModel {
@@ -25,9 +26,9 @@ public class RecipeViewModel extends ViewModel {
     private PantryHandler pantryHandler;
     private List<Ingredient> currentPantry;
     private List<Recipe> currentCookbook;
-    private Consumer<List<Recipe>> updateUI;
+    private BiConsumer<List<Recipe>, List<Ingredient>> updateUI;
 
-    public RecipeViewModel(Consumer<List<Recipe>> updateUI) {
+    public RecipeViewModel(BiConsumer<List<Recipe>, List<Ingredient>> updateUI) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
@@ -68,7 +69,7 @@ public class RecipeViewModel extends ViewModel {
 
                 if (updateUI != null) {
                     Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
-                    updateUI.accept(currentCookbook);
+                    updateUI.accept(currentCookbook, currentPantry);
                 }
             }
 
@@ -92,7 +93,7 @@ public class RecipeViewModel extends ViewModel {
 
                 if (updateUI != null) {
                     Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
-                    updateUI.accept(currentCookbook);
+                    updateUI.accept(currentCookbook, currentPantry);
                 }
             }
 
@@ -131,7 +132,7 @@ public class RecipeViewModel extends ViewModel {
         sorter.sortRecipes(currentCookbook);
         if (updateUI != null) {
             Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
-            updateUI.accept(currentCookbook);
+            updateUI.accept(currentCookbook, currentPantry);
         }
     }
 }
