@@ -28,7 +28,8 @@ public class Recipe {
         }
     }
 
-    public Recipe(String name, String userId, String description, int calories, List<Ingredient> ingredients) {
+    public Recipe(String name, String userId, String description,
+                  int calories, List<Ingredient> ingredients) {
         this.name = name;
         this.userId = userId;
         this.calories = calories;
