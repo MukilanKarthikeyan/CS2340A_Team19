@@ -58,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Recipe item = recipeList.get(position);
-        Log.d("GRYPHON_FINAL", item == null ? "NULL" : item.name);
+//        Log.d("GRYPHON_FINAL", item == null ? "NULL" : item.name);
         holder.recipeNameLabel.setText(item.name);
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
