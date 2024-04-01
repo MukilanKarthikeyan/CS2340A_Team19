@@ -48,8 +48,7 @@ public class RecipeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        RecipeViewModel recipeViewModel =
-                new ViewModelProvider(this).get(RecipeViewModel.class);
+        //RecipeViewModel recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

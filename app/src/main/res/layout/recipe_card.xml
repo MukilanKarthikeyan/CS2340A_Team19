@@ -18,6 +18,12 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:padding="8dp"/>
+        <TextView
+            android:id="@+id/ingredient_quantity"
+            android:text="amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
         <ListView
             android:id="@+id/recipe_ingredients"
             android:layout_width="325dp"
