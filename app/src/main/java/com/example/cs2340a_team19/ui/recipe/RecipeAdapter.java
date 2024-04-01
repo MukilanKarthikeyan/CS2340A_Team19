@@ -32,6 +32,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public RecipeViewHolder(View view) {
             super(view);
             recipeNameLabel = view.findViewById(R.id.recipe_name);
+            //quantitylabel = view.findViewById(R.id.ingredient_quantity);
+
         }
 
     }
@@ -55,9 +57,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(final RecipeAdapter.RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(final RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Recipe item = recipeList.get(position);
         holder.recipeNameLabel.setText(item.name);
+        //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
