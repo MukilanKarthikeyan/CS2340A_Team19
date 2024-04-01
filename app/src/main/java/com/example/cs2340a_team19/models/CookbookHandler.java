@@ -65,7 +65,7 @@ public class CookbookHandler {
      *
      * @return String representing the mealID of the new Meal
      */
-    private String createRecipe(Recipe recipe) {
+    public String createRecipe(Recipe recipe) {
         if (successfullyInitialized) {
             DatabaseReference childLoc = cookbook.push();
             // Find and set ID with Regex

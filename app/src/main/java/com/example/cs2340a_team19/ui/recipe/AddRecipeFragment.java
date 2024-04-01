@@ -2,11 +2,15 @@ package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.cs2340a_team19.R;
@@ -61,15 +65,15 @@ public class AddRecipeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add_recipe, container, false);
-        recipeName = root.findViewById(R.id.recipe_name_field);
-        ingredientList = root.findViewById(R.id.ingredient_list_field);
-        quantityList = root.findViewById(R.id.quantity_list_field);
-        addRecipe = root.findViewById(R.id.addRecipeButton);
-        IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+        //createPieChart(view);
+        RecipeViewModel viewModel = new RecipeViewModel();
+        Button addRecipe = view.findViewById(R.id.addRecipe);
+        EditText recipeName = view.findViewById(R.id.RecipeName);
+        EditText ingredientList = view.findViewById(R.id.IngredientList);
+        EditText quantitiesList = view.findViewById(R.id.QuantitiesList);
         addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 String rec_name = recipeName.getText().toString();
                 String name_list = ingredientList.getText().toString();
@@ -99,23 +103,38 @@ public class AddRecipeFragment extends Fragment {
                     return;
                 }
 
+                int[] quantsIntegers = new int[quants.length];
                 //check quantities are positive
-                for (String indivQuant : quants) {         //loop array
+                for (int i = 0; i < quants.length; i++) {         //loop array
                     //check if something is negative or zero
                     //if so, do toast stuff
-                    if (Integer.parseInt(indivQuant) <= 0) {
+                    String curr = quants[i];
+                    try {
+                        quantsIntegers[i] = Integer.parseInt(curr);
+                    } catch (NumberFormatException nfe) {
+                        Toast.makeText(getContext(), "Invalid Quantity " +
+                                "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (Integer.parseInt(curr) <= 0) {
                         Toast.makeText(getContext(), "You have a negative quantity. " +
                                 "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
+                viewModel.addRecipe(rec_name, names, quantsIntegers);
                 Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
                 recipeName.setText("");
                 ingredientList.setText("");
                 quantitiesList.setText("");
             }
         });
-        return root;
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_recipe, container, false);
     }
 }
