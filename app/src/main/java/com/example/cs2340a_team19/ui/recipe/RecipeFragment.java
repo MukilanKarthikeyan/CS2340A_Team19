@@ -62,10 +62,6 @@ public class RecipeFragment extends Fragment {
             }
 
         });
-
-
-
-
         return root;
     }
 
@@ -85,7 +81,6 @@ public class RecipeFragment extends Fragment {
         // Initialize adapter
         adapter = new RecipeAdapter(recipeList);
 
-        Log.d("ALEX", "ingredients list adapter set");
         pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
