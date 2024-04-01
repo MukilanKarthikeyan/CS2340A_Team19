@@ -39,14 +39,14 @@ public class RecipeViewModel extends ViewModel {
         }
     }
 
-    public void addRecipe(String name, List<String> ingredientNames, List<Integer> quantities) {
+    public void addRecipe(String name, String[] ingredientNames, int[] quantities) {
         List<Ingredient> ingredients = new ArrayList<Ingredient>();
-        if (ingredientNames == null || quantities == null || ingredientNames.size() != quantities.size()) {
+        if (ingredientNames == null || quantities == null || ingredientNames.length != quantities.length) {
             Log.d("VM_ERROR", "The ingredientName list and the ingredient quantity list were not the right size");
             return;
         }
-        for (int i = 0; i < ingredientNames.size(); i++) {
-            ingredients.add(new Ingredient(ingredientNames.get(i), 0, quantities.get(i)));
+        for (int i = 0; i < ingredientNames.length; i++) {
+            ingredients.add(new Ingredient(ingredientNames[i], 0, quantities[i]));
         }
         this.cookbookHandler.createRecipe(new Recipe(name, dbHandler.getUserID(), "", 0, ingredients));
     }
