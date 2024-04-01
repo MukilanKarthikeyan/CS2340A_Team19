@@ -28,7 +28,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
 
-
         public RecipeViewHolder(View view) {
             super(view);
             recipeNameLabel = view.findViewById(R.id.recipe_name);
@@ -44,7 +43,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.ingredient_list_item, parent, false);
+                .inflate(R.layout.recipe_card, parent, false);
 
         this.dbHandler = DatabaseHandler.getInstance();
         this.pantryHandler = dbHandler.getPantryHandler();
