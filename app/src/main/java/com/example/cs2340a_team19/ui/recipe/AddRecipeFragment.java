@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cs2340a_team19.R;
 
@@ -55,6 +56,55 @@ public class AddRecipeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        addRecipe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String rec_name = recipeName.getText().toString();
+//                String name_list = ingredientList.getText().toString();
+//                String quantities_list = quantitiesList.getText().toString();
+//
+//                //strip the lists of any whitespaces
+//                String cleanedNameList = name_list.replaceAll("\\s+", "");
+//                String cleanedQuantsList = quantities_list.replaceAll("\\s+", "");
+//
+//
+//                //if any input is empty, display this problem to user
+//                if (rec_name.isEmpty() || name_list.isEmpty() || quantities_list.isEmpty()) {
+//                    Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
+//                            Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                //split names list string based on comma, put into array
+//                String[] names = cleanedNameList.split(",");
+//                //split quantities list string based on comma, put into array
+//                String[] quants = cleanedQuantsList.split(",");
+//
+//                if (names.length != quants.length) {
+//                    Toast.makeText(getContext(), "The number of items in your lists is not " +
+//                            "matching." +
+//                            "Please ensure number of items match.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                //check quantities are positive
+//                for (String indivQuant : quants) {         //loop array
+//                    //check if something is negative or zero
+//                    //if so, do toast stuff
+//                    if (Integer.parseInt(indivQuant) <= 0) {
+//                        Toast.makeText(getContext(), "You have a negative quantity. " +
+//                                "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                }
+//
+//                Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
+//                recipeName.setText("");
+//                ingredientList.setText("");
+//                quantitiesList.setText("");
+//            }
+//        });
     }
 
     @Override
