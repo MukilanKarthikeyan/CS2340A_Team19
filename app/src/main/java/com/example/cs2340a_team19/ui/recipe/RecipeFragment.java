@@ -15,11 +15,15 @@ import androidx.navigation.Navigation;
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
+import com.example.cs2340a_team19.ui.meals.MealsViewModel;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Collections;
 
 import java.util.List;
+import java.util.TimeZone;
 
 public class RecipeFragment extends Fragment {
     //this will need to be intitialized as either a sortReverseAlphabetical or sortAlphabetical concrete strategy instance
@@ -45,6 +49,13 @@ public class RecipeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+        //createPieChart(view);
+        RecipeViewModel viewModel = new RecipeViewModel();
+
     }
 
     @Override
