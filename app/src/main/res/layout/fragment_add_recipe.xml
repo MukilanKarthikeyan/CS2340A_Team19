@@ -28,7 +28,7 @@
                 android:gravity="center"
                 tools:ignore="MissingConstraints">
                 <EditText
-                    android:id="@+id/RecipeName"
+                    android:id="@+id/recipe_name_field"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -37,7 +37,7 @@
                     android:inputType="text" />
 
                 <EditText
-                    android:id="@+id/IngredientList"
+                    android:id="@+id/ingredient_list_field"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -46,7 +46,7 @@
                     android:inputType="number"/>
 
                 <EditText
-                    android:id="@+id/QuantitiesList"
+                    android:id="@+id/quantity_list_field"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -55,7 +55,7 @@
                     android:inputType="numberDecimal"/>
 
                 <Button
-                    android:id="@+id/addRecipe"
+                    android:id="@+id/addRecipeButton"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="50dp"

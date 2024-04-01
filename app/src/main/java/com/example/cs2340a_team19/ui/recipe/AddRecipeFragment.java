@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.cs2340a_team19.R;
+import com.example.cs2340a_team19.models.Recipe;
 import com.example.cs2340a_team19.ui.ingredients.IngredientsViewModel;
 
 /**
@@ -62,38 +63,57 @@ public class AddRecipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_input_ingredient_form, container, false);
-        textIngredientName = root.findViewById(R.id.textIngredientName);
-        textQuantity = root.findViewById(R.id.textQuantity);
-        textCalories = root.findViewById(R.id.textCalories);
-        textExpirationDate = root.findViewById(R.id.textExpirationDate);
-        addIngredient = root.findViewById(R.id.addIngredient);
+        View root = inflater.inflate(R.layout.fragment_add_recipe, container, false);
+        recipeName = root.findViewById(R.id.recipe_name_field);
+        ingredientList = root.findViewById(R.id.ingredient_list_field);
+        quantityList = root.findViewById(R.id.quantity_list_field);
+        addRecipe = root.findViewById(R.id.addRecipeButton);
         IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
-        addIngredient.setOnClickListener(new View.OnClickListener() {
-            @Override
+        addRecipe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String ingredientNameStr = textIngredientName.getText().toString();
-                String quantityStr = textQuantity.getText().toString();
-                String caloriesStr = textCalories.getText().toString();
-                String expirationDateStr = textExpirationDate.getText().toString();
+                String rec_name = recipeName.getText().toString();
+                String name_list = ingredientList.getText().toString();
+                String quantities_list = quantitiesList.getText().toString();
 
-                if (ingredientNameStr.isEmpty() || quantityStr.isEmpty() || caloriesStr.isEmpty()) {
-                    Toast.makeText(getContext(), "Please enter something", Toast.LENGTH_SHORT).show();
+                //strip the lists of any whitespaces
+                String cleanedNameList = name_list.replaceAll("\\s+", "");
+                String cleanedQuantsList = quantities_list.replaceAll("\\s+", "");
+
+
+                //if any input is empty, display this problem to user
+                if (rec_name.isEmpty() || name_list.isEmpty() || quantities_list.isEmpty()) {
+                    Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int quantity = Integer.parseInt(quantityStr);
-                double calories = Double.parseDouble(caloriesStr);
-                if (quantity <= 0 || calories <= 0) {
-                    Toast.makeText(getContext(), "Negative values are not possible", Toast.LENGTH_SHORT).show();
+
+                //split names list string based on comma, put into array
+                String[] names = cleanedNameList.split(",");
+                //split quantities list string based on comma, put into array
+                String[] quants = cleanedQuantsList.split(",");
+
+                if (names.length != quants.length) {
+                    Toast.makeText(getContext(), "The number of items in your lists is not " +
+                            "matching." +
+                            "Please ensure number of items match.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ingredientsViewModel.addIngredient(ingredientNameStr, quantity, (int) calories, expirationDateStr);
-                Toast.makeText(getContext(), "Ingredient added", Toast.LENGTH_SHORT).show();
-                textIngredientName.setText("");
-                textQuantity.setText("");
-                textCalories.setText("");
-                textExpirationDate.setText("");
+                //check quantities are positive
+                for (String indivQuant : quants) {         //loop array
+                    //check if something is negative or zero
+                    //if so, do toast stuff
+                    if (Integer.parseInt(indivQuant) <= 0) {
+                        Toast.makeText(getContext(), "You have a negative quantity. " +
+                                "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
+                recipeName.setText("");
+                ingredientList.setText("");
+                quantitiesList.setText("");
             }
         });
         return root;
