@@ -19,7 +19,11 @@
         android:id="@+id/navigation_recipe"
         android:name="com.example.cs2340a_team19.ui.recipe.RecipeFragment"
         android:label="@string/title_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_navigation_recipe_to_add_recipe_fragment"
+            app:destination="@id/add_recipe_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_ingredients"
@@ -52,6 +56,11 @@
         android:name="com.example.cs2340a_team19.ui.ingredients.IngredientInputFormFragment"
         android:label="@string/label_ingredient_input_form"
         tools:layout="@layout/fragment_input_ingredient_form" />
+    <fragment
+        android:id="@+id/add_recipe_fragment"
+        android:name="com.example.cs2340a_team19.AddRecipeFragment"
+        android:label="fragment_add_recipe"
+        tools:layout="@layout/fragment_add_recipe" />
 
 
 </navigation>
