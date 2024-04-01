@@ -54,7 +54,7 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        RecipeViewModel viewModel = new RecipeViewModel();
+        RecipeViewModel viewModel = new RecipeViewModel(null);
 
     }
 
