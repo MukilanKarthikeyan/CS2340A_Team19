@@ -1,16 +1,13 @@
 package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,24 +17,14 @@ import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 
 import com.example.cs2340a_team19.models.Recipe;
-import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
-import com.example.cs2340a_team19.ui.meals.MealsViewModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Collections;
-
+import java.util.Comparator;
 import java.util.List;
-import java.util.TimeZone;
 
 public class RecipeFragment extends Fragment {
     //this will need to be intitialized as either a sortReverseAlphabetical or sortAlphabetical concrete strategy instance
-    private static recipeSorter recipeSortingStrategy;
+    private static RecipeSorter recipeSortingStrategy;
     private FragmentRecipeBinding binding;
     private Button newRecipeButton;
     private RecyclerView recyclerView;
@@ -68,6 +55,14 @@ public class RecipeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecipeViewModel viewModel = new RecipeViewModel((recipeList) -> recyclerView.setAdapter(new RecipeAdapter(recipeList)));
+
+        Button alphaButton = view.findViewById(R.id.sortAlpha);
+        Button reverseButton = view.findViewById(R.id.sortRevAlpha);
+        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> list.sort(Comparator.comparing(Recipe::getName))));
+        reverseButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> {
+            list.sort(Comparator.comparing(Recipe::getName));
+            Collections.reverse(list);
+        }));
     }
 
     @Override

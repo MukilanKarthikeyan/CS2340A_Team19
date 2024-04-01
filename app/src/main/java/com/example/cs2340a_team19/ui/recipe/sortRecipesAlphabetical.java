@@ -1,13 +1,11 @@
 package com.example.cs2340a_team19.ui.recipe;
 import com.example.cs2340a_team19.models.Recipe;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
-public class sortRecipesAlphabetical implements recipeSorter{
-    public ArrayList<Recipe> sortRecipes(ArrayList<Recipe> recipes) {
-        ArrayList<Recipe> sortedRecipe = new ArrayList<>(recipes);
-        sortedRecipe.sort(Comparator.comparing(Recipe::getName));
-        return sortedRecipe;
+public class sortRecipesAlphabetical implements RecipeSorter {
+    public void sortRecipes(List<Recipe> recipes) {
+        recipes.sort(Comparator.comparing(Recipe::getName));
     }
 }

@@ -9,10 +9,7 @@ import com.example.cs2340a_team19.models.CookbookHandler;
 import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.PantryHandler;
-import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.Recipe;
-import com.example.cs2340a_team19.models.Recommendation;
-import com.example.cs2340a_team19.ui.meals.MealsFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -70,7 +67,7 @@ public class RecipeViewModel extends ViewModel {
                 updateRecipeList();
 
                 if (updateUI != null) {
-                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList(Cookbook): " + currentCookbook.size());
+                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
                     updateUI.accept(currentCookbook);
                 }
             }
@@ -128,5 +125,13 @@ public class RecipeViewModel extends ViewModel {
             }
         }
         return true;
+    }
+
+    public void sortCookbook(RecipeSorter sorter) {
+        sorter.sortRecipes(currentCookbook);
+        if (updateUI != null) {
+            Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
+            updateUI.accept(currentCookbook);
+        }
     }
 }
