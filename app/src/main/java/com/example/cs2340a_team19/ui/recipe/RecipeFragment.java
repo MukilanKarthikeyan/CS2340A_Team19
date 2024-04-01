@@ -17,6 +17,7 @@ import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 
 import com.example.cs2340a_team19.models.Recipe;
+import com.example.cs2340a_team19.ui.DividerItemDecoration;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,7 +38,8 @@ public class RecipeFragment extends Fragment {
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        RecyclerView recipeRecycler = (RecyclerView) root.findViewById(R.id.recycler_recipe_list);
+        recipeRecycler.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
         newRecipeButton = root.findViewById(R.id.newRecipeButton);
         newRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,8 @@ public class RecipeFragment extends Fragment {
             }
 
         });
+
+
         return root;
     }
 

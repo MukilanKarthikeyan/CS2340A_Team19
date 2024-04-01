@@ -6,6 +6,7 @@ import static java.security.AccessController.getContext;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anychart.ui.contextmenu.Item;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Ingredient;
@@ -35,6 +38,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public RecyclerView ingredientsList;
 
         public CardView recipePantryStatus;
+        public Recipe currItem;
+        private boolean displayIngredients = false;
 
 
         public RecipeViewHolder(View view) {
@@ -42,9 +47,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             recipeNameLabel = view.findViewById(R.id.recipe_name);
 
             ingredientsList = view.findViewById(R.id.recipe_ingredient_list);
-//            ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             recipePantryStatus = view.findViewById(R.id.pantry_status_indicator);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ingredientsList.setLayoutManager(new LinearLayoutManager(context));
+                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients));
+                }
+            });
 
             //quantitylabel = view.findViewById(R.id.ingredient_quantity);
 
@@ -66,14 +79,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Recipe item = recipeList.get(position);
-//        Log.d("GRYPHON_FINAL", item == null ? "NULL" : item.name);
+        holder.currItem = item;
         holder.recipeNameLabel.setText(item.name);
-//        if (item.pantryReady) {
-//        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
-//        }
-//        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
+
+        int recipeStatus = ContextCompat.getColor(this.context, (item.pantryReady) ? R.color.green : R.color.red);
+        holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
+
+//        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
+//        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
+
+
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
