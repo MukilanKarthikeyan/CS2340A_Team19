@@ -26,5 +26,7 @@
     <string name="input_personal_button">"Button that leads to screen to input personal info"</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="label_ingredient_input_form">New Ingredient</string>
+    <string name="label_ingredient_input_form">Add Ingredient</string>
+    <string name="label_recipe_input_form">Add Recipe</string>
+
 </resources>

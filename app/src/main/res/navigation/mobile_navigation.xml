@@ -58,8 +58,8 @@
         tools:layout="@layout/fragment_input_ingredient_form" />
     <fragment
         android:id="@+id/add_recipe_fragment"
-        android:name="com.example.cs2340a_team19.AddRecipeFragment"
-        android:label="fragment_add_recipe"
+        android:name="com.example.cs2340a_team19.ui.recipe.AddRecipeFragment"
+        android:label="@string/label_recipe_input_form"
         tools:layout="@layout/fragment_add_recipe" />
 
 
