@@ -74,7 +74,7 @@ public class RecipeAdapter {
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return recipeList.size();
     }
 
 }
