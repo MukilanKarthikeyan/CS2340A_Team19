@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs2340a_team19.R;
@@ -22,15 +23,15 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipeList;
-
-    private DatabaseHandler dbHandler;
-    private PantryHandler pantryHandler;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
+        public RecyclerView ingredientsList;
 
         public RecipeViewHolder(View view) {
             super(view);
             recipeNameLabel = view.findViewById(R.id.recipe_name);
+            ingredientsList = view.findViewById(R.id.recipe_ingredient_list);
+//            ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
             //quantitylabel = view.findViewById(R.id.ingredient_quantity);
 
         }
@@ -44,14 +45,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recipe_card, parent, false);
-
-        this.dbHandler = DatabaseHandler.getInstance();
-        this.pantryHandler = dbHandler.getPantryHandler();
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            // Add event listeners here!
-        } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
-        }
         return new RecipeAdapter.RecipeViewHolder(itemView);
     }
 
@@ -60,6 +53,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         final Recipe item = recipeList.get(position);
 //        Log.d("GRYPHON_FINAL", item == null ? "NULL" : item.name);
         holder.recipeNameLabel.setText(item.name);
+//        if (item.pantryReady) {
+//        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+            holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
+//        }
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
