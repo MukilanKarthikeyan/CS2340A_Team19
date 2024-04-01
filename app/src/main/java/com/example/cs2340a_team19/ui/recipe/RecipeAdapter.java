@@ -1,5 +1,9 @@
 package com.example.cs2340a_team19.ui.recipe;
 
+import static androidx.appcompat.graphics.drawable.DrawableContainerCompat.Api21Impl.getResources;
+
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs2340a_team19.R;
@@ -27,10 +32,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private PantryHandler pantryHandler;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
+        public CardView recipePantryStatus;
 
         public RecipeViewHolder(View view) {
             super(view);
             recipeNameLabel = view.findViewById(R.id.recipe_name);
+            recipePantryStatus = view.findViewById(R.id.pantry_status_indicator);
+
             //quantitylabel = view.findViewById(R.id.ingredient_quantity);
 
         }
@@ -60,6 +68,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         final Recipe item = recipeList.get(position);
 //        Log.d("GRYPHON_FINAL", item == null ? "NULL" : item.name);
         holder.recipeNameLabel.setText(item.name);
+        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
