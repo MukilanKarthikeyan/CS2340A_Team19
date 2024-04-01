@@ -54,7 +54,7 @@ public class RecipeFragment extends Fragment {
         //createPieChart(view);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        RecipeViewModel viewModel = new RecipeViewModel((recipeList) -> recyclerView.setAdapter(new RecipeAdapter(recipeList)));
+        RecipeViewModel viewModel = new RecipeViewModel((recipeList) -> recyclerView.setAdapter(new RecipeAdapter(recipeList, getActivity())));
 
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);

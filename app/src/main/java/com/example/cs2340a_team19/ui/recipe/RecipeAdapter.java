@@ -1,10 +1,11 @@
 package com.example.cs2340a_team19.ui.recipe;
 
-import static androidx.appcompat.graphics.drawable.DrawableContainerCompat.Api21Impl.getResources;
+//import static androidx.appcompat.graphics.drawable.DrawableContainerCompat.Api21Impl.getResources;
 
 import static java.security.AccessController.getContext;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-<<<<<<< HEAD
 import androidx.recyclerview.widget.LinearLayoutManager;
-=======
 import androidx.core.content.res.ResourcesCompat;
->>>>>>> fd2b99191fc0e72224f93ec1740583c56012a457
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs2340a_team19.R;
@@ -31,31 +29,27 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipeList;
+    private Context context;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
-<<<<<<< HEAD
         public RecyclerView ingredientsList;
-=======
         public CardView recipePantryStatus;
->>>>>>> fd2b99191fc0e72224f93ec1740583c56012a457
 
         public RecipeViewHolder(View view) {
             super(view);
             recipeNameLabel = view.findViewById(R.id.recipe_name);
-<<<<<<< HEAD
             ingredientsList = view.findViewById(R.id.recipe_ingredient_list);
 //            ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-=======
             recipePantryStatus = view.findViewById(R.id.pantry_status_indicator);
 
->>>>>>> fd2b99191fc0e72224f93ec1740583c56012a457
             //quantitylabel = view.findViewById(R.id.ingredient_quantity);
 
         }
 
     }
-    public RecipeAdapter(List<Recipe> itemList) {
+    public RecipeAdapter(List<Recipe> itemList, Context context) {
         this.recipeList = itemList;
+        this.context = context;
     }
 
     @Override
@@ -72,9 +66,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.recipeNameLabel.setText(item.name);
 //        if (item.pantryReady) {
 //        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
+        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
+        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
 //        }
-        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
+//        holder.recipePantryStatus.setCardBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
         //holder.quantityTextView.setText(String.valueOf(item.quantity));
 
 //        holder.minusButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +85,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 //            }
 //        });
     }
-
     @Override
     public int getItemCount() {
         return recipeList.size();
