@@ -19,17 +19,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class RecipeViewModel extends ViewModel {
 
     private DatabaseHandler dbHandler;
     private CookbookHandler cookbookHandler;
     private PantryHandler pantryHandler;
+    private List<Ingredient> currentPantry;
+    private List<Recipe> currentCookbook;
+    private BiConsumer<List<Recipe>, List<Ingredient>> updateUI;
 
-    public RecipeViewModel() {
+    public RecipeViewModel(BiConsumer<List<Recipe>, List<Ingredient>> updateUI) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
+        this.currentPantry = new ArrayList<>();
+        this.currentCookbook = new ArrayList<>();
+        this.updateUI = updateUI;
 
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             // Add event listeners here!
@@ -57,9 +64,13 @@ public class RecipeViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Recipe> recipes = new ArrayList<>();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    recipes.add(postSnapshot.getValue(Recipe.class));
+                    postSnapshot.getValue(Recipe.class);
                 }
-                // TODO: Call UI updater and pass in recipes!
+                currentCookbook = recipes;
+                updateRecipeList();
+                if (updateUI != null) {
+                    updateUI.accept(currentCookbook, currentPantry);
+                }
             }
 
             @Override
@@ -67,5 +78,51 @@ public class RecipeViewModel extends ViewModel {
                 Log.d("FBRTDB_ERROR", "Tried to add cookbook listner but cancelled");
             }
         });
+    }
+
+    public void addPantryListener() {
+        this.pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Ingredient> pantry = new ArrayList<>();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    pantry.add(postSnapshot.getValue(Ingredient.class));
+                }
+                currentPantry = pantry;
+                updateRecipeList();
+                if (updateUI != null) {
+                    updateUI.accept(currentCookbook, currentPantry);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("FBRTDB_ERROR", "Tried to add cookbook listner but cancelled");
+            }
+        });
+    }
+
+    public void updateRecipeList() {
+        for (Recipe curr : currentCookbook) {
+            curr.pantryReady = checkRecipe(curr);
+        }
+    }
+
+    public boolean checkRecipe(Recipe recipe) {
+        for (Ingredient curr : recipe.ingredients) {
+            boolean matchedIngredient = false;
+            for (Ingredient pantryIngredient : currentPantry) {
+                if (curr.name.trim().equalsIgnoreCase(pantryIngredient.name.trim())) {
+                    if (curr.quantity <= pantryIngredient.quantity) {
+                        matchedIngredient = true;
+                    }
+                    break;
+                }
+            }
+            if (!matchedIngredient) {
+                return false;
+            }
+        }
+        return true;
     }
 }
