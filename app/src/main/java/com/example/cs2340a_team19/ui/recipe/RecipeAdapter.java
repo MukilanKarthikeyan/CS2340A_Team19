@@ -19,7 +19,7 @@ import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 
 import java.util.List;
 
-public class RecipeAdapter {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipeList;
 
     private DatabaseHandler dbHandler;
