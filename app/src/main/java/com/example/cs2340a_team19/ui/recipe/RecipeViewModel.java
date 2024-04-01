@@ -64,11 +64,13 @@ public class RecipeViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Recipe> recipes = new ArrayList<>();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    postSnapshot.getValue(Recipe.class);
+                    recipes.add(postSnapshot.getValue(Recipe.class));
                 }
                 currentCookbook = recipes;
                 updateRecipeList();
+
                 if (updateUI != null) {
+                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList(Cookbook): " + currentCookbook.size());
                     updateUI.accept(currentCookbook);
                 }
             }
@@ -90,7 +92,9 @@ public class RecipeViewModel extends ViewModel {
                 }
                 currentPantry = pantry;
                 updateRecipeList();
+
                 if (updateUI != null) {
+                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
                     updateUI.accept(currentCookbook);
                 }
             }

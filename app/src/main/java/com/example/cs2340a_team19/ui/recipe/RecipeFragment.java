@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
+import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 import com.example.cs2340a_team19.ui.meals.MealsViewModel;
 
 import java.util.Calendar;
@@ -33,8 +35,6 @@ public class RecipeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        RecipeViewModel recipeViewModel =
-                new ViewModelProvider(this).get(RecipeViewModel.class);
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -54,8 +54,8 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        RecipeViewModel viewModel = new RecipeViewModel(null);
-
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
+        RecipeViewModel viewModel = new RecipeViewModel((recipeList) -> recyclerView.setAdapter(new RecipeAdapter(recipeList)));
     }
 
     @Override
