@@ -32,10 +32,11 @@
                 app:cardCornerRadius="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
-                <!-- ANIMATE CHANGE TO BUTTOn-->
+                <!-- ANIMATE CHANGE TO BUTTON button must fill the entire space, and card should grow to wrap content-->
                 <Button
                     android:layout_width="100dp"
-                    android:layout_height="35dp">
+                    android:layout_height="35dp"
+                    android:text="cook/add to cart">
 
                 </Button>
             </androidx.cardview.widget.CardView>
