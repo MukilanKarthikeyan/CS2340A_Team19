@@ -32,7 +32,12 @@
                 app:cardCornerRadius="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
+                <!-- ANIMATE CHANGE TO BUTTOn-->
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="35dp">
 
+                </Button>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 

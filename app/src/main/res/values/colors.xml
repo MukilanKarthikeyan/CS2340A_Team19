@@ -19,7 +19,9 @@
     <color name="color_two">#E3E0E0</color>
 
     <color name="green">#66BB6A</color>
+    <color name="yellow">#FFA726</color>
     <color name="red">#EF5350</color>
+
 
 
     <color name="chart_value1">#FFA726</color>
