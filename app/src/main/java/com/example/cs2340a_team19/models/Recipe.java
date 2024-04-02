@@ -1,9 +1,13 @@
 package com.example.cs2340a_team19.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.List;
 import java.util.ArrayList;
 
 public class Recipe {
+    @Exclude
+    public boolean pantryReady;
     public String name;
     public String userId;
     public int calories;
@@ -39,4 +43,5 @@ public class Recipe {
     public String getName() {
         return name;
     }
+    public String getLCName() { return name.toLowerCase(); }
 }

@@ -4,61 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recipe.RecipeFragment">
+    tools:context=".ui.recipe.RecipeFragment"
+    android:background="@color/color_white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_marginTop="25dp">
-        <Button
-            android:id="@+id/newRecipeButton"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:text="add new recipe">
+        android:layout_marginBottom="50dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp">
+                <Button
+                    android:id="@+id/newRecipeButton"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:text="add new recipe">
 
-        </Button>
-        <LinearLayout
-            android:layout_width="375dp"
-            android:layout_height="75dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            tools:ignore="MissingConstraints">
-            <Button
-                android:id="@+id/sortAlpha"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="sort Alpha"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"/>
-            <Button
-                android:id="@+id/sortRevAlpha"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="sort reverse"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"/>
-        </LinearLayout>
+                </Button>
+                <LinearLayout
+                    android:layout_width="375dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    tools:ignore="MissingConstraints">
+                    <Button
+                        android:id="@+id/sortAlpha"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:text="sort Alpha"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"/>
+                    <Button
+                        android:id="@+id/sortRevAlpha"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:text="sort reverse"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_recipe_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"/>
 
-        </androidx.recyclerview.widget.RecyclerView>
-        <ListView
-            android:layout_width="409dp"
-            android:layout_height="324dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginEnd="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/listOfRecipes"
-            android:layout_marginBottom="75dp"/>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
