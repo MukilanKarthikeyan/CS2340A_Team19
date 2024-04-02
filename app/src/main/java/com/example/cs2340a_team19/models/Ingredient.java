@@ -24,7 +24,8 @@ public class Ingredient {
     public boolean equals(Object o) {
         if (o instanceof Ingredient) {
             Ingredient curr = (Ingredient) o;
-            if (getName() != null && curr.getName() != null && getName().trim().equalsIgnoreCase(curr.getName().trim())) {
+            if (getName() != null && curr.getName() != null && getName().trim().equalsIgnoreCase(
+                    curr.getName().trim())) {
                 return true;
             }
         }
