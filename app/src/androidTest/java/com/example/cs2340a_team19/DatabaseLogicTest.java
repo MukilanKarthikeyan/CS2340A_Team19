@@ -11,8 +11,6 @@ import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.Recipe;
-import com.example.cs2340a_team19.models.UserMeal;
-import com.example.cs2340a_team19.ui.personalInfo.PersonalInformationViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -86,9 +84,9 @@ public class DatabaseLogicTest {
                     ingredients.add(postSnapshot.getValue(Ingredient.class));
                 }
                 assert(ingredients.size() != 0);
-                assert(ingredients.get(0).name.equals("Milk"));
-                assert(ingredients.get(0).calories == 100);
-                assert(ingredients.get(0).quantity == 2);
+                assert(ingredients.get(0).getName().equals("Milk"));
+                assert(ingredients.get(0).getCalories() == 100);
+                assert(ingredients.get(0).getQuantity() == 2);
                 Log.d("MyJUNIT", "Reached the end of the pantry read test!");
 //                lock.countDown();
             }
@@ -166,8 +164,8 @@ public class DatabaseLogicTest {
                     recipes.add(postSnapshot.getValue(Recipe.class));
                 }
                 assert(recipes.size() != 0);
-                assert(recipes.get(0).name.equals("Alfredo"));
-                assert(recipes.get(0).userId.equals("0"));
+                assert(recipes.get(0).getName().equals("Alfredo"));
+                assert(recipes.get(0).getUserId().equals("0"));
                 Log.d("MyJUNIT", "Reached the end of the cookbook read test!");
 //                lock.countDown();
             }
