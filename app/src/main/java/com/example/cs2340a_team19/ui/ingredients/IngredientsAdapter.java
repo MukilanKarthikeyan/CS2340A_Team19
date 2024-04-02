@@ -49,15 +49,15 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     public void onBindViewHolder(final ViewHolder holder,
                                  @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = itemList.get(position);
-        holder.itemNameTextView.setText(item.name);
-        holder.quantityTextView.setText(String.valueOf(item.quantity));
+        holder.itemNameTextView.setText(item.getName());
+        holder.quantityTextView.setText(String.valueOf(item.getQuantity()));
         Log.d("ALEX", "ingredients list adapter onBindViewHolder check");
         holder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Increase quantity
                 pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
-                        item.ingredientID, item.quantity + 1);
+                        item.getIngredientID(), item.getQuantity() + 1);
                 notifyItemChanged(position);
             }
         });
@@ -66,12 +66,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             @Override
             public void onClick(View v) {
                 // Decrease quantity if greater than 0
-                if (item.quantity > 1) {
+                if (item.getQuantity() > 1) {
                     pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
-                            item.ingredientID, item.quantity - 1);
+                            item.getIngredientID(), item.getQuantity() - 1);
                     notifyItemChanged(position);
                 } else {
-                    pantryHandler.removeIngredient(dbHandler.getUserID(), item.ingredientID);
+                    pantryHandler.removeIngredient(dbHandler.getUserID(), item.getIngredientID());
                 }
             }
         });

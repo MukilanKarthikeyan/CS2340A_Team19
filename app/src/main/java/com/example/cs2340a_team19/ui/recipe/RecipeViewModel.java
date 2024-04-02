@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class RecipeViewModel extends ViewModel {
 
@@ -108,16 +107,16 @@ public class RecipeViewModel extends ViewModel {
 
     public void updateRecipeList() {
         for (Recipe curr : currentCookbook) {
-            curr.pantryReady = checkRecipe(curr);
+            curr.setPantryReady(checkRecipe(curr));
         }
     }
 
     public boolean checkRecipe(Recipe recipe) {
-        for (Ingredient curr : recipe.ingredients) {
+        for (Ingredient curr : recipe.getIngredients()) {
             boolean matchedIngredient = false;
             for (Ingredient pantryIngredient : currentPantry) {
                 if (curr.equals(pantryIngredient)) {
-                    if (curr.quantity <= pantryIngredient.quantity) {
+                    if (curr.getQuantity() <= pantryIngredient.getQuantity()) {
                         matchedIngredient = true;
                     }
                     break;

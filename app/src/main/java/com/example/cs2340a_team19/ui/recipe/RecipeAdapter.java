@@ -2,31 +2,21 @@ package com.example.cs2340a_team19.ui.recipe;
 
 //import static androidx.appcompat.graphics.drawable.DrawableContainerCompat.Api21Impl.getResources;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.anychart.ui.contextmenu.Item;
 import com.example.cs2340a_team19.R;
-import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Ingredient;
-import com.example.cs2340a_team19.models.PantryHandler;
 import com.example.cs2340a_team19.models.Recipe;
-import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +47,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 public void onClick(View v) {
                     if (displayIngredients) {
                         ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry));
+                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.getIngredients(), pantry));
                     } else {
                         ingredientsList.setAdapter(new RecipeIngredientsAdapter(new ArrayList<>(), pantry));
                     }
@@ -87,9 +77,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(final RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Recipe item = recipeList.get(position);
         holder.currItem = item;
-        holder.recipeNameLabel.setText(item.name);
+        holder.recipeNameLabel.setText(item.getName());
 
-        int recipeStatus = ContextCompat.getColor(this.context, (item.pantryReady) ? R.color.green : R.color.red);
+        int recipeStatus = ContextCompat.getColor(this.context, (item.isPantryReady()) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
 
 //        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
