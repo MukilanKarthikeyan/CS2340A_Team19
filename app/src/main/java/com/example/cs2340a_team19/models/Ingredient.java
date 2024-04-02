@@ -19,4 +19,15 @@ public class Ingredient {
         this.quantity = quantity;
         this.expirationDate = expirationDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Ingredient) {
+            Ingredient curr = (Ingredient) o;
+            if (name != null && curr.name != null && name.trim().equalsIgnoreCase(curr.name.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

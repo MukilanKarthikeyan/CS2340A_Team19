@@ -28,10 +28,12 @@ import com.example.cs2340a_team19.models.PantryHandler;
 import com.example.cs2340a_team19.models.Recipe;
 import com.example.cs2340a_team19.ui.ingredients.IngredientsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipeList;
+    private List<Ingredient> pantry;
     private Context context;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeNameLabel;
@@ -53,9 +55,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients));
+                    if (displayIngredients) {
+                        ingredientsList.setLayoutManager(new LinearLayoutManager(context));
+                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry));
+                    } else {
+                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(new ArrayList<>(), pantry));
+                    }
+                    displayIngredients = !displayIngredients;
                 }
             });
 
@@ -64,8 +70,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
 
     }
-    public RecipeAdapter(List<Recipe> itemList, Context context) {
+    public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context) {
         this.recipeList = itemList;
+        this.pantry = pantry;
         this.context = context;
     }
 

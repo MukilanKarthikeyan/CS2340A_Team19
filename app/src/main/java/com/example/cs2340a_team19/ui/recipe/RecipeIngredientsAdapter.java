@@ -19,6 +19,7 @@ import java.util.List;
 
 public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredientsAdapter.ViewHolder> {
     private List<Ingredient> itemList;
+    private List<Ingredient> pantry;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView itemNameTextView;
@@ -34,8 +35,9 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
         }
     }
 
-    public RecipeIngredientsAdapter(List<Ingredient> itemList) {
+    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry) {
         this.itemList = itemList;
+        this.pantry = pantry;
     }
 
     @Override
@@ -48,7 +50,16 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
     @Override
     public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = itemList.get(position);
+        int quantity = 0;
+        for (Ingredient pantryIng : pantry) {
+            Log.d("GryphDebug", "Pantry Ing: " + ((pantryIng != null) ? pantryIng.name : "NULL"));
+            if (pantryIng.equals(item)) {
+                quantity = pantryIng.quantity;
+                break;
+            }
+        }
         holder.itemNameTextView.setText(item.name);
+        holder.quantityAvailTextView.setText(String.valueOf(quantity));
         holder.quantityNeededTextView.setText(String.valueOf(item.quantity));
 
     }

@@ -39,6 +39,7 @@ public class RecipeViewModel extends ViewModel {
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
             // Add event listeners here!
             addCookbookListener();
+            addPantryListener();
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
         }
@@ -90,6 +91,7 @@ public class RecipeViewModel extends ViewModel {
                 }
                 currentPantry = pantry;
                 updateRecipeList();
+                Log.d("GryphDebug", "Hit Pantry!!! " + pantry.size());
 
                 if (updateUI != null) {
                     Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
@@ -114,7 +116,7 @@ public class RecipeViewModel extends ViewModel {
         for (Ingredient curr : recipe.ingredients) {
             boolean matchedIngredient = false;
             for (Ingredient pantryIngredient : currentPantry) {
-                if (curr.name.trim().equalsIgnoreCase(pantryIngredient.name.trim())) {
+                if (curr.equals(pantryIngredient)) {
                     if (curr.quantity <= pantryIngredient.quantity) {
                         matchedIngredient = true;
                     }
