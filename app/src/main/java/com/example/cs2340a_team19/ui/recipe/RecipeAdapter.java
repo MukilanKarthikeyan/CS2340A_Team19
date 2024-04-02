@@ -47,9 +47,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 public void onClick(View v) {
                     if (displayIngredients) {
                         ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.getIngredients(), pantry));
+                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry, context));
                     } else {
-                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(new ArrayList<>(), pantry));
+                        ingredientsList.setAdapter(new RecipeIngredientsAdapter(new ArrayList<>(), pantry, context));
                     }
                     displayIngredients = !displayIngredients;
                 }
