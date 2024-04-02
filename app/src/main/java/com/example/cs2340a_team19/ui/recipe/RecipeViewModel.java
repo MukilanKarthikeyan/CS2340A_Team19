@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class RecipeViewModel extends ViewModel {
 
@@ -41,20 +40,24 @@ public class RecipeViewModel extends ViewModel {
             addCookbookListener();
             addPantryListener();
         } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
+            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
+                    + "because dbHandler Initialization Failed!");
         }
     }
 
     public void addRecipe(String name, String[] ingredientNames, int[] quantities) {
         List<Ingredient> ingredients = new ArrayList<Ingredient>();
-        if (ingredientNames == null || quantities == null || ingredientNames.length != quantities.length) {
-            Log.d("VM_ERROR", "The ingredientName list and the ingredient quantity list were not the right size");
+        if (ingredientNames == null || quantities == null
+                || ingredientNames.length != quantities.length) {
+            Log.d("VM_ERROR", "The ingredientName list and the ingredient quantity list "
+                    + "were not the right size");
             return;
         }
         for (int i = 0; i < ingredientNames.length; i++) {
             ingredients.add(new Ingredient(ingredientNames[i], 0, quantities[i]));
         }
-        this.cookbookHandler.createRecipe(new Recipe(name, dbHandler.getUserID(), "", 0, ingredients));
+        this.cookbookHandler.createRecipe(new Recipe(name, dbHandler.getUserID(),
+                "", 0, ingredients));
     }
 
     public void addCookbookListener() {
@@ -69,7 +72,8 @@ public class RecipeViewModel extends ViewModel {
                 updateRecipeList();
 
                 if (updateUI != null) {
-                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
+                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): "
+                            + currentCookbook.size());
                     updateUI.accept(currentCookbook, currentPantry);
                 }
             }
@@ -94,7 +98,8 @@ public class RecipeViewModel extends ViewModel {
                 Log.d("GryphDebug", "Hit Pantry!!! " + pantry.size());
 
                 if (updateUI != null) {
-                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
+                    Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): "
+                            + currentCookbook.size());
                     updateUI.accept(currentCookbook, currentPantry);
                 }
             }
@@ -108,16 +113,16 @@ public class RecipeViewModel extends ViewModel {
 
     public void updateRecipeList() {
         for (Recipe curr : currentCookbook) {
-            curr.pantryReady = checkRecipe(curr);
+            curr.setPantryReady(checkRecipe(curr));
         }
     }
 
     public boolean checkRecipe(Recipe recipe) {
-        for (Ingredient curr : recipe.ingredients) {
+        for (Ingredient curr : recipe.getIngredients()) {
             boolean matchedIngredient = false;
             for (Ingredient pantryIngredient : currentPantry) {
                 if (curr.equals(pantryIngredient)) {
-                    if (curr.quantity <= pantryIngredient.quantity) {
+                    if (curr.getQuantity() <= pantryIngredient.getQuantity()) {
                         matchedIngredient = true;
                     }
                     break;

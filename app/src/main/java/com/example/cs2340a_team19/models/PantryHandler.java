@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PantryHandler {
     private DatabaseReference pantries;
     private boolean successfullyInitialized;
-    public PantryHandler (DatabaseReference db) {
+    public PantryHandler(DatabaseReference db) {
         try {
             this.pantries = db.child("pantries");
         } catch (NullPointerException ne) {
@@ -28,7 +28,8 @@ public class PantryHandler {
         if (successfullyInitialized) {
             this.pantries.child(userId).addValueEventListener(updater);
         } else {
-            Log.d("FBRTDB_ERROR", "Tried to attach event listener, but View Model was not successfully instantiated");
+            Log.d("FBRTDB_ERROR", "Tried to attach event listener, "
+                    + "but View Model was not successfully instantiated");
         }
     }
 
@@ -37,17 +38,20 @@ public class PantryHandler {
             try {
                 pantries.child(userId).child(ingredientId).child("quantity").setValue(quantity);
             } catch (NullPointerException npe) {
-                Log.d("FBRTDB_ERROR", "Tried to add ingredient but encountered null pointer with (userId, ingredient Id, quantity): " + userId + ", " + ingredientId + ", " + quantity);
+                Log.d("FBRTDB_ERROR", "Tried to add ingredient, "
+                        + "but encountered null pointer with (userId, ingredient Id, quantity): "
+                        + userId + ", " + ingredientId + ", " + quantity);
             }
 
 
         } else {
-            Log.d("FBRTDB_ERROR", "Tried to update ingredient but the View Model was not sucsessfully instantiated!");
+            Log.d("FBRTDB_ERROR", "Tried to update ingredient, "
+                    + "but the View Model was not sucsessfully instantiated!");
         }
     }
 
     /**
-     *
+     * @param userId userId
      * @return String representing the mealID of the new Meal
      */
     public String createIngredient(String userId) {
@@ -56,7 +60,10 @@ public class PantryHandler {
     }
 
     /**
-     *
+     * @param userId userId
+     * @param name name
+     * @param calories calories
+     * @param quantity quantity
      * @return String representing the mealID of the new Meal
      */
     public String createIngredient(String userId, String name, int calories, int quantity) {
@@ -65,49 +72,58 @@ public class PantryHandler {
     }
 
     /**
-     *
+     * @param userId userId
+     * @param name name
+     * @param expirationDate expirationDate
+     * @param calories calories
+     * @param quantity quantity
      * @return String representing the mealID of the new Meal
      */
-    public String createIngredient(String userId, String name, String expirationDate, int calories, int quantity) {
+    public String createIngredient(String userId, String name, String expirationDate,
+                                   int calories, int quantity) {
         Ingredient ingredient = new Ingredient(name, calories, quantity, expirationDate);
         return this.createIngredient(userId, ingredient);
     }
 
     /**
-     *
+     * @param userId userId
+     * @param ingredient ingredient
      * @return String representing the mealID of the new Meal
      */
     private String createIngredient(String userId, Ingredient ingredient) {
         if (successfullyInitialized) {
             DatabaseReference childLoc = pantries.child(userId).push();
             // Find and set ID with Regex
-//            Pattern pattern = Pattern.compile("/(\\d*)$");
-//            Matcher matcher = pattern.matcher(childLoc.getKey());
-//            if (matcher.find()) {
-//                meal.setMealID(matcher.group());
-//            } else {
-//                Log.d("FBRTDB_ERROR", "Tried to identify mealID but failed: " + childLoc.getKey());
-//            }
-            ingredient.ingredientID = childLoc.getKey();
-//            Log.d("GRYPHON_TEST", ingredient.ingredientID);
+            // Pattern pattern = Pattern.compile("/(\\d*)$");
+            // Matcher matcher = pattern.matcher(childLoc.getKey());
+            // if (matcher.find()) {
+            //     meal.setMealID(matcher.group());
+            // } else {
+            //     Log.d("FBRTDB_ERROR", "Tried to identify mealID but failed: "
+            //             + childLoc.getKey());
+            // }
+            ingredient.setIngredientID(childLoc.getKey());
+            // Log.d("GRYPHON_TEST", ingredient.ingredientID);
             childLoc.setValue(ingredient);
             return childLoc.getKey();
         } else {
-            Log.d("FBRTDB_ERROR", "Tried to create ingredient but the View Model was not sucsessfully instantiated!");
+            Log.d("FBRTDB_ERROR", "Tried to create ingredient, "
+                    + "but the View Model was not sucsessfully instantiated!");
             return null;
         }
     }
 
     public void removeIngredient(String userId, String ingredientId) {
-        this.pantries.child(userId).child(ingredientId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (!task.isSuccessful()) {
-                    Log.d("FBRTDB_ERROR", "Tried to remove ingredient " + ingredientId +
-                            " from user " + userId + " but was unsuccsessful");
+        this.pantries.child(userId).child(ingredientId).removeValue().addOnCompleteListener(
+                new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (!task.isSuccessful()) {
+                        Log.d("FBRTDB_ERROR", "Tried to remove ingredient " + ingredientId
+                                + " from user " + userId + " but was unsuccsessful");
+                    }
                 }
-            }
-        });
+            });
     }
 
     public boolean isSuccessfullyInitialized() {
