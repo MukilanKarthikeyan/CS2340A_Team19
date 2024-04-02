@@ -24,7 +24,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RecipeFragment extends Fragment {
-    //this will need to be intitialized as either a sortReverseAlphabetical or sortAlphabetical concrete strategy instance
+    //this will need to be intitialized as either a sortReverseAlphabetical
+    // or sortAlphabetical concrete strategy instance
     private static RecipeSorter recipeSortingStrategy;
     private FragmentRecipeBinding binding;
     private Button newRecipeButton;
@@ -39,12 +40,14 @@ public class RecipeFragment extends Fragment {
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         RecyclerView recipeRecycler = (RecyclerView) root.findViewById(R.id.recycler_recipe_list);
-        recipeRecycler.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
+        recipeRecycler.addItemDecoration(new DividerItemDecoration(
+                getContext(), R.drawable.divider));
         newRecipeButton = root.findViewById(R.id.newRecipeButton);
         newRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_recipe_to_add_recipe_fragment);
+                Navigation.findNavController(v).navigate(
+                        R.id.action_navigation_recipe_to_add_recipe_fragment);
             }
 
         });
@@ -57,11 +60,14 @@ public class RecipeFragment extends Fragment {
         //createPieChart(view);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        RecipeViewModel viewModel = new RecipeViewModel((recipeList, pantry) -> recyclerView.setAdapter(new RecipeAdapter(recipeList, pantry, getActivity())));
+        RecipeViewModel viewModel = new RecipeViewModel(
+                (recipeList, pantry) -> recyclerView.setAdapter(
+                        new RecipeAdapter(recipeList, pantry, getActivity())));
 
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);
-        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> list.sort(Comparator.comparing(Recipe::getLCName))));
+        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list)
+                -> list.sort(Comparator.comparing(Recipe::getLCName))));
         reverseButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> {
             list.sort(Comparator.comparing(Recipe::getLCName));
             Collections.reverse(list);
@@ -73,8 +79,10 @@ public class RecipeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    /*
 //
 //    public List<String> sortRecipes() {
 //        return recipeSorter.sortRecipes(List<Recipe> recipes);
 //    }
+     */
 }
