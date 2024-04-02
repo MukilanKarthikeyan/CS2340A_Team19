@@ -83,10 +83,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView itemNameTextView;
-        public TextView quantityTextView;
-        public Button plusButton;
-        public Button minusButton;
+        private TextView itemNameTextView;
+        private TextView quantityTextView;
+        private Button plusButton;
+        private Button minusButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -94,6 +94,38 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             quantityTextView = view.findViewById(R.id.ingredientQuantity);
             plusButton = view.findViewById(R.id.buttonPlus);
             minusButton = view.findViewById(R.id.buttonMinus);
+        }
+
+        public TextView getItemNameTextView() {
+            return itemNameTextView;
+        }
+
+        public void setItemNameTextView(TextView itemNameTextView) {
+            this.itemNameTextView = itemNameTextView;
+        }
+
+        public TextView getQuantityTextView() {
+            return quantityTextView;
+        }
+
+        public void setQuantityTextView(TextView quantityTextView) {
+            this.quantityTextView = quantityTextView;
+        }
+
+        public Button getPlusButton() {
+            return plusButton;
+        }
+
+        public void setPlusButton(Button plusButton) {
+            this.plusButton = plusButton;
+        }
+
+        public Button getMinusButton() {
+            return minusButton;
+        }
+
+        public void setMinusButton(Button minusButton) {
+            this.minusButton = minusButton;
         }
     }
 }

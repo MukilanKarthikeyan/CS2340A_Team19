@@ -68,13 +68,13 @@ public class AddRecipeFragment extends Fragment {
         Button addRecipe = view.findViewById(R.id.addRecipeButton);
         EditText recipeName = view.findViewById(R.id.recipe_name_field);
         EditText ingredientList = view.findViewById(R.id.ingredient_list_field);
-        EditText quantitiesList = view.findViewById(R.id.quantity_list_field);
+        EditText quantitiesListT = view.findViewById(R.id.quantity_list_field);
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recName = recipeName.getText().toString();
                 String nameList = ingredientList.getText().toString();
-                String quantitiesList = quantitiesList.getText().toString();
+                String quantitiesList = quantitiesListT.getText().toString();
 
                 //strip the lists of any whitespaces
                 String cleanedNameList = nameList.replaceAll("\\s+", "");
@@ -124,7 +124,7 @@ public class AddRecipeFragment extends Fragment {
                 Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
                 recipeName.setText("");
                 ingredientList.setText("");
-                quantitiesList.setText("");
+                quantitiesListT.setText("");
             }
         });
     }

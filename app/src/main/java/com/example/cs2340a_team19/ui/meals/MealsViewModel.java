@@ -98,13 +98,14 @@ public class MealsViewModel extends ViewModel {
                                 Calendar.DAY_OF_YEAR);
 
                         for (int i = size - 1; i >= 0; i--) {
-                            int day = Integer.parseInt(userMeals.get(i).date) / 10000;
+                            int day = Integer.parseInt(userMeals.get(i).getDate()) / 10000;
                             //stop iterating once you pass the end date
                             if (day <= today - numDays) {
                                 i = -1;
                             } else {
                                 days[today - day] += dataSnapshot.child(
-                                        userMeals.get(i).mealId).getValue(Meal.class).getCalories();
+                                        userMeals.get(i).getMealId()).getValue(
+                                                Meal.class).getCalories();
                             }
                         }
                     }
@@ -138,8 +139,10 @@ public class MealsViewModel extends ViewModel {
                                 List<UserMeal> userMeals = new ArrayList<>();
                                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                                     userMeals.add(postSnapshot.getValue(UserMeal.class));
-                                    Log.d("FinalCount", userMeals.get(userMeals.size() - 1).date);
-                                    Log.d("FinalCount", userMeals.get(userMeals.size() - 1).mealId);
+                                    Log.d("FinalCount",
+                                            userMeals.get(userMeals.size() - 1).getDate());
+                                    Log.d("FinalCount",
+                                            userMeals.get(userMeals.size() - 1).getMealId());
                                 }
                                 getDayMealList(userMeals, days, numDays, frag, view);
                             }
