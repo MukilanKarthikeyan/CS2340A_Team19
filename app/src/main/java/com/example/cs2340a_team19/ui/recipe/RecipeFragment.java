@@ -49,7 +49,6 @@ public class RecipeFragment extends Fragment {
 
         });
 
-
         return root;
     }
 
@@ -62,9 +61,9 @@ public class RecipeFragment extends Fragment {
 
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);
-        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> list.sort(Comparator.comparing(Recipe::getName))));
+        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> list.sort(Comparator.comparing(Recipe::getLCName))));
         reverseButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> {
-            list.sort(Comparator.comparing(Recipe::getName));
+            list.sort(Comparator.comparing(Recipe::getLCName));
             Collections.reverse(list);
         }));
     }

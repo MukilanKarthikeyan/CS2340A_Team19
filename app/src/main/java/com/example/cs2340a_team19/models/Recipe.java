@@ -42,4 +42,5 @@ public class Recipe {
     public String getName() {
         return name;
     }
+    public String getLCName() { return name.toLowerCase(); }
 }
