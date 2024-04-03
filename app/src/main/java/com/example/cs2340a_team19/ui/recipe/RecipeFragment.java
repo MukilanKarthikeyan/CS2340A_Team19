@@ -5,12 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 //import com.example.cs2340a_team19.databinding.FragmentNotificationsBinding;
 import com.example.cs2340a_team19.R;
@@ -19,6 +24,7 @@ import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 import com.example.cs2340a_team19.models.Recipe;
 import com.example.cs2340a_team19.ui.DividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -38,8 +44,12 @@ public class RecipeFragment extends Fragment {
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        RecyclerView recipeRecycler = (RecyclerView) root.findViewById(R.id.recycler_recipe_list);
-        recipeRecycler.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
+
+        RecyclerView ingredientsList = (RecyclerView) root.findViewById(R.id.recycler_recipe_list);
+        ingredientsList.addItemDecoration(new DividerItemDecoration(getContext(), R.drawable.divider));
+        CardView layout = root.findViewById(R.id.recipe_card);
+        ImageButton expandIndicator = root.findViewById(R.id.card_expand_indicator);
+
         newRecipeButton = root.findViewById(R.id.newRecipeButton);
         newRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +58,6 @@ public class RecipeFragment extends Fragment {
             }
 
         });
-
         return root;
     }
 
@@ -59,6 +68,9 @@ public class RecipeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecipeViewModel viewModel = new RecipeViewModel((recipeList, pantry) -> recyclerView.setAdapter(new RecipeAdapter(recipeList, pantry, getActivity())));
 
+
+
+
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);
         alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> list.sort(Comparator.comparing(Recipe::getLCName))));
@@ -67,6 +79,7 @@ public class RecipeFragment extends Fragment {
             Collections.reverse(list);
         }));
     }
+
 
     @Override
     public void onDestroyView() {

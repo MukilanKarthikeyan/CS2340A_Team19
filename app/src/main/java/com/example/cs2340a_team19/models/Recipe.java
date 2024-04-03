@@ -37,6 +37,7 @@ public class Recipe {
         this.userId = userId;
         this.calories = calories;
         this.ingredients = ingredients;
+        //this.ingredients = (ingredients == null) ? new ArrayList<Ingredient>() : ingredients;
     }
 
     public String getName() {
