@@ -12,11 +12,65 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
-        <TextView
+        <!--TextView
             android:id="@+id/text_shopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shopping List"/>
+            android:text="Shopping List"/-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:background="@color/color_white">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Item"
+                android:layout_marginLeft="15dp"
+                android:textSize="15sp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Quantity"
+                android:textSize="15sp"
+                android:layout_marginRight="45dp"/>
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="Mark"
+                android:textSize="15sp"
+                android:layout_marginRight="15dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp">
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:hint="+Add Item"
+                android:textSize="15sp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="55dp"
+                android:hint="Quantity"
+                android:textSize="15sp"/>
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_shopping_list"
             android:layout_width="match_parent"
