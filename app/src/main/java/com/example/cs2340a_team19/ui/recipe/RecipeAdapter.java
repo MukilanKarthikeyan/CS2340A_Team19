@@ -50,6 +50,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public TextView recipieDescription;
         public RecyclerView ingredientsList;
 
+        public TextView statusActionText;
+
 
         public RecipeViewHolder(View view) {
             super(view);
@@ -58,6 +60,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             ingredientsList = view.findViewById(R.id.recipe_ingredient_list);
 
             recipePantryStatus = view.findViewById(R.id.pantry_status_indicator);
+            statusActionText = view.findViewById(R.id.status_action_text);
 
             recipieDescription = view.findViewById(R.id.recipe_description);
 
@@ -71,37 +74,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     ingredientsList.setLayoutManager(new LinearLayoutManager(context));
                     ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry));
 
+                    //TODO: convert the following codeblock into an if-else block
                     int vis = (ingredientsList.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                     int indicator = (vis == View.GONE) ? R.drawable.baseline_expand_more_24 : R.drawable.baseline_expand_less_24;
+                    int statusCardSize = (vis == View.GONE) ? 30 : 100;
+
 
                     TransitionManager.beginDelayedTransition(layout, new AutoTransition());
                     ingredientsList.setVisibility(vis);
                     recipieDescription.setVisibility(vis);
+                    statusActionText.setVisibility(vis);
+
                     expandIndicator.setImageResource(indicator);
 
+                    ViewGroup.LayoutParams statusParams = recipePantryStatus.getLayoutParams();
+                    statusParams.width = statusCardSize;
+                    recipePantryStatus.setLayoutParams(statusParams);
 
                 }
             });
-
-            //ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-
-
-//            view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-
-
-//                    int vis = (ingredientsList.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-//                }
-//                transition.setDuration(1000L);
-//                TransitionManager.beginDelayedTransition(layout, new AutoTransition());
-//                ingredientsList.setVisibility(vis);
-//            });
-
-            //quantitylabel = view.findViewById(R.id.ingredient_quantity);
-
         }
-
     }
     public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context) {
         this.recipeList = itemList;
@@ -121,7 +113,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         final Recipe item = recipeList.get(position);
         holder.currItem = item;
         holder.recipeNameLabel.setText(item.name);
+        holder.statusActionText.setText((item.pantryReady) ? R.string.status_cook : R.string.status_buy);
         holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients, pantry));
+
         //TODO: figure out what size of the text looks good
         //holder.recipieDescription.setTextSize(10);
         holder.recipieDescription.setText(item.description);
@@ -129,24 +123,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         int recipeStatus = ContextCompat.getColor(this.context, (item.pantryReady) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
 
-//        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-//        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
-
-
-        //holder.quantityTextView.setText(String.valueOf(item.quantity));
-
-//        holder.minusButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Decrease quantity if greater than 0
-//                if (item.quantity > 1) {
-//                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(), item.ingredientID, item.quantity - 1);
-//                    notifyItemChanged(position);
-//                } else {
-//                    pantryHandler.removeIngredient(dbHandler.getUserID(), item.ingredientID);
-//                }
-//            }
-//        });
     }
     @Override
     public int getItemCount() {

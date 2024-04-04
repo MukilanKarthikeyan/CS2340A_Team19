@@ -28,22 +28,24 @@
                 android:layout_marginLeft="10dp"/>
             <androidx.cardview.widget.CardView
                 android:id="@+id/pantry_status_indicator"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:cardBackgroundColor="@color/green"
                 app:cardCornerRadius="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center">
                     <TextView
-                        android:id="@+id/status_test"
+                        android:id="@+id/status_action_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""/>
+                        android:text=""
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <!-- ANIMATE CHANGE TO BUTTON button must fill the entire space, and card should grow to wrap content-->
