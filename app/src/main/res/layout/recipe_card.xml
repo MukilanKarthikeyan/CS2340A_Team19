@@ -21,20 +21,22 @@
             <TextView
                 android:id="@+id/recipe_name"
                 android:text="Recipe name"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
             <androidx.cardview.widget.CardView
                 android:id="@+id/pantry_status_indicator"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:cardBackgroundColor="@color/green"
                 app:cardCornerRadius="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
+                android:layout_marginRight="10dp" >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

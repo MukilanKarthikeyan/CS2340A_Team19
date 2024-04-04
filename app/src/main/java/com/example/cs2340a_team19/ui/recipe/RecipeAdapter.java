@@ -79,7 +79,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     expanded = !expanded;
                     int vis = (ingredientsList.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                     int indicator = (vis == View.GONE) ? R.drawable.baseline_expand_more_24 : R.drawable.baseline_expand_less_24;
-                    int statusCardSize = (vis == View.GONE) ? 30 : 100;
+                    int statusCardSize = (vis == View.GONE) ? 30 : 100; // specified in dp
+                    statusCardSize *= context.getResources().getDisplayMetrics().density; // accomodates for the current density factor
 
 
                     TransitionManager.beginDelayedTransition(layout, new AutoTransition());
