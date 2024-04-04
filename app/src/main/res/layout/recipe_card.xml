@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="15dp"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -47,7 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
 
                 <!-- ANIMATE CHANGE TO BUTTON button must fill the entire space, and card should grow to wrap content-->
