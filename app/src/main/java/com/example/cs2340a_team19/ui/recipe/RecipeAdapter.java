@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.opengl.Visibility;
+import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,8 +83,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     int statusCardSize = (vis == View.GONE) ? 30 : 100; // specified in dp
                     statusCardSize *= context.getResources().getDisplayMetrics().density; // accomodates for the current density factor
 
-
-                    TransitionManager.beginDelayedTransition(layout, new AutoTransition());
+                    final AutoTransition transition = new AutoTransition();
+                    transition.setDuration(500L);
+                    TransitionManager.beginDelayedTransition(layout, transition);
+                    //TransitionManager.beginDelayedTransition(layout, new AutoTransition());
                     ingredientsList.setVisibility(vis);
                     recipieDescription.setVisibility(vis);
                     statusActionText.setVisibility(vis);
