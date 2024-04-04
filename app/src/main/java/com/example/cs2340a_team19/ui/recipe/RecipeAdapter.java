@@ -73,7 +73,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 public void onClick(View v) {
                     //TODO: this is probably breaking som sort of design rule -> fix. we make this once curritem is actually instanciated
                     ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry));
+                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry, context));
 
                     //TODO: convert the following codeblock into an if-else block
                     expanded = !expanded;
@@ -129,7 +129,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.currItem = item;
         holder.recipeNameLabel.setText(item.name);
         holder.statusActionText.setText((item.pantryReady) ? R.string.status_cook : R.string.status_buy);
-        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients, pantry));
+        //TODO: the adapter is created mulitple times see line 76
+        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients, pantry, this.context));
 
         //TODO: figure out what size of the text looks good
         //holder.recipieDescription.setTextSize(10);
