@@ -107,7 +107,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                         return;
                     }
                     //TODO: implement logic for what happens when you click the card to cook/buy
-
+                    Log.d("Mukilan", "cook/buy button clicked");
                 }
             });
 
