@@ -51,6 +51,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public RecyclerView ingredientsList;
 
         public TextView statusActionText;
+        private boolean expanded = false;
 
 
         public RecipeViewHolder(View view) {
@@ -67,7 +68,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             layout = view.findViewById(R.id.recipe_card);
             expandIndicator = view.findViewById(R.id.card_expand_indicator);
 
-            view.setOnClickListener(new View.OnClickListener() {
+            layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO: this is probably breaking som sort of design rule -> fix. we make this once curritem is actually instanciated
@@ -75,6 +76,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry));
 
                     //TODO: convert the following codeblock into an if-else block
+                    expanded = !expanded;
                     int vis = (ingredientsList.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
                     int indicator = (vis == View.GONE) ? R.drawable.baseline_expand_more_24 : R.drawable.baseline_expand_less_24;
                     int statusCardSize = (vis == View.GONE) ? 30 : 100;
@@ -93,6 +95,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                 }
             });
+            recipePantryStatus.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (!expanded) {
+                        return;
+                    }
+                    //TODO: implement logic for what happens when you click the card to cook/buy
+
+                }
+            });
+
         }
     }
     public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context) {
