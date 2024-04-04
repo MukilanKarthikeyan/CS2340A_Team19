@@ -64,6 +64,13 @@
                 android:layout_margin="5dp"
                 android:contentDescription="@string/label_recipe_input_form"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/recipe_description"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:visibility="gone"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_ingredient_list"

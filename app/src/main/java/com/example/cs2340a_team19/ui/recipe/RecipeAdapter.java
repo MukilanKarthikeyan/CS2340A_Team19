@@ -42,13 +42,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private List<Ingredient> pantry;
     private Context context;
     class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public TextView recipeNameLabel;
-        public RecyclerView ingredientsList;
-
-        public CardView recipePantryStatus;
         public Recipe currItem;
+        public TextView recipeNameLabel;
+        public CardView recipePantryStatus;
         public ImageView expandIndicator;
         public CardView layout;
+        public TextView recipieDescription;
+        public RecyclerView ingredientsList;
 
 
         public RecipeViewHolder(View view) {
@@ -59,10 +59,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
             recipePantryStatus = view.findViewById(R.id.pantry_status_indicator);
 
+            recipieDescription = view.findViewById(R.id.recipe_description);
+
             layout = view.findViewById(R.id.recipe_card);
             expandIndicator = view.findViewById(R.id.card_expand_indicator);
-
-
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +76,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                     TransitionManager.beginDelayedTransition(layout, new AutoTransition());
                     ingredientsList.setVisibility(vis);
+                    recipieDescription.setVisibility(vis);
                     expandIndicator.setImageResource(indicator);
+
 
                 }
             });
@@ -120,6 +122,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.currItem = item;
         holder.recipeNameLabel.setText(item.name);
         holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients, pantry));
+        //TODO: figure out what size of the text looks good
+        //holder.recipieDescription.setTextSize(10);
+        holder.recipieDescription.setText(item.description);
 
         int recipeStatus = ContextCompat.getColor(this.context, (item.pantryReady) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
