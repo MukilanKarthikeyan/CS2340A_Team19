@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,19 +16,21 @@ import com.example.cs2340a_team19.databinding.FragmentShoppingBinding;
 public class ShoppingFragment extends Fragment {
 
     private FragmentShoppingBinding binding;
+    private ShoppingViewModel vm = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ShoppingViewModel shoppingViewModel =
-                new ViewModelProvider(this).get(ShoppingViewModel.class);
-
         binding = FragmentShoppingBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        return binding.getRoot();
+    }
 
-        final TextView textView = binding.textShopping;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        shoppingViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        if (vm == null) {
+            vm = new ShoppingViewModel();
+        }
     }
 
     @Override
