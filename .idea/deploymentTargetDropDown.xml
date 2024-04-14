@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="DatabaseLogicTest">
+      <entry key="ExampleInstrumentedTest">
+        <State />
+      </entry>
+      <entry key="LoginViewModelTest">
+        <State />
+      </entry>
+      <entry key="RecommendationTest">
         <State />
       </entry>
       <entry key="app">
@@ -11,13 +17,7 @@
       <entry key="createPantryIngredient()">
         <State />
       </entry>
-      <entry key="databaseInitializes()">
-        <State />
-      </entry>
-      <entry key="superTest()">
-        <State />
-      </entry>
-      <entry key="superTest2()">
+      <entry key="superTest1()">
         <State />
       </entry>
     </value>
