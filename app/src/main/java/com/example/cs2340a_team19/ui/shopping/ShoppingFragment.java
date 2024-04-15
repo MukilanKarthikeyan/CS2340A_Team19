@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.shopping;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class ShoppingFragment extends Fragment {
 
         shopItemName = view.findViewById(R.id.shop_add_item_name);
         shopItemQuant = view.findViewById(R.id.shop_add_item_quant);
-        addShopItem = view.findViewById(R.id.buy_shop_items_button);
+        addShopItem = view.findViewById(R.id.add_shop_item_button);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_shopping_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -50,9 +51,11 @@ public class ShoppingFragment extends Fragment {
 //        if (vm == null) {
         vm = new ShoppingViewModel((shoppingList) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList)));
 //        }
+        Log.d("DEBUG_GRYPH", "I'm gonna add a listener!");
         addShopItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("DEBUG_GRYPH", "I was clicked!");
                 String itemName = shopItemName.getText().toString();
                 String itemQuant = shopItemQuant.getText().toString();
 

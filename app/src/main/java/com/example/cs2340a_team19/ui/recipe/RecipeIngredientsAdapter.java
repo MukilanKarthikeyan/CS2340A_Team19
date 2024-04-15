@@ -41,11 +41,6 @@ public class RecipeIngredientsAdapter
     }
 
     public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry, Context context) {
-        private Context context;
-
-        public RecipeIngredientsAdapter(List<Ingredient> itemList,
-                                    List<Ingredient> pantry, Context context) {
-
         this.itemList = itemList;
         this.pantry = pantry;
         this.context = context;
@@ -65,15 +60,15 @@ public class RecipeIngredientsAdapter
         int quantityAvail = 0;
         for (Ingredient pantryIng : pantry) {
             if (pantryIng.equals(item)) {
-                quantityAvail = pantryIng.quantity;
+                quantityAvail = pantryIng.getQuantity();
                 break;
             }
         }
-        holder.itemNameTextView.setText(item.name);
+        holder.itemNameTextView.setText(item.getName());
         holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
-        holder.quantityNeededTextView.setText(String.valueOf(item.quantity));
+        holder.quantityNeededTextView.setText(String.valueOf(item.getQuantity()));
 
-        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.quantity) ? R.color.green : R.color.red);
+        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.getQuantity()) ? R.color.green : R.color.red);
         holder.ingredientStatus.setCardBackgroundColor(status);
 
     }
@@ -83,52 +78,52 @@ public class RecipeIngredientsAdapter
         return itemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView itemNameTextView;
-        private TextView quantityAvailTextView;
-        private TextView quantityNeededTextView;
-
-        private CardView ingredientStatus;
-
-        public ViewHolder(View view) {
-            super(view);
-            itemNameTextView = view.findViewById(R.id.ingredientName);
-            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
-            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
-            ingredientStatus = view.findViewById(R.id.recipe_ingredient_status);
-        }
-
-        public TextView getItemNameTextView() {
-            return itemNameTextView;
-        }
-
-        public void setItemNameTextView(TextView itemNameTextView) {
-            this.itemNameTextView = itemNameTextView;
-        }
-
-        public TextView getQuantityAvailTextView() {
-            return quantityAvailTextView;
-        }
-
-        public void setQuantityAvailTextView(TextView quantityAvailTextView) {
-            this.quantityAvailTextView = quantityAvailTextView;
-        }
-
-        public TextView getQuantityNeededTextView() {
-            return quantityNeededTextView;
-        }
-
-        public void setQuantityNeededTextView(TextView quantityNeededTextView) {
-            this.quantityNeededTextView = quantityNeededTextView;
-        }
-
-        public CardView getIngredientStatus() {
-            return ingredientStatus;
-        }
-
-        public void setIngredientStatus(CardView ingredientStatus) {
-            this.ingredientStatus = ingredientStatus;
-        }
-    }
+//    public class ViewHolder extends RecyclerView.ViewHolder {
+//        private TextView itemNameTextView;
+//        private TextView quantityAvailTextView;
+//        private TextView quantityNeededTextView;
+//
+//        private CardView ingredientStatus;
+//
+//        public ViewHolder(View view) {
+//            super(view);
+//            itemNameTextView = view.findViewById(R.id.ingredientName);
+//            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
+//            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
+//            ingredientStatus = view.findViewById(R.id.recipe_ingredient_status);
+//        }
+//
+//        public TextView getItemNameTextView() {
+//            return itemNameTextView;
+//        }
+//
+//        public void setItemNameTextView(TextView itemNameTextView) {
+//            this.itemNameTextView = itemNameTextView;
+//        }
+//
+//        public TextView getQuantityAvailTextView() {
+//            return quantityAvailTextView;
+//        }
+//
+//        public void setQuantityAvailTextView(TextView quantityAvailTextView) {
+//            this.quantityAvailTextView = quantityAvailTextView;
+//        }
+//
+//        public TextView getQuantityNeededTextView() {
+//            return quantityNeededTextView;
+//        }
+//
+//        public void setQuantityNeededTextView(TextView quantityNeededTextView) {
+//            this.quantityNeededTextView = quantityNeededTextView;
+//        }
+//
+//        public CardView getIngredientStatus() {
+//            return ingredientStatus;
+//        }
+//
+//        public void setIngredientStatus(CardView ingredientStatus) {
+//            this.ingredientStatus = ingredientStatus;
+//        }
+//    }
 
 }

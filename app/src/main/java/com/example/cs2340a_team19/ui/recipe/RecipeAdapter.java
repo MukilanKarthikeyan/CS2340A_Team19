@@ -60,6 +60,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.currItem = item;
         holder.recipeNameLabel.setText(item.getName());
 
+        holder.statusActionText.setText((item.isPantryReady()) ? R.string.status_cook : R.string.status_buy);
+        //TODO: the adapter is created mulitple times see line 76
+        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.getIngredients(), pantry, this.context));
+
+        //TODO: figure out what size of the text looks good
+        //holder.recipieDescription.setTextSize(10);
+        holder.recipieDescription.setText(item.getDescription());
+
         int recipeStatus = ContextCompat.getColor(this.context,
                 (item.isPantryReady()) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
@@ -113,13 +121,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             this.currItem = currItem;
         }
 
-        public boolean isDisplayIngredients() {
-            return displayIngredients;
-        }
-
-        public void setDisplayIngredients(boolean displayIngredients) {
-            this.displayIngredients = displayIngredients;
-        }
+//        public boolean isDisplayIngredients() {
+//            return displayIngredients;
+//        }
+//
+//        public void setDisplayIngredients(boolean displayIngredients) {
+//            this.displayIngredients = displayIngredients;
+//        }
 
         public RecipeViewHolder(View view) {
             super(view);
@@ -140,7 +148,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 public void onClick(View v) {
                     //TODO: this is probably breaking som sort of design rule -> fix. we make this once curritem is actually instanciated
                     ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.ingredients, pantry, context));
+                    ingredientsList.setAdapter(new RecipeIngredientsAdapter(currItem.getIngredients(), pantry, context));
 
                     //TODO: convert the following codeblock into an if-else block
                     expanded = !expanded;
@@ -178,39 +186,5 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             });
 
         }
-    }
-    public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context) {
-        this.recipeList = itemList;
-        this.pantry = pantry;
-        this.context = context;
-    }
-
-    @Override
-    public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_card, parent, false);
-        return new RecipeAdapter.RecipeViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        final Recipe item = recipeList.get(position);
-        holder.currItem = item;
-        holder.recipeNameLabel.setText(item.name);
-        holder.statusActionText.setText((item.pantryReady) ? R.string.status_cook : R.string.status_buy);
-        //TODO: the adapter is created mulitple times see line 76
-        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients, pantry, this.context));
-
-        //TODO: figure out what size of the text looks good
-        //holder.recipieDescription.setTextSize(10);
-        holder.recipieDescription.setText(item.description);
-
-        int recipeStatus = ContextCompat.getColor(this.context, (item.pantryReady) ? R.color.green : R.color.red);
-        holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
-
-    }
-    @Override
-    public int getItemCount() {
-        return recipeList.size();
     }
 }
