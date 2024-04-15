@@ -25,65 +25,6 @@ public class RecipeIngredientsAdapter
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView itemNameTextView;
-        public TextView quantityAvailTextView;
-        public TextView quantityNeededTextView;
-        public CardView ingredientStatus;
-
-        public ViewHolder(View view) {
-            super(view);
-            itemNameTextView = view.findViewById(R.id.ingredientName);
-            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
-
-            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
-            ingredientStatus = view.findViewById(R.id.recipe_ingredient_status);
-        }
-    }
-
-    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry, Context context) {
-        private Context context;
-
-        public RecipeIngredientsAdapter(List<Ingredient> itemList,
-                                    List<Ingredient> pantry, Context context) {
-
-        this.itemList = itemList;
-        this.pantry = pantry;
-        this.context = context;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_card_ingredient, parent, false);
-        return new ViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder,
-                                 @SuppressLint("RecyclerView") final int position) {
-        final Ingredient item = itemList.get(position);
-        int quantityAvail = 0;
-        for (Ingredient pantryIng : pantry) {
-            if (pantryIng.equals(item)) {
-                quantityAvail = pantryIng.quantity;
-                break;
-            }
-        }
-        holder.itemNameTextView.setText(item.name);
-        holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
-        holder.quantityNeededTextView.setText(String.valueOf(item.quantity));
-
-        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.quantity) ? R.color.green : R.color.red);
-        holder.ingredientStatus.setCardBackgroundColor(status);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView itemNameTextView;
         private TextView quantityAvailTextView;
         private TextView quantityNeededTextView;
@@ -131,4 +72,41 @@ public class RecipeIngredientsAdapter
         }
     }
 
+    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry, Context context) {
+        this.itemList = itemList;
+        this.pantry = pantry;
+        this.context = context;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recipe_card_ingredient, parent, false);
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder,
+                                 @SuppressLint("RecyclerView") final int position) {
+        final Ingredient item = itemList.get(position);
+        int quantityAvail = 0;
+        for (Ingredient pantryIng : pantry) {
+            if (pantryIng.equals(item)) {
+                quantityAvail = pantryIng.getQuantity();
+                break;
+            }
+        }
+        holder.itemNameTextView.setText(item.getName());
+        holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
+        holder.quantityNeededTextView.setText(String.valueOf(item.getQuantity()));
+
+        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.getQuantity()) ? R.color.green : R.color.red);
+        holder.ingredientStatus.setCardBackgroundColor(status);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
 }
