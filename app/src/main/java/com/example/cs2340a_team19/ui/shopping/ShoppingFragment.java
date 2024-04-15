@@ -61,14 +61,14 @@ public class ShoppingFragment extends Fragment {
         //shoppingViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
-
-    @Override
-    public void onViewCreated(View view @NonNull Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_shopping_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ShoppingViewModel viewModel = new ShoppingViewModel((shoppingList, pantry) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList)));
-    }
+//
+//    @Override
+//    public void onViewCreated(View view @NonNull Bundle savedInstanceState) {
+//        RecyclerView recyclerView = view.findViewById(R.id.recycler_shopping_list);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//
+//        ShoppingViewModel viewModel = new ShoppingViewModel((shoppingList, pantry) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList)));
+//    }
 
     @Override
     public void onDestroyView() {
