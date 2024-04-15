@@ -16,7 +16,7 @@ public class ShoppingViewModel extends ViewModel {
     }
 
     public void addItem(String name, String quantity) {
-        cartHandler.creatIngredient(dbHandler.getUserID(), name, quantity);
+       // cartHandler.creatIngredient(dbHandler.getUserID(), name, quantity);
     }
 
     public LiveData<String> getText() {
