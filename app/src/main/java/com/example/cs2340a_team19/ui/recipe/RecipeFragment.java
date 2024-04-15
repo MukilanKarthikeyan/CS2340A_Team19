@@ -39,6 +39,7 @@ public class RecipeFragment extends Fragment {
 
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        //TODO: divider is not actually added here?
         RecyclerView recipeRecycler = (RecyclerView) root.findViewById(R.id.recycler_recipe_list);
         recipeRecycler.addItemDecoration(new DividerItemDecoration(
                 getContext(), R.drawable.divider));

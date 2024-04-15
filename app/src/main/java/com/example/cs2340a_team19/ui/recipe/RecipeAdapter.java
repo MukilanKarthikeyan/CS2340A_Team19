@@ -49,28 +49,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         int recipeStatus = ContextCompat.getColor(this.context,
                 (item.isPantryReady()) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
-        /*
-//        holder.ingredientsList.setLayoutManager(new LinearLayoutManager(context));
-//        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.ingredients));
-
-
-        //holder.quantityTextView.setText(String.valueOf(item.quantity));
-
-//        holder.minusButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Decrease quantity if greater than 0
-//                if (item.quantity > 1) {
-//                    pantryHandler.updateIngredientQuantity(
-                            dbHandler.getUserID(), item.ingredientID, item.quantity - 1);
-//                    notifyItemChanged(position);
-//                } else {
-//                    pantryHandler.removeIngredient(dbHandler.getUserID(), item.ingredientID);
-//                }
-//            }
-//        });
-
-         */
     }
     @Override
     public int getItemCount() {
