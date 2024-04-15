@@ -9,14 +9,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class PantryHandler {
-    private DatabaseReference pantries;
+public class ShoppingListHandler {
+    private DatabaseReference shoppingLists;
     private boolean successfullyInitialized;
-    public PantryHandler(DatabaseReference db) {
+    public ShoppingListHandler(DatabaseReference db) {
         try {
-            this.pantries = db.child("pantries");
+            this.shoppingLists = db.child("shoppingLists");
         } catch (NullPointerException ne) {
-            Log.d("FBRTDB_ERROR", "Getting reference for pantries reached Null Pointer!");
+            Log.d("FBRTDB_ERROR", "Getting reference for shoppingLists reached Null Pointer!");
             return;
         }
 
@@ -24,9 +24,9 @@ public class PantryHandler {
     }
 
     // Get Data for meal
-    public void listenToPantry(String userId, ValueEventListener updater) {
+    public void listenToShoppingList(String userId, ValueEventListener updater) {
         if (successfullyInitialized) {
-            this.pantries.child(userId).addValueEventListener(updater);
+            this.shoppingLists.child(userId).addValueEventListener(updater);
         } else {
             Log.d("FBRTDB_ERROR", "Tried to attach event listener, "
                     + "but View Model was not successfully instantiated");
@@ -36,7 +36,7 @@ public class PantryHandler {
     public void updateIngredientQuantity(String userId, String ingredientId, int quantity) {
         if (successfullyInitialized) {
             try {
-                pantries.child(userId).child(ingredientId).child("quantity").setValue(quantity);
+                shoppingLists.child(userId).child(ingredientId).child("quantity").setValue(quantity);
             } catch (NullPointerException npe) {
                 Log.d("FBRTDB_ERROR", "Tried to add ingredient, "
                         + "but encountered null pointer with (userId, ingredient Id, quantity): "
@@ -92,7 +92,7 @@ public class PantryHandler {
      */
     private String createIngredient(String userId, Ingredient ingredient) {
         if (successfullyInitialized) {
-            DatabaseReference childLoc = pantries.child(userId).push();
+            DatabaseReference childLoc = shoppingLists.child(userId).push();
             // Find and set ID with Regex
             // Pattern pattern = Pattern.compile("/(\\d*)$");
             // Matcher matcher = pattern.matcher(childLoc.getKey());
@@ -114,7 +114,7 @@ public class PantryHandler {
     }
 
     public void removeIngredient(String userId, String ingredientId) {
-        this.pantries.child(userId).child(ingredientId).removeValue().addOnCompleteListener(
+        this.shoppingLists.child(userId).child(ingredientId).removeValue().addOnCompleteListener(
                 new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

@@ -12,22 +12,22 @@ public class RecommendationTest {
     @Test
     public void testRecCalcMale() {
         Recommendation r = new Recommendation(100, 100, true);
-        assertEquals(r.getCalorie_goal(), 1530);
+        assertEquals(r.getCalorieGoal(), 1530);
     }
     @Test
     public void testRecCalcMaleWithFemale() {
         Recommendation r = new Recommendation(100, 100, true);
-        assertNotEquals(r.getCalorie_goal(), 1364);
+        assertNotEquals(r.getCalorieGoal(), 1364);
     }
     @Test
     public void testRecCalcFemale() {
         Recommendation r = new Recommendation(100, 100, false);
-        assertEquals(r.getCalorie_goal(), 1364);
+        assertEquals(r.getCalorieGoal(), 1364);
     }
     @Test
     public void testRecCalcFemaleWithMale() {
         Recommendation r = new Recommendation(100, 100, false);
-        assertNotEquals(r.getCalorie_goal(), 1530);
+        assertNotEquals(r.getCalorieGoal(), 1530);
     }
 
 

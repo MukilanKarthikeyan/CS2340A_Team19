@@ -11,11 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.cs2340a_team19.R;
-import com.example.cs2340a_team19.models.Recipe;
-import com.example.cs2340a_team19.ui.ingredients.IngredientsViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +21,12 @@ import com.example.cs2340a_team19.ui.ingredients.IngredientsViewModel;
  */
 public class AddRecipeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+    // Please DO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Please DO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -45,7 +42,7 @@ public class AddRecipeFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment AddRecipeFragment.
      */
-    // TODO: Rename and change types and number of parameters
+    // Please DO: Rename and change types and number of parameters
     public static AddRecipeFragment newInstance(String param1, String param2) {
         AddRecipeFragment fragment = new AddRecipeFragment();
         Bundle args = new Bundle();
@@ -71,21 +68,21 @@ public class AddRecipeFragment extends Fragment {
         Button addRecipe = view.findViewById(R.id.addRecipeButton);
         EditText recipeName = view.findViewById(R.id.recipe_name_field);
         EditText ingredientList = view.findViewById(R.id.ingredient_list_field);
-        EditText quantitiesList = view.findViewById(R.id.quantity_list_field);
+        EditText quantitiesListT = view.findViewById(R.id.quantity_list_field);
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String rec_name = recipeName.getText().toString();
-                String name_list = ingredientList.getText().toString();
-                String quantities_list = quantitiesList.getText().toString();
+                String recName = recipeName.getText().toString();
+                String nameList = ingredientList.getText().toString();
+                String quantitiesList = quantitiesListT.getText().toString();
 
                 //strip the lists of any whitespaces
-                String cleanedNameList = name_list.replaceAll("\\s+", "");
-                String cleanedQuantsList = quantities_list.replaceAll("\\s+", "");
+                String cleanedNameList = nameList.replaceAll("\\s+", "");
+                String cleanedQuantsList = quantitiesList.replaceAll("\\s+", "");
 
 
                 //if any input is empty, display this problem to user
-                if (rec_name.isEmpty() || name_list.isEmpty() || quantities_list.isEmpty()) {
+                if (recName.isEmpty() || nameList.isEmpty() || quantitiesList.isEmpty()) {
                     Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -97,9 +94,9 @@ public class AddRecipeFragment extends Fragment {
                 String[] quants = cleanedQuantsList.split(",");
 
                 if (names.length != quants.length) {
-                    Toast.makeText(getContext(), "The number of items in your lists is not " +
-                            "matching." +
-                            "Please ensure number of items match.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "The number of items in your lists is not "
+                            + "matching."
+                            + "Please ensure number of items match.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -112,22 +109,22 @@ public class AddRecipeFragment extends Fragment {
                     try {
                         quantsIntegers[i] = Integer.parseInt(curr);
                     } catch (NumberFormatException nfe) {
-                        Toast.makeText(getContext(), "Invalid Quantity " +
-                                "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Invalid Quantity "
+                                + "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (Integer.parseInt(curr) <= 0) {
-                        Toast.makeText(getContext(), "You have a negative quantity. " +
-                                "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "You have a negative quantity. "
+                                + "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
-                viewModel.addRecipe(rec_name, names, quantsIntegers);
+                viewModel.addRecipe(recName, names, quantsIntegers);
                 Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
                 recipeName.setText("");
                 ingredientList.setText("");
-                quantitiesList.setText("");
+                quantitiesListT.setText("");
             }
         });
     }
