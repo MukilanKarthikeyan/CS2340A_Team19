@@ -8,13 +8,17 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.CookbookHandler;
 import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.ShoppingListHandler;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 public class ShoppingViewModel extends ViewModel {
     private DatabaseHandler dbHandler;
     private CookbookHandler cookbookHandler;
     private ShoppingListHandler shoppingListHandler;
-    public ShoppingViewModel() {
+    public ShoppingViewModel(Consumer<List<Ingredient>> updateUI) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.shoppingListHandler = dbHandler.getShoppingListHandler();
@@ -27,13 +31,9 @@ public class ShoppingViewModel extends ViewModel {
         }
     }
 
-    public void addIngredient(String name, int quantity, int calories, String expiration) {
-        if (expiration != null && !expiration.equals("")) {
-            shoppingListHandler.createIngredient(
-                    dbHandler.getUserID(), name, expiration, calories, quantity);
-        } else {
-            shoppingListHandler.createIngredient(dbHandler.getUserID(), name, calories, quantity);
-        }
+    public void addIngredient(String name, int quantity) {
+        shoppingListHandler.createIngredient(
+                dbHandler.getUserID(), name, 0,quantity);
     }
 
 }
