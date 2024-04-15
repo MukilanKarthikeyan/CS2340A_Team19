@@ -21,9 +21,11 @@ public class IngredientsViewModel extends ViewModel {
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
         if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
+            Log.d("PLACEHOLDER", "Gryph add an event listener");
             // Add event listeners here!
         } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
+            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
+                    + "because dbHandler Initialization Failed!");
         }
         this.textLiveData = new MutableLiveData<>();
         this.textLiveData.setValue("Default text");
@@ -32,6 +34,14 @@ public class IngredientsViewModel extends ViewModel {
         return textLiveData;
     }
 
+    public void addIngredient(String name, int quantity, int calories, String expiration) {
+        if (expiration != null && !expiration.equals("")) {
+            pantryHandler.createIngredient(
+                    dbHandler.getUserID(), name, expiration, calories, quantity);
+        } else {
+            pantryHandler.createIngredient(dbHandler.getUserID(), name, calories, quantity);
+        }
+    }
     // Method to update the text
     public void updateText(String newText) {
         textLiveData.setValue(newText);

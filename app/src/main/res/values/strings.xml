@@ -8,7 +8,6 @@
     <string name="title_shopping">Shopping</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="title_personal">Personal Info</string>
-
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -26,4 +25,8 @@
     <string name="Other">Other:</string>
     <string name="input_personal_button">"Button that leads to screen to input personal info"</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="label_ingredient_input_form">Add Ingredient</string>
+    <string name="label_recipe_input_form">Add Recipe</string>
+
 </resources>

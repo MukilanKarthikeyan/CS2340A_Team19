@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:padding="5dp"
+        android:background="@color/color_white">
+        <TextView
+            android:id="@+id/shopping_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="shopping list item"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+        <TextView
+            android:id="@+id/shopping_item_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Quantity"
+            android:textSize="15sp"
+            android:layout_marginRight="45dp"/>
+        <!-- add custom checkbox build in does not do what we want-->
+        <!--https://stackoverflow.com/questions/2151241/android-how-to-change-checkbox-size-->
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="Mark"
+            android:textSize="15sp"
+            android:layout_marginRight="15dp"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
