@@ -1,25 +1,15 @@
 package com.example.cs2340a_team19.ui.personalInfo;
 
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.cs2340a_team19.databinding.FragmentPersonalInformationBinding;
 import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Profile;
 import com.example.cs2340a_team19.models.ProfileHandler;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PersonalInformationViewModel extends ViewModel {
     private DatabaseHandler dbHandler;
@@ -36,14 +26,16 @@ public class PersonalInformationViewModel extends ViewModel {
                     // whenever data at this location is updated.
 
                     if (!dataSnapshot.exists()) {
-//                        dbHandler.identifyUser();
+                        // dbHandler.identifyUser();
                         profileHandler.createProfile(dbHandler.getUserID());
                     } else {
-                        // TODO: Use this to update the UI!!!
+                        // Please DO: Use this to update the UI!!!
                         Profile value = dataSnapshot.getValue(Profile.class);
-                        frag.updateUI((value.getHeight() == -1 ? "" : "" + value.getHeight()), value.getWeight() == -1 ? "" : "" + value.getWeight(), value.getGender());
+                        frag.updateUI((value.getHeight() == -1 ? "" : "" + value.getHeight()),
+                                value.getWeight() == -1 ? "" : ""
+                                        + value.getWeight(), value.getGender());
 
-//                        radioGroup.set
+                        // radioGroup.set
                         // UI Stuff
                     }
                 }
@@ -54,13 +46,15 @@ public class PersonalInformationViewModel extends ViewModel {
                 }
             });
         } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile because dbHandler Initialization Failed!");
+            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
+                    + "because dbHandler Initialization Failed!");
         }
 
     }
 
     public void updateProfile(String height, String weight, boolean gender) {
-        this.profileHandler.updateProfile(dbHandler.getUserID(), Integer.parseInt(height), Integer.parseInt(weight), gender);
+        this.profileHandler.updateProfile(dbHandler.getUserID(),
+                Integer.parseInt(height), Integer.parseInt(weight), gender);
     }
 
 

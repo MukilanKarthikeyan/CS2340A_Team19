@@ -1,6 +1,5 @@
 package com.example.cs2340a_team19.ui.personalInfo;
 
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.cs2340a_team19.R;
-import com.example.cs2340a_team19.databinding.FragmentMealsBinding;
 import com.example.cs2340a_team19.databinding.FragmentPersonalInformationBinding;
 
 public class PersonalInformationFragment extends Fragment {
@@ -34,7 +32,7 @@ public class PersonalInformationFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentPersonalInformationBinding.inflate(inflater, container, false);
 
-//        this.updateUI("222", "333");
+        // this.updateUI("222", "333");
 
 
         return inflater.inflate(R.layout.fragment_personal_information, container, false);
@@ -49,7 +47,9 @@ public class PersonalInformationFragment extends Fragment {
         EditText weight = view.findViewById(R.id.input_weight);
         RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
         Button enter = view.findViewById(R.id.personalInfoSubmitButton);
-        enter.setOnClickListener((View v) -> mViewModel.updateProfile(height.getText().toString(), weight.getText().toString(), radioGroup.getCheckedRadioButtonId() == R.id.radioButton4));
+        enter.setOnClickListener((View v) -> mViewModel.updateProfile(
+                height.getText().toString(), weight.getText().toString(),
+                radioGroup.getCheckedRadioButtonId() == R.id.radioButton4));
     }
 
     public void updateUI(String newHeight, String newWeight, boolean newGender) {
@@ -62,13 +62,14 @@ public class PersonalInformationFragment extends Fragment {
         radioGroup.check(newGender ? R.id.radioButton4 : R.id.radioButton5);
     }
 
-
+    /*
 //    @Override
 //    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 //        super.onActivityCreated(savedInstanceState);
 ////        mViewModel = new ViewModelProvider(this).get(PersonalInformationViewModel.class);
 //
-//        // TODO: Use the ViewModel
+//        // Please DO: Use the ViewModel
 //    }
+     */
 
 }

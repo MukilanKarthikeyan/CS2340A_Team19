@@ -20,7 +20,8 @@ public class DatabaseHandler {
         try {
             database = FirebaseDatabase.getInstance().getReference();
         } catch (NullPointerException ne) {
-            Log.d("FBRTDB_ERROR", "Null Pointer in Authentication -> current User ID, check if you are connected and Logged in.");
+            Log.d("FBRTDB_ERROR", "Null Pointer in Authentication -> current User ID, "
+                    + "check if you are connected and Logged in.");
             return;
         }
 
@@ -32,10 +33,10 @@ public class DatabaseHandler {
         pantryHandler = new PantryHandler(this.database);
 
         succesfullyInitialized =
-                profileHandler.isSuccessfullyInitialized() &&
-                mealHandler.isSuccessfullyInitialized() &&
-                cookbookHandler.isSuccessfullyInitialized() &&
-                pantryHandler.isSuccessfullyInitialized();
+                profileHandler.isSuccessfullyInitialized()
+                        && mealHandler.isSuccessfullyInitialized()
+                        && cookbookHandler.isSuccessfullyInitialized()
+                        && pantryHandler.isSuccessfullyInitialized();
 
     }
 
@@ -45,7 +46,8 @@ public class DatabaseHandler {
             Log.d("FBRTDB_ERROR", "UserID Success " + this.userID);
         } catch (NullPointerException ne) {
             this.userID = null;
-            Log.d("FBRTDB_ERROR", "Null Pointer in Authentication: " + FirebaseAuth.getInstance().getUid());
+            Log.d("FBRTDB_ERROR", "Null Pointer in Authentication: "
+                    + FirebaseAuth.getInstance().getUid());
         }
     }
 

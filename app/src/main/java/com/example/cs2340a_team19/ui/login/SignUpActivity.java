@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -74,7 +73,8 @@ public class SignUpActivity extends AppCompatActivity {
                         && LoginViewModel.isPasswordValid(passwordEditText.getText().toString())
                 ) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(usernameEditText.getText().toString().trim(),
+                    mAuth.createUserWithEmailAndPassword(
+                            usernameEditText.getText().toString().trim(),
                                     passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
