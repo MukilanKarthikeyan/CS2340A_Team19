@@ -19,9 +19,4 @@ public class CartHandler {
         successfullyInitialized = true;
     }
 
-    //TODO: add this function
-    public String createCartItem(String userID, String name, ) {
-
-    }
-
 }
