@@ -113,7 +113,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     statusCardSize *= context.getResources().getDisplayMetrics().density; // accomodates for the current density factor
 
                     final AutoTransition transition = new AutoTransition();
-                    transition.setDuration(500L);
+                    transition.setDuration(0L);
                     TransitionManager.beginDelayedTransition(layout, transition);
                     //TransitionManager.beginDelayedTransition(layout, new AutoTransition());
                     ingredientsList.setVisibility(vis);
