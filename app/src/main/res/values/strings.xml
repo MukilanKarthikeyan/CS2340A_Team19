@@ -28,5 +28,9 @@
 
     <string name="label_ingredient_input_form">Add Ingredient</string>
     <string name="label_recipe_input_form">Add Recipe</string>
+    <string name="expansion_desc">indicator that card can be expanded to view more information</string>
+    <string name="status_cook">Cook Recipe</string>
+    <string name="status_buy">Buy Items</string>
+
 
 </resources>

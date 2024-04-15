@@ -73,6 +73,9 @@ public class Recipe {
 
     public void setCalories(int calories) {
         this.calories = calories;
+        this.ingredients = ingredients;
+        //this.ingredients = (ingredients == null) ? new ArrayList<Ingredient>() : ingredients;
+
     }
 
     public String getDescription() {
