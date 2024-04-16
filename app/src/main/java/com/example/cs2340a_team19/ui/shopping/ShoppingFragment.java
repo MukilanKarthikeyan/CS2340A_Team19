@@ -77,7 +77,6 @@ public class ShoppingFragment extends Fragment {
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

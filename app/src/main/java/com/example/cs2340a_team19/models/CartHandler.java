@@ -18,5 +18,4 @@ public class CartHandler {
         }
         successfullyInitialized = true;
     }
-
 }

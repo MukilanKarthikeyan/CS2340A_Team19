@@ -31,6 +31,7 @@ public class ShoppingViewModel extends ViewModel {
         }
     }
 
+
     public void addIngredient(String name, int quantity) {
         shoppingListHandler.createIngredient(
                 dbHandler.getUserID(), name, 0,quantity);
