@@ -2,22 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
-        <State />
-      </entry>
-      <entry key="LoginViewModelTest">
-        <State />
-      </entry>
       <entry key="RecommendationTest">
         <State />
       </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="createPantryIngredient()">
-        <State />
-      </entry>
-      <entry key="superTest1()">
         <State />
       </entry>
     </value>
