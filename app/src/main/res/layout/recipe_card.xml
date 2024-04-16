@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="5dp">
+        android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -22,69 +21,30 @@
             <TextView
                 android:id="@+id/recipe_name"
                 android:text="Recipe name"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginLeft="15dp"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:textSize="20dp"
+                android:layout_marginLeft="25dp"/>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/pantry_status_indicator"
-                android:layout_width="30dp"
+                android:layout_width="50dp"
                 android:layout_height="30dp"
                 app:cardBackgroundColor="@color/green"
                 app:cardCornerRadius="10dp"
-                android:layout_marginRight="10dp" >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/status_action_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:visibility="gone"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
-                <!-- ANIMATE CHANGE TO BUTTON button must fill the entire space, and card should grow to wrap content-->
-                <!--Button
-                    android:layout_width="100dp"
-                    android:layout_height="35dp"
-                    android:text="cook/add to cart">
-
-                </Button-->
             </androidx.cardview.widget.CardView>
-
-
-            <ImageView
-                android:id="@+id/card_expand_indicator"
-                android:src="@drawable/baseline_expand_more_24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:contentDescription="@string/label_recipe_input_form"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/recipe_description"
-            android:layout_width="325dp"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:visibility="gone"/>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_ingredient_list"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone">
+            android:layout_marginBottom="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
