@@ -13,15 +13,10 @@ public class CartHandler {
         try {
             this.database = db.child("cart");
         } catch (NullPointerException ne) {
-            Log.d("DB_ERROR", "getting reference for cart reached Null Pointer")
+            Log.d("DB_ERROR", "getting reference for cart reached Null Pointer");
             return;
         }
         successfullyInitialized = true;
-    }
-
-    //TODO: add this function
-    public String createCartItem(String userID, String name, ) {
-
     }
 
 }

@@ -46,6 +46,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.currItem = item;
         holder.recipeNameLabel.setText(item.getName());
 
+        holder.statusActionText.setText((item.isPantryReady()) ? R.string.status_cook : R.string.status_buy);
+        //TODO: the adapter is created mulitple times see line 76
+        holder.ingredientsList.setAdapter(new RecipeIngredientsAdapter(item.getIngredients(), pantry, this.context));
+
+        //TODO: figure out what size of the text looks good
+        //holder.recipieDescription.setTextSize(10);
+        holder.recipieDescription.setText(item.getDescription());
+
         int recipeStatus = ContextCompat.getColor(this.context,
                 (item.isPantryReady()) ? R.color.green : R.color.red);
         holder.recipePantryStatus.setCardBackgroundColor(recipeStatus);
@@ -96,13 +104,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             this.currItem = currItem;
         }
 
-        public boolean isDisplayIngredients() {
-            return displayIngredients;
-        }
-
-        public void setDisplayIngredients(boolean displayIngredients) {
-            this.displayIngredients = displayIngredients;
-        }
+//        public boolean isDisplayIngredients() {
+//            return displayIngredients;
+//        }
+//
+//        public void setDisplayIngredients(boolean displayIngredients) {
+//            this.displayIngredients = displayIngredients;
+//        }
 
         public RecipeViewHolder(View view) {
             super(view);
