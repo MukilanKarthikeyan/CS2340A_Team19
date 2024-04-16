@@ -21,26 +21,11 @@ public class RecipeIngredientsAdapter
         extends RecyclerView.Adapter<RecipeIngredientsAdapter.ViewHolder> {
     private List<Ingredient> itemList;
     private List<Ingredient> pantry;
+
     private Context context;
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView itemNameTextView;
-        public TextView quantityAvailTextView;
-        public TextView quantityNeededTextView;
-        public CardView ingredientStatus;
-
-        public ViewHolder(View view) {
-            super(view);
-            itemNameTextView = view.findViewById(R.id.ingredientName);
-            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
-
-            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
-            ingredientStatus = view.findViewById(R.id.recipe_ingredient_status);
-        }
-    }
-
-    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry, Context context) {
+    public RecipeIngredientsAdapter(List<Ingredient> itemList,
+                                    List<Ingredient> pantry, Context context) {
         this.itemList = itemList;
         this.pantry = pantry;
         this.context = context;
@@ -57,19 +42,23 @@ public class RecipeIngredientsAdapter
     public void onBindViewHolder(final ViewHolder holder,
                                  @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = itemList.get(position);
-        int quantityAvail = 0;
+        int quantity = 0;
         for (Ingredient pantryIng : pantry) {
+            Log.d("GryphDebug", "Pantry Ing: " + (
+                    (pantryIng != null) ? pantryIng.getName() : "NULL"));
             if (pantryIng.equals(item)) {
-                quantityAvail = pantryIng.getQuantity();
+                quantity = pantryIng.getQuantity();
                 break;
             }
         }
         holder.itemNameTextView.setText(item.getName());
-        holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
+        holder.quantityAvailTextView.setText(String.valueOf(quantity));
         holder.quantityNeededTextView.setText(String.valueOf(item.getQuantity()));
 
-        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.getQuantity()) ? R.color.green : R.color.red);
-        holder.ingredientStatus.setCardBackgroundColor(status);
+
+        int recipeStatus = ContextCompat.getColor(this.context, (
+                quantity >= item.getQuantity()) ? R.color.green : R.color.red);
+        holder.ingredientStatus.setCardBackgroundColor(recipeStatus);
 
     }
 
@@ -77,53 +66,5 @@ public class RecipeIngredientsAdapter
     public int getItemCount() {
         return itemList.size();
     }
-
-//    public class ViewHolder extends RecyclerView.ViewHolder {
-//        private TextView itemNameTextView;
-//        private TextView quantityAvailTextView;
-//        private TextView quantityNeededTextView;
-//
-//        private CardView ingredientStatus;
-//
-//        public ViewHolder(View view) {
-//            super(view);
-//            itemNameTextView = view.findViewById(R.id.ingredientName);
-//            quantityAvailTextView = view.findViewById(R.id.ingredient_quantity_available);
-//            quantityNeededTextView = view.findViewById(R.id.ingredient_quantity_needed);
-//            ingredientStatus = view.findViewById(R.id.recipe_ingredient_status);
-//        }
-//
-//        public TextView getItemNameTextView() {
-//            return itemNameTextView;
-//        }
-//
-//        public void setItemNameTextView(TextView itemNameTextView) {
-//            this.itemNameTextView = itemNameTextView;
-//        }
-//
-//        public TextView getQuantityAvailTextView() {
-//            return quantityAvailTextView;
-//        }
-//
-//        public void setQuantityAvailTextView(TextView quantityAvailTextView) {
-//            this.quantityAvailTextView = quantityAvailTextView;
-//        }
-//
-//        public TextView getQuantityNeededTextView() {
-//            return quantityNeededTextView;
-//        }
-//
-//        public void setQuantityNeededTextView(TextView quantityNeededTextView) {
-//            this.quantityNeededTextView = quantityNeededTextView;
-//        }
-//
-//        public CardView getIngredientStatus() {
-//            return ingredientStatus;
-//        }
-//
-//        public void setIngredientStatus(CardView ingredientStatus) {
-//            this.ingredientStatus = ingredientStatus;
-//        }
-//    }
 
 }
