@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder> {
     private List<Ingredient> shoppingList;
+    private ShoppingViewModel vm;
 
     class ShoppingViewHolder extends RecyclerView.ViewHolder {
         public TextView shopItemLabel;
@@ -38,7 +39,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         }
     }
 
-    public ShoppingAdapter(List<Ingredient> itemList) {
+    public ShoppingAdapter(List<Ingredient> itemList, ShoppingViewModel vm) {
+        this.vm = vm;
         this.shoppingList = itemList;
     }
 
@@ -57,15 +59,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         holder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: increments the ingredient ammount
+                vm.decrementIngredientQuantity(position);
             }
         });
 
         holder.minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO:Decrease quantity if greater than 0
-
+                vm.incrementIngredientQuantity(position);
             }
         });
     }

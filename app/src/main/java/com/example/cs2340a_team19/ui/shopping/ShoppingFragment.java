@@ -49,7 +49,7 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        if (vm == null) {
-        vm = new ShoppingViewModel((shoppingList) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList)));
+        vm = new ShoppingViewModel((shoppingList, vm) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm)));
 //        }
         Log.d("DEBUG_GRYPH", "I'm gonna add a listener!");
         addShopItem.setOnClickListener(new View.OnClickListener() {
