@@ -72,6 +72,11 @@ public class ShoppingFragment extends Fragment {
                     return;
                 }
 
+                if (intItemQuant <= 0) {
+                    Toast.makeText(getContext(), "Please enter a quantity above 0", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 vm.addIngredient(itemName, intItemQuant);
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();

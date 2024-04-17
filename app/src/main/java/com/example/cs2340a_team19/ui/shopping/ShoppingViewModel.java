@@ -59,7 +59,58 @@ public class ShoppingViewModel extends ViewModel {
         });
     }
 
+    public boolean incrementIngredientQuantity(String ingID) {
+        int targetIndex = -1;
+        for (int i = 0; i < currentList.size(); i++) {
+            if (ingID.equals(currentList.get(i).getIngredientID())) {
+                targetIndex = i;
+                break;
+            }
+        }
+        if (targetIndex == -1) {
+            return false;
+        }
+        incrementIngredientQuantity(targetIndex);
+        return true;
+    }
+
+    public void incrementIngredientQuantity(int index) {
+        this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                currentList.get(index).getIngredientID(), currentList.get(index).getQuantity() + 1);
+    }
+
+    public boolean decrementIngredientQuantity(String ingID) {
+        int targetIndex = -1;
+        for (int i = 0; i < currentList.size(); i++) {
+            if (ingID.equals(currentList.get(i).getIngredientID())) {
+                targetIndex = i;
+                break;
+            }
+        }
+        if (targetIndex == -1) {
+            return false;
+        }
+        decrementIngredientQuantity(targetIndex);
+        return true;
+    }
+
+    public void decrementIngredientQuantity(int index) {
+        if (this.currentList.get(index).getQuantity() <= 1) {
+            this.shoppingListHandler.removeIngredient(dbHandler.getUserID(), currentList.get(index).getIngredientID());
+        } else {
+            this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                    currentList.get(index).getIngredientID(), currentList.get(index).getQuantity() - 1);
+        }
+    }
+
     public void addIngredient(String name, int quantity) {
+        // Check for duplicate ingredient
+        for (Ingredient curr : currentList) {
+            if (curr.getName().trim().equalsIgnoreCase(name.trim())) {
+                this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(), curr.getIngredientID(), curr.getQuantity() + quantity);
+                return;
+            }
+        }
         shoppingListHandler.createIngredient(
                 dbHandler.getUserID(), name, 0,quantity);
     }
