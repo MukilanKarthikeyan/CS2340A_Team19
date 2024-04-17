@@ -2,6 +2,7 @@
 package com.example.cs2340a_team19.ui.shopping;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public void onBindViewHolder(final ShoppingViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = shoppingList.get(position);
         holder.shopItemLabel.setText(item.getName());
-        holder.shopItemQuant.setText(item.getQuantity());
+//        Log.d("GRYPH_DEBUG", "" + item.getQuantity());
+        holder.shopItemQuant.setText(String.valueOf(item.getQuantity()));
     }
     @Override
     public int getItemCount() {
