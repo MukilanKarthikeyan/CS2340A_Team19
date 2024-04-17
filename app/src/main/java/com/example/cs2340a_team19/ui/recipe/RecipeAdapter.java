@@ -116,7 +116,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
                     //Change duration of animation here:
-                    transition.setDuration(0L);
+                    transition.setDuration(10L);
                     TransitionManager.beginDelayedTransition(layout, transition);
                     //TransitionManager.beginDelayedTransition(layout, new AutoTransition());
                     ingredientsList.setVisibility(vis);

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,11 +25,15 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     class ShoppingViewHolder extends RecyclerView.ViewHolder {
         public TextView shopItemLabel;
         public TextView shopItemQuant;
+        public ImageView plusButton;
+        public ImageView minusButton;
 
         public ShoppingViewHolder(View view) {
             super(view);
             shopItemLabel = view.findViewById(R.id.shopping_item_label);
             shopItemQuant = view.findViewById(R.id.shopping_item_quantity);
+            plusButton = view.findViewById(R.id.buttonPlus);
+            minusButton = view.findViewById(R.id.buttonMinus);
         }
     }
 
@@ -46,7 +51,22 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public void onBindViewHolder(final ShoppingViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final Ingredient item = shoppingList.get(position);
         holder.shopItemLabel.setText(item.getName());
-        holder.shopItemQuant.setText(item.getQuantity());
+        holder.shopItemQuant.setText(String.valueOf(item.getQuantity()));
+
+        holder.plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: increments the ingredient ammount
+            }
+        });
+
+        holder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO:Decrease quantity if greater than 0
+
+            }
+        });
     }
     @Override
     public int getItemCount() {
