@@ -10,14 +10,20 @@
         android:layout_gravity="center"
         android:padding="5dp"
         android:background="@color/color_white">
-        <TextView
+
+        <CheckBox android:id="@+id/shopping_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="15sp"
+            android:text="shopping list item" />
+        <!--TextView
             android:id="@+id/shopping_item_label"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="shopping list item"
             android:layout_marginLeft="15dp"
             android:textSize="15sp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"/-->
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -42,6 +48,7 @@
                 android:src="@drawable/baseline_expand_less_24"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
                 android:contentDescription="Decrease"/>
             <View
                 android:layout_width="0dp"
@@ -63,6 +70,7 @@
                 android:src="@drawable/baseline_expand_more_24"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginRight="5dp"
                 android:contentDescription="increase"/>
             <!--Button
                 android:id="@+id/buttonPlus"
@@ -76,15 +84,11 @@
 
         <!-- add custom checkbox build in does not do what we want-->
         <!--https://stackoverflow.com/questions/2151241/android-how-to-change-checkbox-size-->
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:text="Mark"
-            android:textSize="15sp"
-            android:layout_marginRight="15dp"
-            android:gravity="center_vertical"/>
-
     </LinearLayout>
 
 
+
 </androidx.cardview.widget.CardView>
+
+
+
