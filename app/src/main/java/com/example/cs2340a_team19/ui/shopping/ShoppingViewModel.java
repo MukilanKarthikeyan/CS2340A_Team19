@@ -17,15 +17,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class ShoppingViewModel extends ViewModel {
     private DatabaseHandler dbHandler;
     private CookbookHandler cookbookHandler;
     private ShoppingListHandler shoppingListHandler;
     private List<Ingredient> currentList;
-    private Consumer<List<Ingredient>> updateUI;
-    public ShoppingViewModel(Consumer<List<Ingredient>> updateUI) {
+    private BiConsumer<List<Ingredient>, ShoppingViewModel> updateUI;
+    public ShoppingViewModel(BiConsumer<List<Ingredient>, ShoppingViewModel> updateUI) {
         this.updateUI = updateUI;
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
@@ -39,6 +39,7 @@ public class ShoppingViewModel extends ViewModel {
     }
 
     public void addShoppingListener() {
+        ShoppingViewModel vm = this;
         this.shoppingListHandler.listenToShoppingList(dbHandler.getUserID(), new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -48,7 +49,7 @@ public class ShoppingViewModel extends ViewModel {
                 }
                 currentList = shoppingList;
                 if (updateUI != null) {
-                    updateUI.accept(currentList);
+                    updateUI.accept(currentList, vm);
                 }
             }
 
@@ -59,7 +60,58 @@ public class ShoppingViewModel extends ViewModel {
         });
     }
 
+    public boolean incrementIngredientQuantity(String ingID) {
+        int targetIndex = -1;
+        for (int i = 0; i < currentList.size(); i++) {
+            if (ingID.equals(currentList.get(i).getIngredientID())) {
+                targetIndex = i;
+                break;
+            }
+        }
+        if (targetIndex == -1) {
+            return false;
+        }
+        incrementIngredientQuantity(targetIndex);
+        return true;
+    }
+
+    public void incrementIngredientQuantity(int index) {
+        this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                currentList.get(index).getIngredientID(), currentList.get(index).getQuantity() + 1);
+    }
+
+    public boolean decrementIngredientQuantity(String ingID) {
+        int targetIndex = -1;
+        for (int i = 0; i < currentList.size(); i++) {
+            if (ingID.equals(currentList.get(i).getIngredientID())) {
+                targetIndex = i;
+                break;
+            }
+        }
+        if (targetIndex == -1) {
+            return false;
+        }
+        decrementIngredientQuantity(targetIndex);
+        return true;
+    }
+
+    public void decrementIngredientQuantity(int index) {
+        if (this.currentList.get(index).getQuantity() <= 1) {
+            this.shoppingListHandler.removeIngredient(dbHandler.getUserID(), currentList.get(index).getIngredientID());
+        } else {
+            this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                    currentList.get(index).getIngredientID(), currentList.get(index).getQuantity() - 1);
+        }
+    }
+
     public void addIngredient(String name, int quantity) {
+        // Check for duplicate ingredient
+        for (Ingredient curr : currentList) {
+            if (curr.getName().trim().equalsIgnoreCase(name.trim())) {
+                this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(), curr.getIngredientID(), curr.getQuantity() + quantity);
+                return;
+            }
+        }
         shoppingListHandler.createIngredient(
                 dbHandler.getUserID(), name, 0,quantity);
     }

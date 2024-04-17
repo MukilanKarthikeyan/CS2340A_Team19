@@ -49,7 +49,7 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        if (vm == null) {
-        vm = new ShoppingViewModel((shoppingList) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList)));
+        vm = new ShoppingViewModel((shoppingList, vm) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm)));
 //        }
         Log.d("DEBUG_GRYPH", "I'm gonna add a listener!");
         addShopItem.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +69,11 @@ public class ShoppingFragment extends Fragment {
                     intItemQuant = Integer.parseInt(itemQuant);
                 } catch (NumberFormatException nfe) {
                     Toast.makeText(getContext(), "Please enter a valid quantity", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (intItemQuant <= 0) {
+                    Toast.makeText(getContext(), "Please enter a quantity above 0", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
