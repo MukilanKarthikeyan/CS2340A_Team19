@@ -2,6 +2,7 @@
 package com.example.cs2340a_team19.ui.shopping;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,4 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public int getItemCount() {
         return shoppingList.size();
     }
-
-
-
 }
