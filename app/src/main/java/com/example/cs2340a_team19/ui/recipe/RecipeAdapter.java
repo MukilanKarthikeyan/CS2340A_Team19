@@ -39,6 +39,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private List<Recipe> recipeList;
     private List<Ingredient> pantry;
     private Context context;
+    private RecipeViewModel vm;
 
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         public Recipe currItem;
@@ -138,17 +139,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     if (!expanded) {
                         return;
                     }
-                    //TODO: implement logic for what happens when you click the card to cook/buy
+                    if (currItem.isPantryReady()) {
+                        vm.cookRecipe(currItem);
+                    } else {
+                        vm.addRecipeToShoppingList(currItem);
+                    }
+
                     Log.d("Mukilan", "cook/buy button clicked");
                 }
             });
 
         }
     }
-    public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context) {
+    public RecipeAdapter(List<Recipe> itemList, List<Ingredient> pantry, Context context, RecipeViewModel vm) {
         this.recipeList = itemList;
         this.pantry = pantry;
         this.context = context;
+        this.vm = vm;
     }
 
     @Override
