@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Recipe {
+public class Recipe extends Aggregatable {
     @Exclude
     private boolean pantryReady;
     private String name;

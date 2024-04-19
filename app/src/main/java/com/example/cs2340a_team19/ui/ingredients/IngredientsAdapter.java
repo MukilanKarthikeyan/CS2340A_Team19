@@ -11,20 +11,17 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs2340a_team19.R;
-import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Ingredient;
-import com.example.cs2340a_team19.models.PantryHandler;
 
 import java.util.List;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
     private List<Ingredient> itemList;
+    private final IngredientsViewModel vm;
 
-    private DatabaseHandler dbHandler;
-    private PantryHandler pantryHandler;
-
-    public IngredientsAdapter(List<Ingredient> itemList) {
+    public IngredientsAdapter(List<Ingredient> itemList, IngredientsViewModel vm) {
         this.itemList = itemList;
+        this.vm = vm;
     }
 
     @Override
@@ -32,16 +29,6 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Log.d("ALEX", "ingredients list adapter onCreateViewHolder check");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ingredient_list_item, parent, false);
-
-        this.dbHandler = DatabaseHandler.getInstance();
-        this.pantryHandler = dbHandler.getPantryHandler();
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            Log.d("ALEX", "ingredients list adapter onCreateViewHolder dbHandler initialized");
-            // Add event listeners here!
-        } else {
-            Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
-                    + "because dbHandler Initialization Failed!");
-        }
         return new ViewHolder(itemView);
     }
 
@@ -51,13 +38,12 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         final Ingredient item = itemList.get(position);
         holder.itemNameTextView.setText(item.getName());
         holder.quantityTextView.setText(String.valueOf(item.getQuantity()));
-        Log.d("ALEX", "ingredients list adapter onBindViewHolder check");
         holder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Increase quantity
-                pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
-                        item.getIngredientID(), item.getQuantity() + 1);
+                vm.updateIngredientQuantity(
+                        item, item.getQuantity() + 1);
                 notifyItemChanged(position);
             }
         });
@@ -67,11 +53,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             public void onClick(View v) {
                 // Decrease quantity if greater than 0
                 if (item.getQuantity() > 1) {
-                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
-                            item.getIngredientID(), item.getQuantity() - 1);
+                    vm.updateIngredientQuantity(
+                            item, item.getQuantity() - 1);
                     notifyItemChanged(position);
                 } else {
-                    pantryHandler.removeIngredient(dbHandler.getUserID(), item.getIngredientID());
+                    vm.removeIngredient(item);
                 }
             }
         });

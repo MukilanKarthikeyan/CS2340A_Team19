@@ -7,6 +7,9 @@ public class Recommendation {
         this.calorieGoal = 2000;
     }
 
+    public Recommendation(Profile profile) {
+        this(profile.getHeight(), profile.getWeight(), profile.getGender());
+    }
     public Recommendation(int height, int weight, boolean gender) {
         if (gender) {
             //male

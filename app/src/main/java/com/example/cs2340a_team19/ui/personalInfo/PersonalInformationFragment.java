@@ -14,15 +14,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentPersonalInformationBinding;
+import com.example.cs2340a_team19.models.Profile;
 
 public class PersonalInformationFragment extends Fragment {
 
-    private PersonalInformationViewModel mViewModel;
+    private PersonalInformationViewModel vm;
     private FragmentPersonalInformationBinding binding;
     private View view;
+
+    private EditText heightInput;
+    private EditText weightInput;
+    private RadioGroup radioGroup;
+    private Button enterButton;
+
     public static PersonalInformationFragment newInstance() {
         return new PersonalInformationFragment();
     }
@@ -42,34 +50,25 @@ public class PersonalInformationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         this.view = view;
-        mViewModel = new PersonalInformationViewModel(this);
-        EditText height = view.findViewById(R.id.input_height);
-        EditText weight = view.findViewById(R.id.input_weight);
-        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
-        Button enter = view.findViewById(R.id.personalInfoSubmitButton);
-        enter.setOnClickListener((View v) -> mViewModel.updateProfile(
-                height.getText().toString(), weight.getText().toString(),
-                radioGroup.getCheckedRadioButtonId() == R.id.radioButton4));
+        vm = new PersonalInformationViewModel(this::updateUI);
+        this.heightInput = view.findViewById(R.id.input_height);
+        this.weightInput = view.findViewById(R.id.input_weight);
+        this.radioGroup = view.findViewById(R.id.radioGroup);
+        this.enterButton = view.findViewById(R.id.personalInfoSubmitButton);
+        enterButton.setOnClickListener(this::submitProfile);
     }
 
-    public void updateUI(String newHeight, String newWeight, boolean newGender) {
-        final EditText heightInput = view.findViewById(R.id.input_height);
-        final EditText weightInput = view.findViewById(R.id.input_weight);
-        final RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
-        Log.d("DebugTag", "In updateUI!");
-        heightInput.setText(newHeight);
-        weightInput.setText(newWeight);
-        radioGroup.check(newGender ? R.id.radioButton4 : R.id.radioButton5);
+    public void submitProfile(View v) {
+        String result = vm.updateProfile(
+                this.heightInput.getText().toString(), this.weightInput.getText().toString(),
+                this.radioGroup.getCheckedRadioButtonId() == R.id.radioButton4);
+        Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
     }
 
-    /*
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-////        mViewModel = new ViewModelProvider(this).get(PersonalInformationViewModel.class);
-//
-//        // Please DO: Use the ViewModel
-//    }
-     */
+    public void updateUI(Profile profile) {
+        this.heightInput.setText(profile.getHeight());
+        this.weightInput.setText(profile.getWeight());
+        this.radioGroup.check(profile.getGender() ? R.id.radioButton4 : R.id.radioButton5);
+    }
 
 }

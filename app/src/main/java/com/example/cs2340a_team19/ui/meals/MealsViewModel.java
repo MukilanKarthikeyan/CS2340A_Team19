@@ -1,75 +1,45 @@
 package com.example.cs2340a_team19.ui.meals;
 
 import android.util.Log;
-import android.view.View;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.AggregateDataHandler;
+import com.example.cs2340a_team19.models.DataHandler;
+import com.example.cs2340a_team19.models.Database;
 import com.example.cs2340a_team19.models.Meal;
-import com.example.cs2340a_team19.models.MealHandler;
 import com.example.cs2340a_team19.models.Profile;
-import com.example.cs2340a_team19.models.ProfileHandler;
 import com.example.cs2340a_team19.models.Recommendation;
-import com.example.cs2340a_team19.models.UserMeal;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 
 public class MealsViewModel extends ViewModel {
-    private DatabaseHandler dbHandler;
-    private MealHandler mealHandler;
-    private ProfileHandler profileHandler;
+    private Database database;
+    private AggregateDataHandler<Meal> mealsHandler;
+    private DataHandler<Profile> profileHandler;
+    private final MealsFragment fragment;
 
-    public MealsViewModel(MealsFragment frag) {
-        this.dbHandler = DatabaseHandler.getInstance();
-        this.mealHandler = dbHandler.getMealHandler();
-        this.profileHandler = dbHandler.getProfileHandler();
+    public MealsViewModel(MealsFragment fragment) {
+        this.database = Database.getInstance();
+        this.mealsHandler = database.getMealsHandler();
+        this.profileHandler = database.getProfileHandler();
+        this.fragment = fragment;
 
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            this.profileHandler.listenToProfile(dbHandler.getUserID(), new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-
-                    if (!dataSnapshot.exists()) {
-                        profileHandler.createProfile(dbHandler.getUserID());
-                    } else {
-                        Profile value = dataSnapshot.getValue(Profile.class);
-                        Recommendation rec = new Recommendation(value.getHeight(),
-                                value.getWeight(), value.getGender());
-                        frag.setPersonalInfo(rec.getCalorieGoal(), value.getHeight(),
-                                value.getWeight(), value.getGender());
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                }
+        if (database.isSuccessfullyInitialized()) {
+            this.profileHandler.addDataUpdateListener((profile) -> {
+                Recommendation rec = new Recommendation(profile);
+                fragment.setPersonalInfo(rec.getCalorieGoal(), profile.getHeight(), profile.getWeight(), profile.getGender());
             });
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
-                    + "because dbHandler Initialization Failed!");
+                    + "because database Initialization Failed!");
         }
     }
 
-    public void createMeal(String name, int calories, int date) {
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            String mealID = this.mealHandler.createMeal(name, calories);
-            this.profileHandler.addMeal(dbHandler.getUserID(), mealID, date);
-        } else {
-            Log.d("FBRTDB_ERROR", "Tried to create meal, "
-                    + "but dbHandler was not successfully initialized");
-        }
+    public void createMeal(Meal meal) {
+        this.mealsHandler.append(meal);
     }
     //return the percentage of food someone has consumed
     public String getCalorieProgress() {
@@ -79,83 +49,20 @@ public class MealsViewModel extends ViewModel {
         return String.valueOf((consumed * 100) / goal);
     }
     //THIS METHOD IS CALLED BY THE ONE BELOW DO NOT USE ON ITS OWN
-    public void getDayMealList(List<UserMeal> userMeals, int[] days,
-                               int numDays, MealsFragment frag, View view) {
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            this.mealHandler.listenToMealList(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-
-                    if (!dataSnapshot.exists()) {
-                        Log.d("FBRTDB_ERROR", "Tried to get list of meals, "
-                                + "but the snapshot does not exist");
-                    } else {
-                        // Map<String, UserMeal> mealList = dataSnapshot.getValue(Map.class);
-                        int size = userMeals.size();
-                        int today = (new GregorianCalendar(TimeZone.getTimeZone("EST"))).get(
-                                Calendar.DAY_OF_YEAR);
-
-                        for (int i = size - 1; i >= 0; i--) {
-                            int day = Integer.parseInt(userMeals.get(i).getDate()) / 10000;
-                            //stop iterating once you pass the end date
-                            if (day <= today - numDays) {
-                                i = -1;
-                            } else {
-                                days[today - day] += dataSnapshot.child(
-                                        userMeals.get(i).getMealId()).getValue(
-                                                Meal.class).getCalories();
-                            }
-                        }
+    public void getDayMealList(int numDays) {
+        if (database.isSuccessfullyInitialized() && database.getUserID() != null) {
+            int today = (new GregorianCalendar(TimeZone.getTimeZone("EST"))).get(
+                    Calendar.DAY_OF_YEAR);
+            this.mealsHandler.addDataUpdateListener((meals) -> {
+                int[] days = new int[numDays];
+                for (Meal meal : meals) {
+                    int day = Integer.parseInt(meal.getDate()) / 10000;
+                    if (today - day < numDays) {
+                        days[today - day] += meal.getCalories();
                     }
-
-                    frag.createBarChart(view, days);
                 }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                }
+                fragment.createBarChart(days);
             });
-        }
-    }
-
-    //GET LIST OF MEALS FOR THE LAST numDays days and put calories into days array
-    public void getLastDays(int[] days, int numDays, MealsFragment frag, View view) {
-        if (dbHandler.isSuccessfullyInitialized() && dbHandler.getUserID() != null) {
-            this.profileHandler.listenToProfileUserMeals(
-                    dbHandler.getUserID(), new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            if (!dataSnapshot.exists()) {
-                                //cry a little bit
-                                Log.d("FBRTDB_ERROR",
-                                    "Tried to get list of meals and dates for user, "
-                                    + "but the snapshot does not exist");
-                            } else {
-                                List<UserMeal> userMeals = new ArrayList<>();
-                                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                    userMeals.add(postSnapshot.getValue(UserMeal.class));
-                                    Log.d("FinalCount",
-                                            userMeals.get(userMeals.size() - 1).getDate());
-                                    Log.d("FinalCount",
-                                            userMeals.get(userMeals.size() - 1).getMealId());
-                                }
-                                getDayMealList(userMeals, days, numDays, frag, view);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                        }
-                    });
-        } else {
-            Log.d("FBRTDB_ERROR", "Tried to get last days meals, "
-                    + "but dbHandler was not successfully initialized");
         }
     }
 }
