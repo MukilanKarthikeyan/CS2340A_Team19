@@ -62,8 +62,8 @@ public class RecipeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecipeViewModel viewModel = new RecipeViewModel(
-                (recipeList, pantry) -> recyclerView.setAdapter(
-                        new RecipeAdapter(recipeList, pantry, getActivity())));
+                (recipeList, pantry, vm) -> recyclerView.setAdapter(
+                        new RecipeAdapter(recipeList, pantry, getActivity(), vm)));
 
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);

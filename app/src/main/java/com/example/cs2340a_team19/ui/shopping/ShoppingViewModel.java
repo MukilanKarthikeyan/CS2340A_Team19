@@ -55,7 +55,7 @@ public class ShoppingViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("FBRTDB_ERROR", "Tried to add cookbook listner but cancelled");
+                Log.d("FBRTDB_ERROR", "Tried to add shopping listener but cancelled");
             }
         });
     }

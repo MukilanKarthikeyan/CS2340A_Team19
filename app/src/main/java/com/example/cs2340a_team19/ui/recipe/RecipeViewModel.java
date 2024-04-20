@@ -10,6 +10,8 @@ import com.example.cs2340a_team19.models.DatabaseHandler;
 import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.PantryHandler;
 import com.example.cs2340a_team19.models.Recipe;
+import com.example.cs2340a_team19.models.ShoppingListHandler;
+import com.example.cs2340a_team19.ui.shopping.ShoppingViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -23,14 +25,21 @@ public class RecipeViewModel extends ViewModel {
     private DatabaseHandler dbHandler;
     private CookbookHandler cookbookHandler;
     private PantryHandler pantryHandler;
+    private ShoppingListHandler shoppingListHandler;
     private List<Ingredient> currentPantry;
     private List<Recipe> currentCookbook;
-    private BiConsumer<List<Recipe>, List<Ingredient>> updateUI;
+    private List<Ingredient> currentShoppingList;
+    private TriConsumer updateUI;
 
-    public RecipeViewModel(BiConsumer<List<Recipe>, List<Ingredient>> updateUI) {
+    interface TriConsumer {
+        void accept(List<Recipe> cookbook, List<Ingredient> pantry, RecipeViewModel vm);
+    }
+
+    public RecipeViewModel(TriConsumer updateUI) {
         this.dbHandler = DatabaseHandler.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
+        this.shoppingListHandler = dbHandler.getShoppingListHandler();
         this.currentPantry = new ArrayList<>();
         this.currentCookbook = new ArrayList<>();
         this.updateUI = updateUI;
@@ -39,6 +48,7 @@ public class RecipeViewModel extends ViewModel {
             // Add event listeners here!
             addCookbookListener();
             addPantryListener();
+            addShoppingListener();
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
                     + "because dbHandler Initialization Failed!");
@@ -61,6 +71,7 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public void addCookbookListener() {
+        RecipeViewModel vm = this;
         this.cookbookHandler.listenToCookbook(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -74,7 +85,7 @@ public class RecipeViewModel extends ViewModel {
                 if (updateUI != null) {
                     Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): "
                             + currentCookbook.size());
-                    updateUI.accept(currentCookbook, currentPantry);
+                    updateUI.accept(currentCookbook, currentPantry, vm);
                 }
             }
 
@@ -86,6 +97,7 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public void addPantryListener() {
+        RecipeViewModel vm = this;
         this.pantryHandler.listenToPantry(dbHandler.getUserID(), new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -100,13 +112,31 @@ public class RecipeViewModel extends ViewModel {
                 if (updateUI != null) {
                     Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): "
                             + currentCookbook.size());
-                    updateUI.accept(currentCookbook, currentPantry);
+                    updateUI.accept(currentCookbook, currentPantry, vm);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("FBRTDB_ERROR", "Tried to add cookbook listner but cancelled");
+            }
+        });
+    }
+
+    public void addShoppingListener() {
+        this.shoppingListHandler.listenToShoppingList(dbHandler.getUserID(), new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Ingredient> shoppingList = new ArrayList<>();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    shoppingList.add(postSnapshot.getValue(Ingredient.class));
+                }
+                currentShoppingList = shoppingList;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("FBRTDB_ERROR", "Tried to add Shopping listener but cancelled");
             }
         });
     }
@@ -135,11 +165,40 @@ public class RecipeViewModel extends ViewModel {
         return true;
     }
 
+    public void addIngredient(Ingredient ingredient) {
+        // Check for duplicate ingredient
+        for (Ingredient curr : currentShoppingList) {
+            if (ingredient.equals(curr)) {
+                this.shoppingListHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                        curr.getIngredientID(), curr.getQuantity() + ingredient.getQuantity());
+                return;
+            }
+        }
+        shoppingListHandler.createIngredient(
+                dbHandler.getUserID(), ingredient.getName(), 0, ingredient.getQuantity());
+    }
+    public void addRecipeToShoppingList(Recipe recipe) {
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            addIngredient(ingredient);
+        }
+    }
+
+    public void cookRecipe(Recipe recipe) {
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            for (Ingredient curr : this.currentPantry) {
+                if (ingredient.equals(curr)) {
+                    pantryHandler.updateIngredientQuantity(dbHandler.getUserID(),
+                            curr.getIngredientID(), curr.getQuantity() - ingredient.getQuantity());
+                }
+            }
+        }
+    }
+
     public void sortCookbook(RecipeSorter sorter) {
         sorter.sortRecipes(currentCookbook);
         if (updateUI != null) {
             Log.d("GRYPHON_FINAL", "Hit updateRecipeList (Pantry): " + currentCookbook.size());
-            updateUI.accept(currentCookbook, currentPantry);
+            updateUI.accept(currentCookbook, currentPantry, this);
         }
     }
 }
