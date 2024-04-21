@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.FragmentRecipeBinding;
 
+import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.Recipe;
 import com.example.cs2340a_team19.ui.DividerItemDecoration;
 
@@ -31,7 +33,8 @@ public class RecipeFragment extends Fragment {
     private Button newRecipeButton;
     private RecyclerView recyclerView;
     private RecipeAdapter adapter;
-    private List<Recipe> recipeList;
+    private RecipeViewModel vm;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,25 +62,33 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
+        this.recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        RecipeViewModel viewModel = new RecipeViewModel(
-                (recipeList, pantry, vm) -> recyclerView.setAdapter(
-                        new RecipeAdapter(recipeList, pantry, getActivity(), vm)));
+        RecipeSorter alphabeticSort = (list) -> list.sort(Comparator.comparing(Recipe::getLCName));
+        RecipeSorter reverseSort = (list) -> {
+            list.sort(Comparator.comparing(Recipe::getLCName));
+            Collections.reverse(list);
+        };
+
+        this.vm = new RecipeViewModel(this, alphabeticSort);
 
         Button alphaButton = view.findViewById(R.id.sortAlpha);
         Button reverseButton = view.findViewById(R.id.sortRevAlpha);
-        alphaButton.setOnClickListener((v) -> viewModel.sortCookbook((list)
-                -> list.sort(Comparator.comparing(Recipe::getLCName))));
-        reverseButton.setOnClickListener((v) -> viewModel.sortCookbook((list) -> {
-            list.sort(Comparator.comparing(Recipe::getLCName));
-            Collections.reverse(list);
-        }));
+
+        alphaButton.setOnClickListener((v) -> vm.setSortingStrategy(alphabeticSort));
+        reverseButton.setOnClickListener((v) -> vm.setSortingStrategy(reverseSort));
+    }
+
+    public void updateData(List<Recipe> recipeList, List<Ingredient> pantry, RecipeViewModel vm) {
+//        Log.d("FB_ERROR", "RecipeVM: " + vm);
+        this.recyclerView.setAdapter(
+                new RecipeAdapter(recipeList, pantry, getActivity(), vm));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        this.vm.onViewDestroyed();
         binding = null;
     }
     /*

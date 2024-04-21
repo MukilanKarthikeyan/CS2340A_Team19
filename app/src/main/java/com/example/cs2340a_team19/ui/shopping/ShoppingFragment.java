@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs2340a_team19.R;
 
 import com.example.cs2340a_team19.databinding.FragmentShoppingBinding;
+import com.example.cs2340a_team19.models.Ingredient;
+
+import java.util.List;
 
 public class ShoppingFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class ShoppingFragment extends Fragment {
 
     private EditText shopItemName;
     private EditText shopItemQuant;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,17 +49,14 @@ public class ShoppingFragment extends Fragment {
         shopItemQuant = view.findViewById(R.id.shop_add_item_quant);
         addShopItem = view.findViewById(R.id.add_shop_item_button);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_shopping_list);
+        this.recyclerView = view.findViewById(R.id.recycler_shopping_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        if (vm == null) {
-        vm = new ShoppingViewModel((shoppingList, vm) -> recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm)));
-//        }
-        Log.d("DEBUG_GRYPH", "I'm gonna add a listener!");
+        this.vm = new ShoppingViewModel(this);
+
         addShopItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG_GRYPH", "I was clicked!");
                 String itemName = shopItemName.getText().toString();
                 String itemQuant = shopItemQuant.getText().toString();
 
@@ -82,6 +83,10 @@ public class ShoppingFragment extends Fragment {
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void updateUI(List<Ingredient> shoppingList) {
+        recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm));
     }
 
     @Override

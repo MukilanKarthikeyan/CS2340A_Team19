@@ -1,6 +1,6 @@
 package com.example.cs2340a_team19.models;
 
-public class Ingredient {
+public class Ingredient extends Aggregatable {
     private String ingredientID;
     private String name;
     private int calories;
@@ -18,6 +18,11 @@ public class Ingredient {
         this.setCalories(calories);
         this.setQuantity(quantity);
         this.setExpirationDate(expirationDate);
+    }
+
+    public Ingredient(Ingredient other) {
+        this(other.name, other.calories, other.quantity, other.expirationDate);
+        this.ingredientID = other.ingredientID;
     }
 
     @Override

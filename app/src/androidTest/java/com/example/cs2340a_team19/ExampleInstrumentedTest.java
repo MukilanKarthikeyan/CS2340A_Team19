@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import com.example.cs2340a_team19.models.DatabaseHandler;
+import com.example.cs2340a_team19.models.Database;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -28,7 +28,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void databaseInitializes() {
-        DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+        Database dbHandler = Database.getInstance();
         assert(dbHandler.isSuccessfullyInitialized());
     }
 }

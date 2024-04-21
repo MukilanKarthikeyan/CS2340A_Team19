@@ -37,6 +37,7 @@ import com.example.cs2340a_team19.databinding.FragmentMealsBinding;
 
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.example.cs2340a_team19.models.Meal;
 //import com.anychart.chart.common.listener.Event;
 //import com.anychart.chart.common.listener.ListenersInterface;
 //import com.anychart.charts.Pie;
@@ -52,30 +53,21 @@ import java.util.TimeZone;
 public class MealsFragment extends Fragment {
 
     private FragmentMealsBinding binding;
+    private MealsViewModel vm;
+    private Button barGraphGen;
+    private Button gagueGraphGen;
+    private Button addMealButton;
+    private EditText mealName;
+    private EditText calorieCount;
+    private AnyChartView anyChartBarView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentMealsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final Button barGraphGen = binding.barGraphButton;
-        final Button gagueGraphGen = binding.gagueGraphButton;
-        MealsViewModel mealsViewModel = new MealsViewModel(this);
-        barGraphGen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
-                createBarChart(root, weekCal);
-            }
-        });
 
-        gagueGraphGen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createGaugeChart(root, mealsViewModel);
-            }
-        });
 
 
         return root;
@@ -84,26 +76,33 @@ public class MealsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        MealsViewModel mealsViewModel = new MealsViewModel(this);
+        vm = new MealsViewModel(this);
+        this.barGraphGen = view.findViewById(R.id.bar_graph_button);
+        this.gagueGraphGen = view.findViewById(R.id.gague_graph_button);
+        this.addMealButton = view.findViewById(R.id.submit_meal_button);
+        this.mealName = view.findViewById(R.id.input_meal_name);
+        this.calorieCount = view.findViewById(R.id.input_meal_calorie);
+        this.anyChartBarView = view.findViewById(R.id.anychart_bar_graph);
 
-        Button addMealButton = view.findViewById(R.id.submit_meal_button);
-        EditText mealName = view.findViewById(R.id.input_meal_name);
-        EditText calorieCount = view.findViewById(R.id.input_meal_calorie);
+        barGraphGen.setOnClickListener(
+            (v) -> {
+                int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
+                createBarChart(weekCal);
+            }
+        );
+
+        gagueGraphGen.setOnClickListener((v) -> createGaugeChart(view));
+
+
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("EST"));
         int time = 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100
                 * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
         addMealButton.setOnClickListener((View v) -> {
-            mealsViewModel.createMeal(mealName.getText().toString(),
-                    Integer.parseInt(calorieCount.getText().toString()), time);
+            vm.createMeal(new Meal(mealName.getText().toString(),
+                    Integer.parseInt(calorieCount.getText().toString()), String.valueOf(time)));
             mealName.setText("");
             calorieCount.setText("");
         });
-        //createGaugeChart(view);
-
-
-        //mealsViewModel.getLastDays(weekCal, 7, this, view);
-        //createBarChart(view, weekCal);
-
     }
     public void setPersonalInfo(int caloriesRec, int height, int weight, boolean gender) {
         final TextView userCalorieRec = binding.CalculatedCalories;
@@ -121,14 +120,13 @@ public class MealsFragment extends Fragment {
         }
     }
 
-    public void createGaugeChart(View root, MealsViewModel mealsViewModel) {
+    public void createGaugeChart(View root) {
 
         AnyChartView anyChartGagueView = root.findViewById(R.id.anychart_viz1_temp);
         APIlib.getInstance().setActiveAnyChartView(anyChartGagueView);
         anyChartGagueView.setProgressBar(getView().findViewById(R.id.anychart_progress_bar));
 
-        String calProgress = mealsViewModel.getCalorieProgress();
-
+        String calProgress = vm.getCalorieProgress();
 
         CircularGauge circularGauge = AnyChart.circular();
         circularGauge.data(new SingleValueDataSet(new String[] {calProgress, "100"}));
@@ -186,11 +184,9 @@ public class MealsFragment extends Fragment {
 
         anyChartGagueView.setChart(circularGauge);
     }
-    public void createBarChart(View root, int[] weekCal) {
-        AnyChartView anyChartBarView = root.findViewById(R.id.anychart_bar_graph);
+    public void createBarChart(int[] weekCal) {
         APIlib.getInstance().setActiveAnyChartView(anyChartBarView);
         anyChartBarView.setProgressBar(getView().findViewById(R.id.anychart_bar_progress_bar));
-
 
         Cartesian cartesian = AnyChart.column();
 
@@ -227,8 +223,6 @@ public class MealsFragment extends Fragment {
         cartesian.yAxis(0).title("Calories");
 
         anyChartBarView.setChart(cartesian);
-
-
     }
     @Override
     public void onDestroyView() {

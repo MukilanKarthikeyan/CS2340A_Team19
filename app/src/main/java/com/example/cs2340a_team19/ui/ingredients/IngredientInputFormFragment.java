@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.cs2340a_team19.R;
+import com.example.cs2340a_team19.models.Ingredient;
+
 public class IngredientInputFormFragment extends Fragment {
     private EditText textIngredientName;
     private EditText textQuantity;
@@ -24,7 +26,7 @@ public class IngredientInputFormFragment extends Fragment {
         textCalories = root.findViewById(R.id.textCalories);
         textExpirationDate = root.findViewById(R.id.textExpirationDate);
         addIngredient = root.findViewById(R.id.addIngredient);
-        IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
+        IngredientsInputFormViewModel vm = new IngredientsInputFormViewModel(this);
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,8 +48,8 @@ public class IngredientInputFormFragment extends Fragment {
                     return;
                 }
 
-                ingredientsViewModel.addIngredient(ingredientNameStr, quantity,
-                        (int) calories, expirationDateStr);
+                vm.addIngredient(new Ingredient(ingredientNameStr,
+                        (int) calories, quantity, expirationDateStr));
                 Toast.makeText(getContext(), "Ingredient added", Toast.LENGTH_SHORT).show();
                 textIngredientName.setText("");
                 textQuantity.setText("");

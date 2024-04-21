@@ -1,21 +1,23 @@
 package com.example.cs2340a_team19.models;
 
-public class Meal {
+public class Meal extends Aggregatable {
     private String mealID;
     private String name;
     private int calories;
+    private String date;
 
     public Meal() {
-        this("", "", -1);
+        this("", "", -1, "");
     }
-    public Meal(String name, int calories) {
-        this("", name, calories);
+    public Meal(String name, int calories, String date) {
+        this("", name, calories, date);
     }
 
-    public Meal(String mealID, String name, int calories) {
+    public Meal(String mealID, String name, int calories, String date) {
         this.mealID = mealID;
         this.name = name;
         this.calories = calories;
+        this.date = date;
     }
 
     public String getMealID() {
@@ -40,5 +42,13 @@ public class Meal {
 
     public void setCalories(int calories) {
         this.calories = calories;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
