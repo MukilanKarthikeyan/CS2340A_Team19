@@ -66,4 +66,9 @@ public class ShoppingViewModel extends ViewModel {
         shoppingListHandler.append(newIng);
     }
 
+    public void buy(List<Ingredient> toBuy) {
+        for (Ingredient curr : toBuy) {
+            this.shoppingListHandler.remove(curr);
+        }
+    }
 }
