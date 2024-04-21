@@ -38,4 +38,26 @@ public class RecommendationTest {
     public void testRecCalcFemaleWithMaleTwo() {
         Recommendation r = new Recommendation(200, 500, false);
         assertEquals(r.getCalorieGoal(), 6155);
+    }
+    
+    @Test
+    public void testRecCalcMaleSecond() {
+        Recommendation r = new Recommendation(100, 200, true);
+        assertEquals(r.getCalorieGoal(), 2530);
+    }
+    @Test
+    public void testRecCalcMaleThird() {
+        Recommendation r = new Recommendation(80, 200, true);
+        assertEquals(r.getCalorieGoal(), 2405);
+    }
+    @Test
+    public void testRecCalcMaleFourth() {
+        Recommendation r = new Recommendation(70, 150, true);
+        assertEquals(r.getCalorieGoal(), 1842);
+    }
+    @Test
+    public void testRecCalcMaleFifth() {
+        Recommendation r = new Recommendation(70, 100, true);
+        assertEquals(r.getCalorieGoal(), 1342);
+    }
 }
