@@ -25,6 +25,7 @@ public class RecipeViewModel extends ViewModel {
     private RecipeFragment fragment;
     private RecipeSorter sortingStrategy;
     private DataUpdateListener<List<Recipe>> cookbookListener;
+    private DataUpdateListener<List<Ingredient>> pantryListener;
 
     public RecipeViewModel(RecipeFragment fragment, RecipeSorter sortingStrategy) {
         this.fragment = fragment;
@@ -37,7 +38,16 @@ public class RecipeViewModel extends ViewModel {
         this.cookbookListener = (cookbook) -> {
             updateRecipeList(cookbook);
             sortCookbook(cookbook);
+            fragment.updateData(cookbook, this.pantryHandler.getData(), this);
         };
+
+        this.pantryListener = (pantry) -> {
+            List<Recipe> staticCookbook = cookbookHandler.getData();
+            updateRecipeList(staticCookbook);
+            sortCookbook(staticCookbook);
+            fragment.updateData(staticCookbook, pantry, this);
+        };
+        this.pantryHandler.addDataUpdateListener(this.pantryListener);
         this.cookbookHandler.addDataUpdateListener(this.cookbookListener);
     }
 
@@ -85,13 +95,17 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public void cookRecipe(Recipe recipe) {
-        List<Ingredient> staticPantry = new ArrayList<>(this.pantryHandler.getData());
+        List<Ingredient> staticPantry = pantryHandler.getData();
         for (Ingredient ingredient : recipe.getIngredients()) {
             for (Ingredient curr : staticPantry) {
                 if (ingredient.equals(curr)) {
                     Ingredient staticCurr = new Ingredient(curr);
                     staticCurr.setQuantity(curr.getQuantity() - ingredient.getQuantity());
-                    pantryHandler.update(staticCurr);
+                    if (staticCurr.getQuantity() <= 0) {
+                        pantryHandler.remove(staticCurr);
+                    } else {
+                        pantryHandler.update(staticCurr);
+                    }
                 }
             }
         }
@@ -99,15 +113,17 @@ public class RecipeViewModel extends ViewModel {
 
     public void sortCookbook(List<Recipe> cookbook) {
         sortingStrategy.sortRecipes(cookbook);
-        fragment.updateData(cookbook, this.pantryHandler.getData(), this);
     }
 
     public void setSortingStrategy(RecipeSorter strategy) {
         this.sortingStrategy = strategy;
-        this.sortCookbook(this.cookbookHandler.getData());
+        List<Recipe> staticCookbook = this.cookbookHandler.getData();
+        this.sortCookbook(staticCookbook);
+        fragment.updateData(staticCookbook, this.pantryHandler.getData(), this);
     }
 
     public void onViewDestroyed() {
         this.cookbookHandler.removeDataUpdateListener(this.cookbookListener);
+        this.pantryHandler.removeDataUpdateListener(this.pantryListener);
     }
 }
