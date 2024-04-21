@@ -10,9 +10,17 @@ import java.util.List;
 
 public class AggregateDataHandler<T extends Aggregatable> extends DataHandler<List<T>> {
     private Class<T> elementDataClass;
-    public AggregateDataHandler(DatabaseReference db, String userID, Class<T> elementDataClass) {
-        super(db, userID, null);
+    private DataMutator<T> elementCleaner;
+    public AggregateDataHandler(DatabaseReference db, String userID, Class<T> elementDataClass, DataMutator<T> elementCleaner) {
+        super(db, userID, null, (inList) -> {
+            List<T> copy = new ArrayList<>();
+            for (T curr : inList) {
+                copy.add(elementCleaner.mutate(curr));
+            }
+            return copy;
+        }); // Yes the above looks jank af, but Java genuinely will not allow you to make it cleaner :(((
         this.elementDataClass = elementDataClass;
+        this.elementCleaner = elementCleaner;
         super.data = new ArrayList<>();
     }
 

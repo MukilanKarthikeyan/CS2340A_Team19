@@ -24,12 +24,7 @@ public class Recipe extends Aggregatable {
 
     public Recipe(String name, String userId, String description, List<Ingredient> ingredients) {
         this(name, userId, description, 0, ingredients);
-
-        if (ingredients != null) {
-            for (Ingredient ingredient : ingredients) {
-                this.setCalories(this.getCalories() + ingredient.getCalories());
-            }
-        }
+        this.setIngredients(ingredients);
     }
 
     public Recipe(String name, String userId, String description,
@@ -38,6 +33,22 @@ public class Recipe extends Aggregatable {
         this.setUserId(userId);
         this.setCalories(calories);
         this.setIngredients(ingredients);
+    }
+
+    public Recipe(Recipe other) {
+        if (other == null) {
+            return;
+        }
+        this.setName(other.name);
+        this.setUserId(other.userId);
+        this.setDescription(other.description);
+        this.pantryReady = other.pantryReady;
+        List<Ingredient> copiedIngredients = new ArrayList<>();
+        for (Ingredient curr : other.getIngredients()) {
+            copiedIngredients.add(new Ingredient(curr));
+        }
+        this.setIngredients(copiedIngredients);
+        super.setId(other.getId());
     }
 
     public String getName() {
@@ -89,5 +100,10 @@ public class Recipe extends Aggregatable {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+        if (ingredients != null) {
+            for (Ingredient ingredient : ingredients) {
+                this.calories += ingredient.getCalories();
+            }
+        }
     }
 }

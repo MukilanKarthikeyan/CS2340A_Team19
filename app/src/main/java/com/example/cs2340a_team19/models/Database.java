@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.List;
+
 public class Database {
     private static Database instance;
     private DatabaseReference database;
@@ -33,16 +35,21 @@ public class Database {
 
         identifyUser();
 
+        DataMutator<Profile> profileCleaner = (profile) -> new Profile(profile);
+        DataMutator<Ingredient> ingredientCleaner = (ingredient) -> new Ingredient(ingredient);
+        DataMutator<Recipe> recipeCleaner = (recipe) -> new Recipe(recipe);
+        DataMutator<Meal> mealCleaner = (meal) -> new Meal(meal);
+
         profileHandler = new DataHandler<>(this.database.child("profiles").child(this.userID),
-                this.userID, Profile.class);
+                this.userID, Profile.class, profileCleaner);
         mealsHandler = new AggregateDataHandler<>(this.database.child("meals").child(this.userID),
-                this.userID, Meal.class);
+                this.userID, Meal.class, mealCleaner);
         cookbookHandler = new AggregateDataHandler<>(this.database.child("cookbook"),
-                this.userID, Recipe.class);
+                this.userID, Recipe.class, recipeCleaner);
         pantryHandler = new AggregateDataHandler<>(this.database.child("pantries").child(this.userID),
-                this.userID, Ingredient.class);
+                this.userID, Ingredient.class, ingredientCleaner);
         shoppingListHandler = new AggregateDataHandler<>(this.database.child("shoppingLists").child(this.userID),
-                this.userID, Ingredient.class);
+                this.userID, Ingredient.class, ingredientCleaner);
 
         this.succesfullyInitialized = true;
     }

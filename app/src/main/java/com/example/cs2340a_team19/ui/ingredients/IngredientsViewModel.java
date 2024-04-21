@@ -22,7 +22,7 @@ public class IngredientsViewModel extends ViewModel {
         this.fragment = fragment;
         this.dbHandler = Database.getInstance();
         this.pantryHandler = dbHandler.getPantryHandler();
-        this.updateUI = fragment::updatePantry;
+        this.updateUI = (pantry) -> fragment.updatePantry(pantry, this);
         this.pantryHandler.addDataUpdateListener(updateUI);
 
     }

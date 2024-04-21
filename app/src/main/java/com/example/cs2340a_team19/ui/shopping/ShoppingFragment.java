@@ -48,6 +48,7 @@ public class ShoppingFragment extends Fragment {
         shopItemName = view.findViewById(R.id.shop_add_item_name);
         shopItemQuant = view.findViewById(R.id.shop_add_item_quant);
         addShopItem = view.findViewById(R.id.add_shop_item_button);
+        buyShopItems = view.findViewById(R.id.buy_shop_items_button);
 
         this.recyclerView = view.findViewById(R.id.recycler_shopping_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -83,9 +84,18 @@ public class ShoppingFragment extends Fragment {
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         });
+
+        buyShopItems.setOnClickListener((v) -> {
+            if (recyclerView.getAdapter() instanceof ShoppingAdapter && recyclerView.getAdapter() != null) {
+                ((ShoppingAdapter) recyclerView.getAdapter()).buyItems();
+            } else  {
+                Log.d("UI_ERROR", "Recycler View Adapter was null or not a Shopping Adapter");
+            }
+
+        });
     }
 
-    public void updateUI(List<Ingredient> shoppingList) {
+    public void updateUI(List<Ingredient> shoppingList, ShoppingViewModel vm) {
         recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm));
     }
 
