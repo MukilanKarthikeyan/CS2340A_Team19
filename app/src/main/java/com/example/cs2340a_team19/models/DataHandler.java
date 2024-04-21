@@ -34,7 +34,7 @@ public class DataHandler<T> {
     public void addDataUpdateListener(DataUpdateListener<T> d) {
         this.listeners.add(d);
         if (this.data != null) {
-            d.update(this.data);
+            d.update(cleaner.mutate(this.data));
         }
     }
 
