@@ -95,7 +95,7 @@ public class ShoppingFragment extends Fragment {
         });
     }
 
-    public void updateUI(List<Ingredient> shoppingList) {
+    public void updateUI(List<Ingredient> shoppingList, ShoppingViewModel vm) {
         recyclerView.setAdapter(new ShoppingAdapter(shoppingList, vm));
     }
 

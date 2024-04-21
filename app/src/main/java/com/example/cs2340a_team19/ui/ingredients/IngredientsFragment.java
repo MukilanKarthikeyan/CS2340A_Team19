@@ -54,7 +54,7 @@ public class IngredientsFragment extends Fragment {
         this.vm = new IngredientsViewModel(this);
     }
 
-    public void updatePantry(List<Ingredient> pantry) {
+    public void updatePantry(List<Ingredient> pantry, IngredientsViewModel vm) {
         if (this.recyclerView != null) {
             this.recyclerView.setAdapter(new IngredientsAdapter(pantry, vm));
         }

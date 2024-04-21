@@ -1,7 +1,6 @@
 package com.example.cs2340a_team19.models;
 
 public class Meal extends Aggregatable {
-    private String mealID;
     private String name;
     private int calories;
     private String date;
@@ -14,18 +13,19 @@ public class Meal extends Aggregatable {
     }
 
     public Meal(String mealID, String name, int calories, String date) {
-        this.mealID = mealID;
         this.name = name;
         this.calories = calories;
         this.date = date;
     }
 
-    public String getMealID() {
-        return this.mealID;
-    }
-
-    public void setMealID(String mealID) {
-        this.mealID = mealID;
+    public Meal(Meal other) {
+        if (other == null) {
+            return;
+        }
+        this.name = other.name;
+        this.calories = other.calories;
+        this.date = other.date;
+        super.setId(other.getId());
     }
 
     public String getName() {

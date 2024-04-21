@@ -19,16 +19,16 @@ import java.util.function.BiConsumer;
 
 public class ShoppingViewModel extends ViewModel {
     private Database dbHandler;
-    private AggregateDataHandler<Recipe> cookbookHandler;
     private AggregateDataHandler<Ingredient> shoppingListHandler;
+    private AggregateDataHandler<Ingredient> pantryHandler;
     private ShoppingFragment fragment;
     public ShoppingViewModel(ShoppingFragment fragment) {
         this.fragment = fragment;
         this.dbHandler = Database.getInstance();
-        this.cookbookHandler = dbHandler.getCookbookHandler();
         this.shoppingListHandler = dbHandler.getShoppingListHandler();
+        this.pantryHandler = dbHandler.getPantryHandler();
         if (dbHandler.isSuccessfullyInitialized()) {
-            this.shoppingListHandler.addDataUpdateListener(fragment::updateUI);
+            this.shoppingListHandler.addDataUpdateListener((list) -> fragment.updateUI(list, this));
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
                     + "because dbHandler Initialization Failed!");
@@ -69,6 +69,20 @@ public class ShoppingViewModel extends ViewModel {
     public void buy(List<Ingredient> toBuy) {
         for (Ingredient curr : toBuy) {
             this.shoppingListHandler.remove(curr);
+            List<Ingredient> currPantry = this.pantryHandler.getData();
+
+            boolean wasInList = false;
+            for (Ingredient pantryIngredient : currPantry) {
+                if (curr.equals(pantryIngredient)) {
+                    pantryIngredient.setQuantity(pantryIngredient.getQuantity() + curr.getQuantity());
+                    this.pantryHandler.update(pantryIngredient);
+                    wasInList = true;
+                    break;
+                }
+            }
+            if (!wasInList) {
+                this.pantryHandler.append(curr);
+            }
         }
     }
 }

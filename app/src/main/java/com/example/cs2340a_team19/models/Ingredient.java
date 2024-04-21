@@ -1,7 +1,6 @@
 package com.example.cs2340a_team19.models;
 
 public class Ingredient extends Aggregatable {
-    private String ingredientID;
     private String name;
     private int calories;
     private int quantity;
@@ -21,8 +20,14 @@ public class Ingredient extends Aggregatable {
     }
 
     public Ingredient(Ingredient other) {
-        this(other.name, other.calories, other.quantity, other.expirationDate);
-        this.ingredientID = other.ingredientID;
+        if (other == null) {
+            return;
+        }
+        this.setName(other.name);
+        this.setCalories(other.calories);
+        this.setQuantity(other.quantity);
+        this.setExpirationDate(other.expirationDate);
+        super.setId(other.getId());
     }
 
     @Override
@@ -35,14 +40,6 @@ public class Ingredient extends Aggregatable {
             }
         }
         return false;
-    }
-
-    public String getIngredientID() {
-        return ingredientID;
-    }
-
-    public void setIngredientID(String ingredientID) {
-        this.ingredientID = ingredientID;
     }
 
     public String getName() {

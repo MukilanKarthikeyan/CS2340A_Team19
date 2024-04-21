@@ -25,6 +25,15 @@ public class Profile {
         this.gender = gender;
     }
 
+    public Profile(Profile other) {
+        if (other == null) {
+            return;
+        }
+        this.height = other.height;
+        this.weight = other.weight;
+        this.gender = other.gender;
+    }
+
     public static Profile validateProfile(String height, String weight, boolean gender) {
         int pHeight;
         try {

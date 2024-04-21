@@ -20,12 +20,14 @@ public class DataHandler<T> {
     private final Class<T> dataClass;
     protected T data;
     private List<DataUpdateListener<T>> listeners;
-    public DataHandler(DatabaseReference db, String userID, Class<T> dataClass) {
+    private DataMutator<T> cleaner;
+    public DataHandler(DatabaseReference db, String userID, Class<T> dataClass, DataMutator<T> cleaner) {
         this.dbReference = db;
         this.userID = userID;
         this.dataClass = dataClass;
-        this.listeners = new ArrayList<DataUpdateListener<T>>();
+        this.cleaner = cleaner;
 
+        this.listeners = new ArrayList<DataUpdateListener<T>>();
         this.listenToData();
     }
 
@@ -82,7 +84,7 @@ public class DataHandler<T> {
     protected void updateListeners() {
         if (this.data != null) {
             for (DataUpdateListener<T> listener : this.listeners) {
-                listener.update(this.data);
+                listener.update(cleaner.mutate(this.data));
             }
         }
     }
@@ -96,7 +98,7 @@ public class DataHandler<T> {
     }
 
     public T getData() {
-        return this.data;
+        return cleaner.mutate(this.data);
     }
 
     public T parseData(@NonNull DataSnapshot snapshot) {
