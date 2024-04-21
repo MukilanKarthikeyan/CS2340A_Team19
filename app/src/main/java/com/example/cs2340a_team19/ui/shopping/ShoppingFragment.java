@@ -52,7 +52,7 @@ public class ShoppingFragment extends Fragment {
         this.recyclerView = view.findViewById(R.id.recycler_shopping_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        vm = new ShoppingViewModel(this);
+        this.vm = new ShoppingViewModel(this);
 
         addShopItem.setOnClickListener(new View.OnClickListener() {
             @Override

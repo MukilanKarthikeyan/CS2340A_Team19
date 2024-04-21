@@ -5,21 +5,26 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.AggregateDataHandler;
+import com.example.cs2340a_team19.models.DataUpdateListener;
 import com.example.cs2340a_team19.models.Database;
 import com.example.cs2340a_team19.models.Ingredient;
-import com.example.cs2340a_team19.models.Recipe;
+
+import java.util.List;
 
 public class IngredientsViewModel extends ViewModel {
 
     private Database dbHandler;
-    private AggregateDataHandler<Recipe> cookbookHandler;
     private AggregateDataHandler<Ingredient> pantryHandler;
     private final IngredientsFragment fragment;
+    private final DataUpdateListener<List<Ingredient>> updateUI;
     public IngredientsViewModel(IngredientsFragment fragment) {
+
         this.fragment = fragment;
         this.dbHandler = Database.getInstance();
-        this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
+        this.updateUI = fragment::updatePantry;
+        this.pantryHandler.addDataUpdateListener(updateUI);
+
     }
 
     public void updateIngredientQuantity(Ingredient ing, int quantity) {
@@ -31,7 +36,7 @@ public class IngredientsViewModel extends ViewModel {
         this.pantryHandler.remove(ing);
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        pantryHandler.append(ingredient);
+    public void onViewDestroyed() {
+        this.pantryHandler.removeDataUpdateListener(updateUI);
     }
 }

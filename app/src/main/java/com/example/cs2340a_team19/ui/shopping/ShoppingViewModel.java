@@ -28,8 +28,7 @@ public class ShoppingViewModel extends ViewModel {
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.shoppingListHandler = dbHandler.getShoppingListHandler();
         if (dbHandler.isSuccessfullyInitialized()) {
-            this.shoppingListHandler.addDataUpdateListener((shoppingList) ->
-                    fragment.updateUI(shoppingList));
+            this.shoppingListHandler.addDataUpdateListener(fragment::updateUI);
         } else {
             Log.d("FBRTDB_ERROR", "Couldn't add Listener to Profile, "
                     + "because dbHandler Initialization Failed!");
@@ -55,11 +54,13 @@ public class ShoppingViewModel extends ViewModel {
     public void addIngredient(String name, int quantity) {
         Ingredient newIng = new Ingredient(name, 0, quantity);
         // Check for duplicate ingredient
-        for (Ingredient curr : shoppingListHandler.getData()) {
-            if (curr.getName().trim().equalsIgnoreCase(name.trim())) {
-                newIng.setQuantity(quantity + curr.getQuantity());
-                this.shoppingListHandler.update(newIng);
-                return;
+        if (shoppingListHandler.getData() != null) {
+            for (Ingredient curr : shoppingListHandler.getData()) {
+                if (curr.getName().trim().equalsIgnoreCase(name.trim())) {
+                    newIng.setQuantity(quantity + curr.getQuantity());
+                    this.shoppingListHandler.update(newIng);
+                    return;
+                }
             }
         }
         shoppingListHandler.append(newIng);

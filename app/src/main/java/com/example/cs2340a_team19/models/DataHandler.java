@@ -31,6 +31,9 @@ public class DataHandler<T> {
 
     public void addDataUpdateListener(DataUpdateListener<T> d) {
         this.listeners.add(d);
+        if (this.data != null) {
+            d.update(this.data);
+        }
     }
 
     public void removeDataUpdateListener(DataUpdateListener<T> d) {
@@ -63,10 +66,10 @@ public class DataHandler<T> {
         this.dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    data = parseData(snapshot);
-                    updateListeners();
-                }
+//                if (snapshot.exists()) {
+                data = parseData(snapshot);
+                updateListeners();
+//                }
             }
 
             @Override
@@ -77,8 +80,10 @@ public class DataHandler<T> {
     }
 
     protected void updateListeners() {
-        for (DataUpdateListener<T> listener : this.listeners) {
-            listener.update(this.data);
+        if (this.data != null) {
+            for (DataUpdateListener<T> listener : this.listeners) {
+                listener.update(this.data);
+            }
         }
     }
 

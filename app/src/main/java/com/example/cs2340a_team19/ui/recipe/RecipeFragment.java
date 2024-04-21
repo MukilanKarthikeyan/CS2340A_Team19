@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.recipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,29 +62,33 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_recipe_list);
+        this.recyclerView = view.findViewById(R.id.recycler_recipe_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        this.vm = new RecipeViewModel(this);
-
-        Button alphaButton = view.findViewById(R.id.sortAlpha);
-        Button reverseButton = view.findViewById(R.id.sortRevAlpha);
         RecipeSorter alphabeticSort = (list) -> list.sort(Comparator.comparing(Recipe::getLCName));
         RecipeSorter reverseSort = (list) -> {
             list.sort(Comparator.comparing(Recipe::getLCName));
             Collections.reverse(list);
         };
+
+        this.vm = new RecipeViewModel(this, alphabeticSort);
+
+        Button alphaButton = view.findViewById(R.id.sortAlpha);
+        Button reverseButton = view.findViewById(R.id.sortRevAlpha);
+
         alphaButton.setOnClickListener((v) -> vm.setSortingStrategy(alphabeticSort));
         reverseButton.setOnClickListener((v) -> vm.setSortingStrategy(reverseSort));
     }
 
-    public void updateData(List<Recipe> recipeList, List<Ingredient> pantry) {
-        recyclerView.setAdapter(
+    public void updateData(List<Recipe> recipeList, List<Ingredient> pantry, RecipeViewModel vm) {
+//        Log.d("FB_ERROR", "RecipeVM: " + vm);
+        this.recyclerView.setAdapter(
                 new RecipeAdapter(recipeList, pantry, getActivity(), vm));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        this.vm.onViewDestroyed();
         binding = null;
     }
     /*

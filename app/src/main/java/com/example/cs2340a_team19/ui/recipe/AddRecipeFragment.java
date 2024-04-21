@@ -64,7 +64,7 @@ public class AddRecipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         //createPieChart(view);
-        RecipeViewModel viewModel = new RecipeViewModel(null);
+        AddRecipeViewModel viewModel = new AddRecipeViewModel(this);
         Button addRecipe = view.findViewById(R.id.addRecipeButton);
         EditText recipeName = view.findViewById(R.id.recipe_name_field);
         EditText ingredientList = view.findViewById(R.id.ingredient_list_field);

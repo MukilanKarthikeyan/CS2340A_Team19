@@ -1,6 +1,7 @@
 package com.example.cs2340a_team19.ui.ingredients;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,6 @@ public class IngredientsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        IngredientsViewModel ingredientsViewModel =
-                new ViewModelProvider(this).get(IngredientsViewModel.class);
 
         binding = FragmentIngredientsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -43,25 +42,27 @@ public class IngredientsFragment extends Fragment {
                 Navigation.findNavController(v).navigate(
                         R.id.action_navigation_ingredients_to_ingredientFeaturesFragment);
             }
-
         });
         return root;
     }
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
-        this.vm = new IngredientsViewModel(this);
 
         // Initialize RecyclerView
         this.recyclerView = view.findViewById(R.id.ingredientsRecycler);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.vm = new IngredientsViewModel(this);
     }
 
     public void updatePantry(List<Ingredient> pantry) {
-        recyclerView.setAdapter(new IngredientsAdapter(pantry, vm));
+        if (this.recyclerView != null) {
+            this.recyclerView.setAdapter(new IngredientsAdapter(pantry, vm));
+        }
     }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        vm.onViewDestroyed();
         binding = null;
     }
 }

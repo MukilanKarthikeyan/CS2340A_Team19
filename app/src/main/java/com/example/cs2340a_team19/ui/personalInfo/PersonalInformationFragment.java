@@ -66,9 +66,16 @@ public class PersonalInformationFragment extends Fragment {
     }
 
     public void updateUI(Profile profile) {
-        this.heightInput.setText(profile.getHeight());
-        this.weightInput.setText(profile.getWeight());
-        this.radioGroup.check(profile.getGender() ? R.id.radioButton4 : R.id.radioButton5);
+        if (profile != null) {
+            this.heightInput.setText(String.valueOf(profile.getHeight()));
+            this.weightInput.setText(String.valueOf(profile.getWeight()));
+            this.radioGroup.check(profile.getGender() ? R.id.radioButton4 : R.id.radioButton5);
+        }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.vm.onViewDestroyed();
+    }
 }

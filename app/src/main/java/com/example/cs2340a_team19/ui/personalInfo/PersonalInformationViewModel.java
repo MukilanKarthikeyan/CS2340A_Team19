@@ -8,9 +8,11 @@ import com.example.cs2340a_team19.models.Profile;
 
 public class PersonalInformationViewModel extends ViewModel {
     private final Database database;
+    private final DataUpdateListener<Profile> updateUI;
 
     public PersonalInformationViewModel(DataUpdateListener<Profile> updateUI) { //
         this.database = Database.getInstance();
+        this.updateUI = updateUI;
         database.getProfileHandler().addDataUpdateListener(updateUI);
     }
 
@@ -23,5 +25,9 @@ public class PersonalInformationViewModel extends ViewModel {
         }
         database.getProfileHandler().setData(profile);
         return "Profile Updated!";
+    }
+
+    public void onViewDestroyed() {
+        this.database.getProfileHandler().removeDataUpdateListener(updateUI);
     }
 }

@@ -13,6 +13,7 @@ public class AggregateDataHandler<T extends Aggregatable> extends DataHandler<Li
     public AggregateDataHandler(DatabaseReference db, String userID, Class<T> elementDataClass) {
         super(db, userID, null);
         this.elementDataClass = elementDataClass;
+        super.data = new ArrayList<>();
     }
 
     @Override

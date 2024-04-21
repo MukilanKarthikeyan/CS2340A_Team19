@@ -26,7 +26,7 @@ public class IngredientInputFormFragment extends Fragment {
         textCalories = root.findViewById(R.id.textCalories);
         textExpirationDate = root.findViewById(R.id.textExpirationDate);
         addIngredient = root.findViewById(R.id.addIngredient);
-        IngredientsViewModel ingredientsViewModel = new IngredientsViewModel(null);
+        IngredientsInputFormViewModel vm = new IngredientsInputFormViewModel(this);
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +48,8 @@ public class IngredientInputFormFragment extends Fragment {
                     return;
                 }
 
-                ingredientsViewModel.addIngredient(new Ingredient(ingredientNameStr, quantity,
-                        (int) calories, expirationDateStr));
+                vm.addIngredient(new Ingredient(ingredientNameStr,
+                        (int) calories, quantity, expirationDateStr));
                 Toast.makeText(getContext(), "Ingredient added", Toast.LENGTH_SHORT).show();
                 textIngredientName.setText("");
                 textQuantity.setText("");

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.AggregateDataHandler;
+import com.example.cs2340a_team19.models.DataUpdateListener;
 import com.example.cs2340a_team19.models.Database;
 import com.example.cs2340a_team19.models.Ingredient;
 import com.example.cs2340a_team19.models.Recipe;
@@ -17,40 +18,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeViewModel extends ViewModel {
-
     private Database dbHandler;
     private AggregateDataHandler<Recipe> cookbookHandler;
     private AggregateDataHandler<Ingredient> pantryHandler;
     private AggregateDataHandler<Ingredient> shoppingListHandler;
     private RecipeFragment fragment;
     private RecipeSorter sortingStrategy;
+    private DataUpdateListener<List<Recipe>> cookbookListener;
 
-    public RecipeViewModel(RecipeFragment fragment) {
+    public RecipeViewModel(RecipeFragment fragment, RecipeSorter sortingStrategy) {
         this.fragment = fragment;
+        this.sortingStrategy = sortingStrategy;
         this.dbHandler = Database.getInstance();
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
         this.shoppingListHandler = dbHandler.getShoppingListHandler();
 
-        this.cookbookHandler.addDataUpdateListener((cookbook) -> {
+        this.cookbookListener = (cookbook) -> {
             updateRecipeList(cookbook);
             sortCookbook(cookbook);
-        });
-    }
-
-    public void addRecipe(String name, String[] ingredientNames, int[] quantities) {
-        List<Ingredient> ingredients = new ArrayList<Ingredient>();
-        if (ingredientNames == null || quantities == null
-                || ingredientNames.length != quantities.length) {
-            Log.d("VM_ERROR", "The ingredientName list and the ingredient quantity list "
-                    + "were not the right size");
-            return;
-        }
-        for (int i = 0; i < ingredientNames.length; i++) {
-            ingredients.add(new Ingredient(ingredientNames[i], 0, quantities[i]));
-        }
-        this.cookbookHandler.append(new Recipe(name, dbHandler.getUserID(),
-                "", 0, ingredients));
+        };
+        this.cookbookHandler.addDataUpdateListener(this.cookbookListener);
     }
 
     public void updateRecipeList(List<Recipe> cookbook) {
@@ -111,11 +99,15 @@ public class RecipeViewModel extends ViewModel {
 
     public void sortCookbook(List<Recipe> cookbook) {
         sortingStrategy.sortRecipes(cookbook);
-        fragment.updateData(cookbook, this.pantryHandler.getData());
+        fragment.updateData(cookbook, this.pantryHandler.getData(), this);
     }
 
     public void setSortingStrategy(RecipeSorter strategy) {
         this.sortingStrategy = strategy;
         this.sortCookbook(this.cookbookHandler.getData());
+    }
+
+    public void onViewDestroyed() {
+        this.cookbookHandler.removeDataUpdateListener(this.cookbookListener);
     }
 }
