@@ -29,6 +29,8 @@ public class RecommendationTest {
         Recommendation r = new Recommendation(100, 100, false);
         assertNotEquals(r.getCalorieGoal(), 1530);
     }
-
-
+    public void testRecCalcFemaleTwo() {
+        Recommendation r = new Recommendation(200, 500, false);
+        assertEquals(r.getCalorieGoal(), 5989);
+    }
 }
