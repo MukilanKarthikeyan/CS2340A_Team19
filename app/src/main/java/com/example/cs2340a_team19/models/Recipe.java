@@ -51,6 +51,17 @@ public class Recipe extends Aggregatable {
         super.setId(other.getId());
     }
 
+    public static Recipe parseRecipe(String name, String description, String author,
+                                     List<Ingredient> ingredients) {
+        if (name == null || description == null || ingredients == null) {
+            return null;
+        }
+        if (name.isEmpty()) {
+            return null;
+        }
+        return new Recipe(name, author, description, ingredients);
+    }
+
     public String getName() {
         return name;
     }

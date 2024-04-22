@@ -1,18 +1,13 @@
 package com.example.cs2340a_team19.ui.recipe;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.AggregateDataHandler;
 import com.example.cs2340a_team19.models.DataUpdateListener;
 import com.example.cs2340a_team19.models.Database;
 import com.example.cs2340a_team19.models.Ingredient;
+import com.example.cs2340a_team19.models.Meal;
 import com.example.cs2340a_team19.models.Recipe;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +17,7 @@ public class RecipeViewModel extends ViewModel {
     private AggregateDataHandler<Recipe> cookbookHandler;
     private AggregateDataHandler<Ingredient> pantryHandler;
     private AggregateDataHandler<Ingredient> shoppingListHandler;
+    private AggregateDataHandler<Meal> mealsHandler;
     private RecipeFragment fragment;
     private RecipeSorter sortingStrategy;
     private DataUpdateListener<List<Recipe>> cookbookListener;
@@ -34,6 +30,8 @@ public class RecipeViewModel extends ViewModel {
         this.cookbookHandler = dbHandler.getCookbookHandler();
         this.pantryHandler = dbHandler.getPantryHandler();
         this.shoppingListHandler = dbHandler.getShoppingListHandler();
+        this.mealsHandler = dbHandler.getMealsHandler();
+
 
         this.cookbookListener = (cookbook) -> {
             updateRecipeList(cookbook);
@@ -119,6 +117,8 @@ public class RecipeViewModel extends ViewModel {
                 }
             }
         }
+        mealsHandler.append(new Meal(recipe.getName(), recipe.getCalories(),
+                String.valueOf(Database.getDate())));
     }
 
     public void sortCookbook(List<Recipe> cookbook) {

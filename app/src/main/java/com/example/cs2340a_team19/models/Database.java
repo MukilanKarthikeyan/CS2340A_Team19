@@ -6,7 +6,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class Database {
     private static Database instance;
@@ -40,16 +42,16 @@ public class Database {
         DataMutator<Recipe> recipeCleaner = (recipe) -> new Recipe(recipe);
         DataMutator<Meal> mealCleaner = (meal) -> new Meal(meal);
 
-        profileHandler = new DataHandler<>(this.database.child("profiles").child(this.userID),
-                this.userID, Profile.class, profileCleaner);
-        mealsHandler = new AggregateDataHandler<>(this.database.child("meals").child(this.userID),
-                this.userID, Meal.class, mealCleaner);
+        profileHandler = new DataHandler<>(this.database.child("profiles")
+                .child(this.userID), this.userID, Profile.class, profileCleaner);
+        mealsHandler = new AggregateDataHandler<>(this.database.child("meals")
+                .child(this.userID), this.userID, Meal.class, mealCleaner);
         cookbookHandler = new AggregateDataHandler<>(this.database.child("cookbook"),
                 this.userID, Recipe.class, recipeCleaner);
-        pantryHandler = new AggregateDataHandler<>(this.database.child("pantries").child(this.userID),
-                this.userID, Ingredient.class, ingredientCleaner);
-        shoppingListHandler = new AggregateDataHandler<>(this.database.child("shoppingLists").child(this.userID),
-                this.userID, Ingredient.class, ingredientCleaner);
+        pantryHandler = new AggregateDataHandler<>(this.database.child("pantries")
+                .child(this.userID), this.userID, Ingredient.class, ingredientCleaner);
+        shoppingListHandler = new AggregateDataHandler<>(this.database.child("shoppingLists")
+                .child(this.userID), this.userID, Ingredient.class, ingredientCleaner);
 
         this.succesfullyInitialized = true;
     }
@@ -74,6 +76,12 @@ public class Database {
             }
         }
         return instance;
+    }
+
+    public static int getDate() {
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("EST"));
+        return 10000 * calendar.get(Calendar.DAY_OF_YEAR) + 100
+                * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
     }
 
     public boolean isSuccessfullyInitialized() {

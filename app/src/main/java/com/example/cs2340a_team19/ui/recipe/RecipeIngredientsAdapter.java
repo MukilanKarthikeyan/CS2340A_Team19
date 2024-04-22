@@ -2,7 +2,6 @@ package com.example.cs2340a_team19.ui.recipe;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,45 @@ public class RecipeIngredientsAdapter
     private List<Ingredient> pantry;
     private Context context;
 
+    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry,
+                                    Context context) {
+        this.itemList = itemList;
+        this.pantry = pantry;
+        this.context = context;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recipe_card_ingredient, parent, false);
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder,
+                                 @SuppressLint("RecyclerView") final int position) {
+        final Ingredient item = itemList.get(position);
+        int quantityAvail = 0;
+        for (Ingredient pantryIng : pantry) {
+            if (pantryIng.equals(item)) {
+                quantityAvail = pantryIng.getQuantity();
+                break;
+            }
+        }
+        holder.itemNameTextView.setText(item.getName());
+        holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
+        holder.quantityNeededTextView.setText(String.valueOf(item.getQuantity()));
+
+        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.getQuantity())
+                ? R.color.green : R.color.red);
+        holder.ingredientStatus.setCardBackgroundColor(status);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView itemNameTextView;
@@ -70,43 +108,5 @@ public class RecipeIngredientsAdapter
         public void setIngredientStatus(CardView ingredientStatus) {
             this.ingredientStatus = ingredientStatus;
         }
-    }
-
-    public RecipeIngredientsAdapter(List<Ingredient> itemList, List<Ingredient> pantry, Context context) {
-        this.itemList = itemList;
-        this.pantry = pantry;
-        this.context = context;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_card_ingredient, parent, false);
-        return new ViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder,
-                                 @SuppressLint("RecyclerView") final int position) {
-        final Ingredient item = itemList.get(position);
-        int quantityAvail = 0;
-        for (Ingredient pantryIng : pantry) {
-            if (pantryIng.equals(item)) {
-                quantityAvail = pantryIng.getQuantity();
-                break;
-            }
-        }
-        holder.itemNameTextView.setText(item.getName());
-        holder.quantityAvailTextView.setText(String.valueOf(quantityAvail));
-        holder.quantityNeededTextView.setText(String.valueOf(item.getQuantity()));
-
-        int status = ContextCompat.getColor(this.context, (quantityAvail >= item.getQuantity()) ? R.color.green : R.color.red);
-        holder.ingredientStatus.setCardBackgroundColor(status);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList.size();
     }
 }

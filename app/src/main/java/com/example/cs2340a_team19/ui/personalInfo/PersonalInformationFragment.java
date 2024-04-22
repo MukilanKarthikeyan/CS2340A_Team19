@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +49,11 @@ public class PersonalInformationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
         this.view = view;
-        vm = new PersonalInformationViewModel(this::updateUI);
         this.heightInput = view.findViewById(R.id.input_height);
         this.weightInput = view.findViewById(R.id.input_weight);
         this.radioGroup = view.findViewById(R.id.radioGroup);
         this.enterButton = view.findViewById(R.id.personalInfoSubmitButton);
+        vm = new PersonalInformationViewModel(this::updateUI);
         enterButton.setOnClickListener(this::submitProfile);
     }
 

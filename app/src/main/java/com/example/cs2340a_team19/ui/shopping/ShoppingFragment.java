@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.cs2340a_team19.R;
@@ -32,6 +30,7 @@ public class ShoppingFragment extends Fragment {
 
     private EditText shopItemName;
     private EditText shopItemQuant;
+    private EditText shopItemCalorie;
     private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,6 +46,7 @@ public class ShoppingFragment extends Fragment {
 
         shopItemName = view.findViewById(R.id.shop_add_item_name);
         shopItemQuant = view.findViewById(R.id.shop_add_item_quant);
+        shopItemCalorie = view.findViewById(R.id.shop_add_item_calorie);
         addShopItem = view.findViewById(R.id.add_shop_item_button);
         buyShopItems = view.findViewById(R.id.buy_shop_items_button);
 
@@ -60,9 +60,11 @@ public class ShoppingFragment extends Fragment {
             public void onClick(View v) {
                 String itemName = shopItemName.getText().toString();
                 String itemQuant = shopItemQuant.getText().toString();
+                String itemCalorie = shopItemCalorie.getText().toString();
 
                 if (itemName.isEmpty() || itemQuant.isEmpty()) {
-                    Toast.makeText(getContext(), "Please enter something", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter something",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -70,26 +72,44 @@ public class ShoppingFragment extends Fragment {
                 try {
                     intItemQuant = Integer.parseInt(itemQuant);
                 } catch (NumberFormatException nfe) {
-                    Toast.makeText(getContext(), "Please enter a valid quantity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter a valid quantity",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (intItemQuant <= 0) {
-                    Toast.makeText(getContext(), "Please enter a quantity above 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter a quantity above 0",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                int intItemCalorie = 0;
+                try {
+                    intItemCalorie = Integer.parseInt(itemCalorie);
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getContext(), "Please enter a valid Calorie Amount",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                vm.addIngredient(itemName, intItemQuant);
+                if (intItemCalorie <= 0) {
+                    Toast.makeText(getContext(), "Please enter a valid Calorie Amount",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                vm.addIngredient(new Ingredient(itemName, intItemCalorie, intItemQuant));
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         });
 
         buyShopItems.setOnClickListener((v) -> {
-            if (recyclerView.getAdapter() instanceof ShoppingAdapter && recyclerView.getAdapter() != null) {
+            if (recyclerView.getAdapter() instanceof ShoppingAdapter
+                    && recyclerView.getAdapter() != null) {
                 ((ShoppingAdapter) recyclerView.getAdapter()).buyItems();
             } else  {
-                Log.d("UI_ERROR", "Recycler View Adapter was null or not a Shopping Adapter");
+                Log.d("UI_ERROR", "Recycler View Adapter was null"
+                        + " or not a Shopping Adapter");
             }
 
         });
