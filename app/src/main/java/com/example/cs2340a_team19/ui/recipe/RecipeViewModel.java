@@ -75,7 +75,7 @@ public class RecipeViewModel extends ViewModel {
                 updatedIngredient.setQuantity(ingredient.getQuantity() - pantryIng.getQuantity());
             }
         }
-        if (updatedIngredient.getQuantity() == 0) {
+        if (updatedIngredient.getQuantity() <= 0) {
             return;
         }
         for (Ingredient curr : staticList) {
