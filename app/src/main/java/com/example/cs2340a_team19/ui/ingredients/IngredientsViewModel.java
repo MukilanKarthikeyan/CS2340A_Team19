@@ -1,7 +1,5 @@
 package com.example.cs2340a_team19.ui.ingredients;
 
-import android.util.Log;
-
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.AggregateDataHandler;

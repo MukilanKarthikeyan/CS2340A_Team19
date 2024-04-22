@@ -2,20 +2,12 @@ package com.example.cs2340a_team19.ui.shopping;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team19.models.AggregateDataHandler;
 import com.example.cs2340a_team19.models.Database;
 import com.example.cs2340a_team19.models.Ingredient;
-import com.example.cs2340a_team19.models.Recipe;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public class ShoppingViewModel extends ViewModel {
     private Database dbHandler;
@@ -74,7 +66,8 @@ public class ShoppingViewModel extends ViewModel {
             boolean wasInList = false;
             for (Ingredient pantryIngredient : currPantry) {
                 if (curr.equals(pantryIngredient)) {
-                    pantryIngredient.setQuantity(pantryIngredient.getQuantity() + curr.getQuantity());
+                    pantryIngredient.setQuantity(pantryIngredient.getQuantity()
+                            + curr.getQuantity());
                     this.pantryHandler.update(pantryIngredient);
                     wasInList = true;
                     break;

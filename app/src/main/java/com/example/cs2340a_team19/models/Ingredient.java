@@ -42,6 +42,25 @@ public class Ingredient extends Aggregatable {
         return false;
     }
 
+    public static Ingredient parseIngredient(String name, String quantity, String calories,
+                                             String expirationDate) {
+        if (name == null || quantity == null || calories == null) {
+            return null;
+        }
+        if (name.isEmpty()) {
+            return null;
+        }
+        int iQuantity;
+        int iCalories;
+        try {
+            iQuantity = Integer.parseInt(quantity);
+            iCalories = Integer.parseInt(calories);
+        } catch (NumberFormatException nfe) {
+            return null;
+        }
+        return new Ingredient(name, iCalories, iQuantity, expirationDate);
+    }
+
     public String getName() {
         return name;
     }

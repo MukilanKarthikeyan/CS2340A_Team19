@@ -1,10 +1,5 @@
 package com.example.cs2340a_team19.models;
 
-import com.google.firebase.database.Exclude;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class Profile {
     // private String userID;
     private int height; //centimeters
@@ -51,7 +46,7 @@ public class Profile {
         } catch (NumberFormatException nfe) {
             throw new IllegalArgumentException("Weight must be valid number");
         }
-        if (pWeight > 250|| pWeight < 0) {
+        if (pWeight > 250 || pWeight < 0) {
             throw new IllegalArgumentException("Weight must be between 0 and 250 kg");
         }
 

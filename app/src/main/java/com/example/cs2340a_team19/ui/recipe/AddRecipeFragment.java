@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cs2340a_team19.R;
+import com.example.cs2340a_team19.models.Ingredient;
+import com.example.cs2340a_team19.models.Recipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,8 @@ public class AddRecipeFragment extends Fragment {
     // Please DO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
 
     public AddRecipeFragment() {
         // Required empty public constructor
@@ -67,64 +76,73 @@ public class AddRecipeFragment extends Fragment {
         AddRecipeViewModel viewModel = new AddRecipeViewModel(this);
         Button addRecipe = view.findViewById(R.id.addRecipeButton);
         EditText recipeName = view.findViewById(R.id.recipe_name_field);
-        EditText ingredientList = view.findViewById(R.id.ingredient_list_field);
-        EditText quantitiesListT = view.findViewById(R.id.quantity_list_field);
+        EditText recipeDescription = view.findViewById(R.id.add_recipe_description);
+
+        EditText addIngredientName = view.findViewById(R.id.add_recipe_add_item_name);
+        EditText addIngredientQuantity = view.findViewById(R.id.add_recipe_add_item_quant);
+        EditText addIngredientCalories = view.findViewById(R.id.add_recipe_add_item_calorie);
+        Button addIngredientButton = view.findViewById(R.id.add_recipe_add_item_button);
+
+        List<Ingredient> ingredientList = new ArrayList<>();
+
+        this.recyclerView = view.findViewById(R.id.recycler_add_recipe_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new AddRecipeIngredientsAdapter(ingredientList));
+
+        addIngredientButton.setOnClickListener((v) -> {
+            Ingredient ingredient = Ingredient.parseIngredient(
+                    addIngredientName.getText().toString(),
+                    addIngredientQuantity.getText().toString(),
+                    addIngredientCalories.getText().toString(), "");
+            if (ingredient == null) {
+                Toast.makeText(getContext(), "Invalid Ingredient.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Ingredient Added!",
+                        Toast.LENGTH_SHORT).show();
+                ingredientList.add(ingredient);
+                recyclerView.setAdapter(new AddRecipeIngredientsAdapter(ingredientList));
+                addIngredientName.setText("");
+                addIngredientQuantity.setText("");
+                addIngredientCalories.setText("");
+            }
+        });
+
+
+
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recName = recipeName.getText().toString();
-                String nameList = ingredientList.getText().toString();
-                String quantitiesList = quantitiesListT.getText().toString();
-
-                //strip the lists of any whitespaces
-                String cleanedNameList = nameList.replaceAll("\\s+", "");
-                String cleanedQuantsList = quantitiesList.replaceAll("\\s+", "");
+                String recDescription = recipeDescription.getText().toString();
 
 
                 //if any input is empty, display this problem to user
-                if (recName.isEmpty() || nameList.isEmpty() || quantitiesList.isEmpty()) {
+                if (recName.isEmpty() || recDescription.isEmpty()) {
                     Toast.makeText(getContext(), "You have an empty input. Cannot add to recipe.",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //split names list string based on comma, put into array
-                String[] names = cleanedNameList.split(",");
-                //split quantities list string based on comma, put into array
-                String[] quants = cleanedQuantsList.split(",");
-
-                if (names.length != quants.length) {
-                    Toast.makeText(getContext(), "The number of items in your lists is not "
-                            + "matching."
-                            + "Please ensure number of items match.", Toast.LENGTH_SHORT).show();
+                if (ingredientList.size() == 0) {
+                    Toast.makeText(getContext(), "You must have ingredients in the recipe!",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                int[] quantsIntegers = new int[quants.length];
-                //check quantities are positive
-                for (int i = 0; i < quants.length; i++) {         //loop array
-                    //check if something is negative or zero
-                    //if so, do toast stuff
-                    String curr = quants[i];
-                    try {
-                        quantsIntegers[i] = Integer.parseInt(curr);
-                    } catch (NumberFormatException nfe) {
-                        Toast.makeText(getContext(), "Invalid Quantity "
-                                + "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (Integer.parseInt(curr) <= 0) {
-                        Toast.makeText(getContext(), "You have a negative quantity. "
-                                + "Cannot add this to recipe.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                Recipe recipe = Recipe.parseRecipe(recName, recDescription, "", ingredientList);
+                if (recipe == null) {
+                    Toast.makeText(getContext(), "Invalid Recipe!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                viewModel.addRecipe(recName, names, quantsIntegers);
-                Toast.makeText(getContext(), "Recipe added", Toast.LENGTH_SHORT).show();
+                viewModel.addRecipe(recipe);
+                Toast.makeText(getContext(), "Recipe Added!", Toast.LENGTH_SHORT).show();
                 recipeName.setText("");
-                ingredientList.setText("");
-                quantitiesListT.setText("");
+                recipeDescription.setText("");
+                ingredientList.clear();
+                recyclerView.setAdapter(new AddRecipeIngredientsAdapter(ingredientList));
             }
         });
     }

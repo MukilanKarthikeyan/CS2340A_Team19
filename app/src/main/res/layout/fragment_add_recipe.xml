@@ -37,22 +37,64 @@
                     android:inputType="text" />
 
                 <EditText
-                    android:id="@+id/ingredient_list_field"
+                    android:id="@+id/add_recipe_description"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:ems="10"
                     android:layout_marginTop="25dp"
-                    android:hint="List of Ingredients (ex. pepper, cheese)"
+                    android:hint="Recipe"
                     android:inputType="text"/>
 
-                <EditText
-                    android:id="@+id/quantity_list_field"
-                    android:layout_width="300dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:layout_marginTop="25dp"
-                    android:hint="Count of each Ingredient (ex. 2, 3)"
-                    android:inputType="text"/>
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp">
+                    <EditText
+                        android:id="@+id/add_recipe_add_item_name"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:hint="+Add Item"
+                        android:textSize="15sp"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <EditText
+                        android:id="@+id/add_recipe_add_item_quant"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:hint="#"
+                        android:textSize="15sp"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <EditText
+                        android:id="@+id/add_recipe_add_item_calorie"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:hint="Cal"
+                        android:textSize="15sp"/>
+                    <Button
+                        android:id="@+id/add_recipe_add_item_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="+"
+                        android:textSize="12sp"
+                        android:layout_marginRight="20dp"/>
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_add_recipe_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                </androidx.recyclerview.widget.RecyclerView>
 
                 <Button
                     android:id="@+id/addRecipeButton"

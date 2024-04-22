@@ -4,8 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +19,8 @@ public class DataHandler<T> {
     protected T data;
     private List<DataUpdateListener<T>> listeners;
     private DataMutator<T> cleaner;
-    public DataHandler(DatabaseReference db, String userID, Class<T> dataClass, DataMutator<T> cleaner) {
+    public DataHandler(DatabaseReference db, String userID, Class<T> dataClass,
+                       DataMutator<T> cleaner) {
         this.dbReference = db;
         this.userID = userID;
         this.dataClass = dataClass;
@@ -68,15 +67,14 @@ public class DataHandler<T> {
         this.dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
                 data = parseData(snapshot);
                 updateListeners();
-//                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("FBRTDB_ERROR", "DataHandler of type " + data.getClass().toString() + " was cancelled");
+                Log.d("FBRTDB_ERROR", "DataHandler of type "
+                        + data.getClass().toString() + " was cancelled");
             }
         });
     }
@@ -102,7 +100,6 @@ public class DataHandler<T> {
     }
 
     public T parseData(@NonNull DataSnapshot snapshot) {
-        // TODO: Could Error!
         return snapshot.getValue(this.dataClass);
     }
 }

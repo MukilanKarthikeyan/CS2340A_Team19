@@ -86,8 +86,7 @@ public class MealsFragment extends Fragment {
 
         barGraphGen.setOnClickListener(
             (v) -> {
-                int[] weekCal = {2000, 2000, 2000, 2000, 2000, 2000, 2000};
-                createBarChart(weekCal);
+                createBarChart(vm.getDayMealList());
             }
         );
 
