@@ -78,15 +78,25 @@ public class RecipeViewModel extends ViewModel {
     public void addIngredientToShoppingList(Ingredient ingredient) {
         // Check for duplicate ingredient
         List<Ingredient> staticList = new ArrayList<>(shoppingListHandler.getData());
+        List<Ingredient> pantryList = new ArrayList<>(pantryHandler.getData());
+        Ingredient updatedIngredient = new Ingredient(ingredient);
+        for (Ingredient pantryIng : pantryList) {
+            if (updatedIngredient.equals(pantryIng)) {
+                updatedIngredient.setQuantity(ingredient.getQuantity() - pantryIng.getQuantity());
+            }
+        }
+        if (updatedIngredient.getQuantity() <= 0) {
+            return;
+        }
         for (Ingredient curr : staticList) {
-            if (ingredient.equals(curr)) {
+            if (updatedIngredient.equals(curr)) {
                 Ingredient staticCurr = new Ingredient(curr);
-                staticCurr.setQuantity(curr.getQuantity() + ingredient.getQuantity());
+                staticCurr.setQuantity(curr.getQuantity() + updatedIngredient.getQuantity());
                 this.shoppingListHandler.update(staticCurr);
                 return;
             }
         }
-        shoppingListHandler.append(ingredient);
+        shoppingListHandler.append(updatedIngredient);
     }
     public void addRecipeToShoppingList(Recipe recipe) {
         for (Ingredient ingredient : recipe.getIngredients()) {
