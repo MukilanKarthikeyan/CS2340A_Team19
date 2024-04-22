@@ -68,10 +68,21 @@
                 android:layout_weight="1"/>
             <EditText
                 android:id="@+id/shop_add_item_quant"
-                android:layout_width="80dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:hint="Quantity"
+                android:hint="#"
+                android:textSize="15sp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/shop_add_item_calorie"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:hint="Cals"
                 android:textSize="15sp"/>
             <Button
                 android:id="@+id/add_shop_item_button"

@@ -43,19 +43,18 @@ public class ShoppingViewModel extends ViewModel {
         }
     }
 
-    public void addIngredient(String name, int quantity) {
-        Ingredient newIng = new Ingredient(name, 0, quantity);
+    public void addIngredient(Ingredient ingredient) {
         // Check for duplicate ingredient
         if (shoppingListHandler.getData() != null) {
             for (Ingredient curr : shoppingListHandler.getData()) {
-                if (curr.getName().trim().equalsIgnoreCase(name.trim())) {
-                    newIng.setQuantity(quantity + curr.getQuantity());
-                    this.shoppingListHandler.update(newIng);
+                if (ingredient.equals(curr)) {
+                    ingredient.setQuantity(ingredient.getQuantity() + curr.getQuantity());
+                    this.shoppingListHandler.update(ingredient);
                     return;
                 }
             }
         }
-        shoppingListHandler.append(newIng);
+        shoppingListHandler.append(ingredient);
     }
 
     public void buy(List<Ingredient> toBuy) {

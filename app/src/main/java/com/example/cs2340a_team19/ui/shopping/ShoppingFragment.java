@@ -30,6 +30,7 @@ public class ShoppingFragment extends Fragment {
 
     private EditText shopItemName;
     private EditText shopItemQuant;
+    private EditText shopItemCalorie;
     private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +46,7 @@ public class ShoppingFragment extends Fragment {
 
         shopItemName = view.findViewById(R.id.shop_add_item_name);
         shopItemQuant = view.findViewById(R.id.shop_add_item_quant);
+        shopItemCalorie = view.findViewById(R.id.shop_add_item_calorie);
         addShopItem = view.findViewById(R.id.add_shop_item_button);
         buyShopItems = view.findViewById(R.id.buy_shop_items_button);
 
@@ -58,6 +60,7 @@ public class ShoppingFragment extends Fragment {
             public void onClick(View v) {
                 String itemName = shopItemName.getText().toString();
                 String itemQuant = shopItemQuant.getText().toString();
+                String itemCalorie = shopItemCalorie.getText().toString();
 
                 if (itemName.isEmpty() || itemQuant.isEmpty()) {
                     Toast.makeText(getContext(), "Please enter something",
@@ -80,8 +83,22 @@ public class ShoppingFragment extends Fragment {
                     return;
                 }
 
+                int intItemCalorie = 0;
+                try {
+                    intItemCalorie = Integer.parseInt(itemCalorie);
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getContext(), "Please enter a valid Calorie Amount",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                vm.addIngredient(itemName, intItemQuant);
+                if (intItemCalorie <= 0) {
+                    Toast.makeText(getContext(), "Please enter a valid Calorie Amount",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                vm.addIngredient(new Ingredient(itemName, intItemCalorie, intItemQuant));
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         });

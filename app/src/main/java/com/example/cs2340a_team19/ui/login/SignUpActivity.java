@@ -20,6 +20,9 @@ import com.example.cs2340a_team19.MainActivity;
 import com.example.cs2340a_team19.R;
 import com.example.cs2340a_team19.databinding.UserSignUpBinding;
 
+import com.example.cs2340a_team19.models.AggregateDataHandler;
+import com.example.cs2340a_team19.models.Database;
+import com.example.cs2340a_team19.models.Ingredient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -84,6 +87,10 @@ public class SignUpActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the user's information
                                         currUser = mAuth.getCurrentUser();
                                         updateUiWithUser();
+
+                                        AggregateDataHandler<Ingredient> shoppingListHandler = Database.getInstance().getShoppingListHandler();
+                                        shoppingListHandler.append(new Ingredient("Ham", 100, 3));
+                                        shoppingListHandler.append(new Ingredient("Cheese", 100, 2));
                                     } else {
                                         showLoginFailed("Firebase User Creation Failed");
                                     }
