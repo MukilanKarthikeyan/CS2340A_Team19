@@ -88,9 +88,11 @@ public class SignUpActivity extends AppCompatActivity {
                                         currUser = mAuth.getCurrentUser();
                                         updateUiWithUser();
 
-                                        AggregateDataHandler<Ingredient> shoppingListHandler = Database.getInstance().getShoppingListHandler();
+                                        AggregateDataHandler<Ingredient> shoppingListHandler
+                                                = Database.getInstance().getShoppingListHandler();
                                         shoppingListHandler.append(new Ingredient("Ham", 100, 3));
-                                        shoppingListHandler.append(new Ingredient("Cheese", 100, 2));
+                                        shoppingListHandler.append(
+                                                new Ingredient("Cheese", 100, 2));
                                     } else {
                                         showLoginFailed("Firebase User Creation Failed");
                                     }
