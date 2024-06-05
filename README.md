@@ -1,33 +1,25 @@
-CS2340 section A group 19 project
+WIP readme
 
-02.26.2024 Start of Sprint 2 planning
-Andy is starting Sprint 2 :0 (andy just realized he has to merge his own PRs) andy needs help with 3C
-Alex is finishing Sprint 2
+loading...
 
+# Hey! Welcome to our Project!
+This is a Meal tracking app we built in CS2340 section A group 19 project. The goal of the project is to build a working app using Software design principles
 
-sid checking in Sprint 2 - Now currently working on changing gender buttons in XML file, and attempting to make all sections of xml file "neater"
-Sohum checking in for Sprint 2
-
-andy's pull requests weren't spaced enough idk so here's another 
-
-Sohum checking in for Sprint 3
-sprint 3 a timely PR for mukilan 
-
-sprint 3 spacing PR from andy
+Platform: Android Studio
 
 
-I'm already screwed on PR spacing
-Here's a second change
-Working on Recipe C now
+Features:
+Firebase login
+Meal tracking
+Shopping  tracking
 
+UI/UX: Mukilan
+Database: Gryphon
 
-Working on Recipe implementation
-Sid checking in to work on bugs for shopping list and unit testing
-Read me check in for Sprint 4
-
-andy PR
-
-#anothaOne
-
-This PR is vital to the completion of the final sprint
-This PR is also vital
+Team Members:
+Andrew B.
+Sid Chilluvri.
+Sohum G.
+Alex I.
+Mukilan Karthikeyan
+Gryphon Patlin
